@@ -1,4 +1,7 @@
 version: 1.0.{build}
+install:
+- dnvm upgrade -r clr
+- dnu restore
 configuration: Debug
 build:
   verbosity: minimal
