@@ -49,7 +49,7 @@ function getContentType(format) {
 			return "image/" + format;
 
 		default:
-			return  "image/svg+xml";
+			return "image/svg+xml";
 	}
 }
 
