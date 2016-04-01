@@ -1,10 +1,16 @@
 {
-  "name": "Nabble.Badges",
-  "version": "0.0.0",
-  "description": "Nabble.Badges",
-  "main": "server.js",
-  "author": {
-    "name": "Christopher",
-    "email": ""
-  }
+	"name": "Nabble.Badges",
+	"version": "0.0.0",
+	"description": "Nabble.Badges",
+	"main": "server.js",
+	"author": {
+		"name": "Christopher",
+		"email": ""
+	},
+	"dependencies": {
+		"dot": "~1.0.3",
+		"svgo": "~0.5.1",
+		"pdfkit": "~0.7.1",
+		"phantomjs": "~1.9.2-6"
+	}
 }
