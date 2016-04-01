@@ -1,0 +1,5 @@
+version: 1.0.{build}
+configuration: Debug
+build:
+  verbosity: minimal
+  project: Nabble.sln
