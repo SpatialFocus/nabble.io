@@ -1,0 +1,10 @@
+{
+  "name": "Nabble.Badges",
+  "version": "0.0.0",
+  "description": "Nabble.Badges",
+  "main": "server.js",
+  "author": {
+    "name": "Christopher",
+    "email": ""
+  }
+}
