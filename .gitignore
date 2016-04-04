@@ -212,5 +212,4 @@ _Pvt_Extensions/
 ModelManifest.xml
 /src/Nabble.Web/wwwroot/lib
 /src/Nabble.Web/wwwroot/js/site.min.js
-/src/Nabble.Web/wwwroot/css/site.min.css
-/src/Nabble.Web/wwwroot/css/StyleSheet.css
+/src/Nabble.Web/wwwroot/css/*.css
