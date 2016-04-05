@@ -3,6 +3,7 @@
 	using System.IO;
 	using Microsoft.AspNet.Hosting;
 	using Microsoft.AspNet.Mvc;
+	using Nabble.Web.Model;
 
 	[Route("api/v1")]
 	public class ApiV1Controller : Controller
@@ -24,9 +25,14 @@
 		// GET api/v1/appveyor/cperger/demoproject1/development/fxcop
 		[HttpGet("{vendor}/{account}/{project}/{branch}/{analyzer}")]
 		[HttpGet("{vendor}/{account}/{project}/{analyzer}")]
-		public IActionResult Get(string vendor, string account, string project, string analyzer, string branch = null,
-			[FromQuery] string parameters = null)
+		public IActionResult Get(VendorEnum vendor, string account, string project, AnalyzerEnum analyzer,
+			string branch = null, [FromQuery] string parameters = null)
 		{
+			if (!ModelState.IsValid)
+			{
+				return HttpBadRequest(ModelState);
+			}
+
 			// TODO: All the magic to map parameters to CORE functions that returns the local path to the generated/cached file (svg, png, ...)
 			string localpath = "images/favicon/favicon-96x96.png";
 
