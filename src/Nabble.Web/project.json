@@ -9,6 +9,8 @@
 		"Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
 		"Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
 		"Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
+		"Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
+		"Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
 		"Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final"
 	},
 	"commands": {
