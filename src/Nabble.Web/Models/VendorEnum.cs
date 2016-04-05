@@ -1,4 +1,4 @@
-﻿namespace Nabble.Web.Model
+﻿namespace Nabble.Web.Models
 {
 	public enum VendorEnum
 	{

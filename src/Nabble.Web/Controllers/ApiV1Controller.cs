@@ -3,7 +3,7 @@
 	using System.IO;
 	using Microsoft.AspNet.Hosting;
 	using Microsoft.AspNet.Mvc;
-	using Nabble.Web.Model;
+	using Nabble.Web.Models;
 
 	[Route("api/v1")]
 	public class ApiV1Controller : Controller
@@ -22,7 +22,7 @@
 			return HttpBadRequest("Usage: /api/v1/{vendor}/{account}/{project}/{branch (opt)}/{analyzer}?{parameters}");
 		}
 
-		// GET api/v1/appveyor/cperger/demoproject1/development/fxcop
+		// GET api/v1/appveyor/pergerch/demoproject1/development/fxcop
 		[HttpGet("{vendor}/{account}/{project}/{branch}/{analyzer}")]
 		[HttpGet("{vendor}/{account}/{project}/{analyzer}")]
 		public IActionResult Get(VendorEnum vendor, string account, string project, AnalyzerEnum analyzer,
