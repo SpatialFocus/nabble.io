@@ -69,6 +69,9 @@
     <Analyzer Include="..\..\packages\Microsoft.Maintainability.Analyzers.1.2.0-beta1\analyzers\dotnet\cs\Microsoft.Maintainability.CSharp.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.QualityGuidelines.Analyzers.1.2.0-beta1\analyzers\dotnet\cs\Microsoft.QualityGuidelines.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.QualityGuidelines.Analyzers.1.2.0-beta1\analyzers\dotnet\cs\Microsoft.QualityGuidelines.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
     <Analyzer Include="..\..\packages\System.Collections.Immutable.Analyzers.1.2.0-beta1\analyzers\dotnet\cs\System.Collections.Immutable.Analyzers.dll" />
     <Analyzer Include="..\..\packages\System.Collections.Immutable.Analyzers.1.2.0-beta1\analyzers\dotnet\cs\System.Collections.Immutable.CSharp.Analyzers.dll" />
     <Analyzer Include="..\..\packages\System.Resources.Analyzers.1.2.0-beta1\analyzers\dotnet\cs\System.Resources.Analyzers.dll" />
