@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nabble.Core
+﻿namespace Nabble.Core
 {
-    public class Class1
-    {
-    }
+	using System.IO;
+
+	// This violates CA1001
+	public class Class1
+	{
+		FileStream newFile;
+
+		public Class1()
+		{
+			this.newFile = new FileStream(@"c:\temp.txt", FileMode.Open);
+		}
+	}
 }
