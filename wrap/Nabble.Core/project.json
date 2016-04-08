@@ -1,12 +1,28 @@
 {
-	"version": "1.0.0-*",
-	"frameworks": {
-		"net451": {
-			"wrappedProject": "../../src/Nabble.Core/Nabble.Core.csproj",
-			"bin": {
-				"assembly": "../../src/Nabble.Core/obj/{configuration}/Nabble.Core.dll",
-				"pdb": "../../src/Nabble.Core/obj/{configuration}/Nabble.Core.pdb"
-			}
-		}
-	}
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "wrappedProject": "../../src/Nabble.Core/Nabble.Core.csproj",
+      "bin": {
+        "assembly": "../../src/Nabble.Core/obj/{configuration}/Nabble.Core.dll",
+        "pdb": "../../src/Nabble.Core/obj/{configuration}/Nabble.Core.pdb"
+      },
+      "dependencies": {
+        "Desktop.Analyzers": "1.2.0-beta1",
+        "Microsoft.ApiDesignGuidelines.Analyzers": "1.2.0-beta1",
+        "Microsoft.CodeAnalysis.FxCopAnalyzers": "1.2.0-beta1",
+        "Microsoft.Maintainability.Analyzers": "1.2.0-beta1",
+        "Microsoft.Net.Compilers": "2.0.0-beta1",
+        "Microsoft.QualityGuidelines.Analyzers": "1.2.0-beta1",
+        "StyleCop.Analyzers": "1.0.0",
+        "System.Collections.Immutable.Analyzers": "1.2.0-beta1",
+        "System.Resources.Analyzers": "1.2.0-beta1",
+        "System.Runtime.Analyzers": "1.2.0-beta1",
+        "System.Runtime.InteropServices.Analyzers": "1.2.0-beta1",
+        "System.Security.Cryptography.Hashing.Algorithms.Analyzers": "1.2.0-beta1",
+        "System.Threading.Tasks.Analyzers": "1.2.0-beta1",
+        "Text.Analyzers": "1.2.0-beta1"
+      }
+    }
+  }
 }
