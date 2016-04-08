@@ -6,6 +6,7 @@
     "jquery": "2.1.4",
     "font-awesome": "4.4.0",
     "html5shiv": "3.7.3",
-    "respondJs": "~1.4.2"
+    "respondJs": "~1.4.2",
+    "animate.css": "3.4.0"
   }
 }
