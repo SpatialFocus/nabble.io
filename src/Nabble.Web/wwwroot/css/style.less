@@ -125,7 +125,7 @@ section#header {
 #service {
 	background-color: #fff;
 	color: #ddd;
-	padding: 96px 0;
+	padding: 60px 0;
 
 	.block-top {
 		text-align: center;
@@ -150,11 +150,11 @@ section#header {
 		}
 	}
 
-	.service-tab ul {
+	.service-tab ul.badhon-tab {
 		float: left;
 		list-style: outside none none;
 		padding: 0;
-		margin-right: 150px;
+		margin-right: 50px;
 
 		li {
 			border-right: 1px solid #DBE2E2;
@@ -169,9 +169,17 @@ section#header {
 				display: block;
 				padding-right: 60px;
 
+				span {
+					display: inline-block;
+					width: 50px;
+					text-align: center;
+					margin-right: 40px;
+				}
+
 				i {
 					font-size: 45px;
-					margin-right: 40px;
+					width: 45px;
+					height: 45px;
 					position: relative;
 					top: 10px;
 				}
@@ -196,8 +204,6 @@ section#header {
 			font-size: 24px;
 			font-family: 'Source Sans Pro', sans-serif;
 			font-weight: 700;
-			padding-bottom: 30px;
-			padding-top: 50px;
 		}
 
 		p {
@@ -206,6 +212,11 @@ section#header {
 			font-family: 'Source Sans Pro', sans-serif;
 			font-weight: 400;
 			line-height: 24px;
+			text-align: justify;
+		}
+
+		ul {
+			margin-right: 20px;
 		}
 	}
 
@@ -214,23 +225,22 @@ section#header {
 	}
 
 	.teb-icon-edit {
-		height: 170px;
-		width: 170px;
+		height: 120px;
+		width: 120px;
 		margin: 0 auto;
 		color: #5491bd;
 	}
 
 	.teb-icon-edit i {
-		font-size: 170px;
+		font-size: 120px;
 	}
 }
 
 #social {
 	background-color: #5491bd;
 	color: #f6f6f6;
-	min-height: 130px;
-	padding-top: 40px;
-	padding-bottom: 40px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 
 	a {
 		color: #fff;
@@ -244,9 +254,8 @@ section#header {
 footer {
 	background-color: #2b2b2b;
 	color: #ddd;
-	min-height: 100px;
 	padding-top: 20px;
-	padding-bottom: 40px;
+	padding-bottom: 20px;
 
 	p a:hover {
 		color: white;
@@ -255,4 +264,16 @@ footer {
 	.credit {
 		text-align: right;
 	}
+}
+
+pre.code {
+	font-family: 'Source Code Pro', monospace;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.4em;
+	-ms-word-break: break-all;
+	word-break: break-all;
+	-ms-word-wrap: break-word;
+	word-wrap: break-word;
+	border-radius: 4px;
 }
