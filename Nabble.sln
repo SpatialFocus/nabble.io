@@ -1,13 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25029.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A26D5798-8692-4C5A-BEE3-55138B24BA21}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5C3CDE15-05DF-4A6F-890E-ECAD2FA67E92}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		stylecop.json = stylecop.json
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nabble.Web", "src\Nabble.Web\Nabble.Web.xproj", "{4F257913-C4EB-4521-88EA-C9E992CE55C5}"
