@@ -34,7 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>Nabble.Core.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\..\Nabble.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\Debug\Nabble.Core.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -61,7 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Nabble.Core.ruleset" />
+    <None Include="..\..\Nabble.ruleset" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
