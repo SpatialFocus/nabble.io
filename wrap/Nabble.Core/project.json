@@ -21,7 +21,8 @@
         "System.Runtime.InteropServices.Analyzers": "1.2.0-beta1",
         "System.Security.Cryptography.Hashing.Algorithms.Analyzers": "1.2.0-beta1",
         "System.Threading.Tasks.Analyzers": "1.2.0-beta1",
-        "Text.Analyzers": "1.2.0-beta1"
+        "Text.Analyzers": "1.2.0-beta1",
+        "Newtonsoft.Json": "8.0.3"
       }
     }
   }

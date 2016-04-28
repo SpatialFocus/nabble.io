@@ -47,6 +47,10 @@
     <CodeAnalysisRuleSet>Nabble.Core.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -57,8 +61,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Builder\AnalyzerResult.cs" />
+    <Compile Include="Factory.cs" />
+    <Compile Include="Builder\AnalyzerResultBuilder.cs" />
+    <Compile Include="AppVeyor\ArtifactsResult.cs" />
+    <Compile Include="AppVeyor\Build.cs" />
+    <Compile Include="AppVeyor\Jobs.cs" />
+    <Compile Include="Badge.cs" />
+    <Compile Include="Builder\BadgeBuilder.cs" />
+    <Compile Include="Builder\BadgeBuilderProperties.cs" />
+    <Compile Include="Builder\BadgeClient.cs" />
+    <Compile Include="Builder\BadgeColor.cs" />
+    <Compile Include="Builder\BadgeClientProperties.cs" />
+    <Compile Include="Builder\BadgeStyle.cs" />
+    <Compile Include="Builder\IAnalyzerResultBuilder.cs" />
+    <Compile Include="Builder\IBadgeBuilder.cs" />
+    <Compile Include="Builder\IBadgeClient.cs" />
+    <Compile Include="Sarif\SarifResult.cs" />
+    <Compile Include="Sarif\SarifJsonDeserializer.cs" />
+    <Compile Include="Sarif\Result.cs" />
+    <Compile Include="Sarif\Property.cs" />
+    <Compile Include="Sarif\RunLogs.cs" />
+    <Compile Include="Sarif\Severity.cs" />
+    <Compile Include="AppVeyor\AppVeyorAnalyzerResultAccessor.cs" />
+    <Compile Include="AppVeyor\Artifacts.cs" />
+    <Compile Include="IAnalyzerResultAccessor.cs" />
+    <Compile Include="Sarif\ISarifJsonDeserializer.cs" />
+    <Compile Include="Common\IJsonDeserializer.cs" />
+    <Compile Include="Common\IRestClient.cs" />
+    <Compile Include="Common\JsonDeserializer.cs" />
+    <Compile Include="AppVeyor\ProjectBuildResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\RestClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Nabble.ruleset" />
