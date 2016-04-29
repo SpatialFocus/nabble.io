@@ -1,8 +1,10 @@
 ﻿namespace Nabble.Web.Controllers
 {
-	using System.IO;
+	using System.Threading.Tasks;
 	using Microsoft.AspNet.Hosting;
 	using Microsoft.AspNet.Mvc;
+	using Nabble.Core;
+	using Nabble.Core.Builder;
 	using Nabble.Web.Models;
 
 	[Route("api/v1")]
@@ -22,27 +24,66 @@
 			return HttpBadRequest("Usage: /api/v1/{vendor}/{account}/{project}/{branch (opt)}/{analyzer}?{parameters}");
 		}
 
-		// GET api/v1/appveyor/pergerch/demoproject1/development/fxcop
+		// GET api/v1/appveyor/Dresel/SampleProject/StyleCop
 		[HttpGet("{vendor}/{account}/{project}/{branch}/{analyzer}")]
 		[HttpGet("{vendor}/{account}/{project}/{analyzer}")]
-		public IActionResult Get(VendorEnum vendor, string account, string project, AnalyzerEnum analyzer,
-			string branch = null, [FromQuery] string parameters = null)
+		public async Task<IActionResult> Get(VendorEnum vendor, string account, string project, AnalyzerEnum analyzer,
+			string branch = null, [FromQuery] string rules = null, [FromQuery] BadgeBuilderProperties properties = null)
 		{
 			if (!ModelState.IsValid)
 			{
 				return HttpBadRequest(ModelState);
 			}
 
-			// TODO: All the magic to map parameters to CORE functions that returns the local path to the generated/cached file (svg, png, ...)
-			string localpath = "images/favicon/favicon-96x96.png";
+			if (properties == null)
+			{
+				properties = new BadgeBuilderProperties();
+			}
 
-			// Write image to response stream: http://stackoverflow.com/questions/5629251/c-sharp-outputting-image-to-response-output-stream-giving-gdi-error
-			// Or maybe: https://jamessdixon.wordpress.com/2013/10/01/handling-images-in-webapi/
-			string fullpath = Path.Combine(this.environment.WebRootPath, localpath);
+			string[] analyzerRules;
+			switch (analyzer)
+			{
+				case AnalyzerEnum.StyleCop:
+					analyzerRules = new[] { "SA", "SX" };
+					properties.Label = "StyleCop";
+					break;
 
-			Stream badgeStream = new FileStream(fullpath, FileMode.Open);
+				case AnalyzerEnum.FxCop:
+					analyzerRules = new[] { "CA", "RS", "Async" };
+					properties.Label = "FxCop";
+					break;
 
-			return new FileStreamResult(badgeStream, "image/png");
+				case AnalyzerEnum.Custom:
+					if (string.IsNullOrEmpty(rules))
+					{
+						analyzerRules = new[] { string.Empty };
+					}
+					else
+					{
+						analyzerRules = rules.Split(',');
+					}
+
+					break;
+
+				default:
+					return HttpBadRequest("Selected analyzer is not supported.");
+			}
+
+			IAnalyzerResultAccessor analyzerResultAccessor;
+			switch (vendor)
+			{
+				case VendorEnum.AppVeyor:
+					analyzerResultAccessor = Factory.CreateAppVeyorAnalyzerResultAccessor(analyzerRules, account, project, branch);
+					break;
+
+				default:
+					return HttpBadRequest("Selected vendor is not supported.");
+			}
+
+			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
+			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
+
+			return File(badge.Stream, badge.ContentType);
 		}
 	}
 }
