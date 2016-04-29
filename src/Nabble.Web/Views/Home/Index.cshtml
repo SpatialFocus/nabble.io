@@ -14,7 +14,7 @@
 	<!-- Google fonts-->
 	<link href="//fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet" type="text/css">
 	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet" type="text/css">
-	<link href='//fonts.googleapis.com/css?family=Source+Code+Pro:600' rel='stylesheet' type='text/css'>
+	<link href="//fonts.googleapis.com/css?family=Source+Code+Pro:600" rel="stylesheet" type="text/css">
 	<!-- Stylesheet-->
 	<link href="~/css/site.min.css" rel="stylesheet" type="text/css">
 	<!-- Favicon-->
@@ -80,9 +80,9 @@
 				<div class="col-md-12">
 					<div class="block-top">
 						<div class="service-header">
-							<h1>Heading Feature title goes here</h1>
+							<h1>Who doesn't like good code?</h1>
 							<p>
-								Duis bibendum diam non erat facilaisis tincidunt. Fusce leo neque, lacinia at tempor vitae, porta at arcu. <br /> Vestibulum varius non dui at pulvinar. Ut egestas orci in quam sollicitudin aliquet.
+								
 							</p>
 						</div>
 					</div>
@@ -97,16 +97,16 @@
 							<ul class="badhon-tab" role="tablist">
 								<li class="active">
 									<a aria-controls="home" data-toggle="tab" href="#home" role="tab">
-										<span><i class="fa fa-cogs"></i></span>
+										<span><i class="fa fa-users"></i></span>
 										How it works
 									</a>
 								</li>
 								<li>
-									<a aria-controls="usage" data-toggle="tab" href="#usage" role="tab">
+									<a aria-controls="usage" data-toggle="tab" href="#prereq" role="tab">
 										<span>
-											<i class="fa fa-users"></i>
+											<i class="fa fa-cogs"></i>
 										</span>
-										How to use it
+										Prerequisites
 									</a>
 								</li>
 								<li>
@@ -139,23 +139,26 @@
 							<div class="edit-tab-content tab-content">
 								<div class="active edit-tab tab-pane" id="home">
 									<div class="teb-icon-edit">
-										<i class="fa fa-cogs"></i>
+										<i class="fa fa-users"></i>
 									</div>
 									<h1>How it works</h1>
 									<p>
 										We are checking your CI builds for messages and display the corresponding badge, based on your settings.
 									</p>
-								</div>
-								<div class="edit-tab tab-pane" id="usage">
-									<div class="teb-icon-edit">
-										<i class="fa fa-users"></i>
-									</div>
-									<h1>How to use it</h1>
 									<p>
 										Replace the image of your badge with a link to our API. The link contains all the information we need to generate the badge. Example:
-<pre class="code">
-&lt;img src="https://nabble.io/api/v1/appveyor/pergerch/demoproject1/development/fxcop" /&gt;
+										<pre class="code">
+&lt;img src="https://nabble.io/api/v1/appveyor/Dresel/SampleProject/StyleCop" /&gt;
 </pre>
+									</p>
+								</div>
+								<div class="edit-tab tab-pane" id="prereq">
+									<div class="teb-icon-edit">
+										<i class="fa fa-cogs"></i>
+									</div>
+									<h1>Prerequisites</h1>
+									<p>
+										In order to access your CI build, we need the results of your analyzer as build artefacts. The report has to be called <strong>report.json</strong>. In case there are more than one report.json, the results will be summed up. The format of the log has to follow the <a href="https://github.com/sarif-standard/sarif-spec">SARIF standard</a>. More info can be found <a href=""></a>
 									</p>
 								</div>
 								<div class="edit-tab tab-pane" id="settings">
@@ -172,18 +175,23 @@
 
 									<div class="tab-content col-md-offset-3">
 										<div id="intro" class="tab-pane fade in active">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+											<p>
+												Nabble provides API access to analyze your CI builds and displays a simple but highly customizable badge.
+												By calling our webservice we deliver your custom badge. That's as easy as 1, 2, 3 (i.e. account name, project name and analyzer), but can also be customized in any direction.
+												<br />This section shows how to make the most out of nabble, but one rather customized example is the following API call:
+											</p>
+											<pre class="code">https://nabble.io/api/v1/appveyor/Dresel/SampleProject/Custom?rules=CA,SA&amp;format=png&amp;ColorWarning=YellowGreen&amp;statusTemplateWarning={0}%20Warnungen</pre>
 										</div>
 										<div id="config" class="tab-pane fade">
 											<p>
 												You can point us to the correct build by using the following URL parts:
 											</p>
 											<ul>
-												<li>vendor</li>
-												<li>account</li>
-												<li>project</li>
-												<li>branch (optional)</li>
-												<li>analyzer</li>
+												<li>vendor: AppVeyor</li>
+												<li>account: <i>Account name</i></li>
+												<li>project: <i>Project name</i></li>
+												<li>branch (optional): <i>master</i>, <i>development</i>, ...</li>
+												<li>analyzer: StyleCop, FxCop, Custom (provide rules in the url parameters)</li>
 											</ul>
 										</div>
 										<div id="style" class="tab-pane fade">
@@ -191,16 +199,18 @@
 												You can configure the badge using the following URL parameters:
 											</p>
 											<ul>
-												<li>style</li>
-												<li>format</li>
-												<li>size</li>
-												<li>text</li>
+												<li>style: Default|Plastic|Flat|FlatSquare|Social</li>
+												<li>format: svg|png|jpg|gif|json</li>
+												<li>label: defaults to "StyleCop", "FxCop" or "Analyzers" (for custom analyzer, but can be overwritten)</li>
+												<li>aggregateValues: false (default)|true</li>
+												<li>countInfos: false (default)|true</li>
+												<li>rules (requires custom analzer): a comma seperated list of prefixes that should be analyzed (e.g. SA,SX,CA), leave empty to not restrict to certain rules</li>
+												<li>statusTemplate[Error|Warning|Info|Aggregate]: defaults to "{0} [errors|warnings|infos|violations]"</li>
+												<li>statusTemplate[Success|Inaccessible]: defaults to passing|inaccessible</li>
+												<li>color[Error|Warning|Info|Success|Inaccessible]: defaults to red|yellow|green|brightgreen|lightgray</li>
 											</ul>
 										</div>
 									</div>
-
-									
-									
 
 								</div>
 								<div class="edit-tab tab-pane" id="contribute">
