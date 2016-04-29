@@ -1,20 +1,15 @@
-﻿// <copyright file="AssemblyInfo.cs" company="Spatial Focus GmbH">
-// Copyright (c) Spatial Focus GmbH. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
-// </copyright>
-
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Nabble.Core")]
+[assembly: AssemblyTitle("Nabble.Core.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Nabble.Core")]
+[assembly: AssemblyProduct("Nabble.Core.Test")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -25,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("13ae86cc-2ca6-43bc-8dc4-ada584698934")]
+[assembly: Guid("75deb9a6-025f-48ec-91e7-e44d2b09f498")]
 
 // Version information for an assembly consists of the following four values:
 //

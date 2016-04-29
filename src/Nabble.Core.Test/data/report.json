@@ -1,0 +1,82 @@
+﻿{
+	"version": "0.4",
+	"runLogs": [
+		{
+			"toolInfo": {
+				"name": "Microsoft (R) Visual C# Compiler",
+				"version": "2.0.0",
+				"fileVersion": "2.0.0.60317"
+			},
+			"results": [
+				{
+					"ruleId": "CS1591",
+					"kind": "warning",
+					"locations": [
+						{
+							"analysisTarget": [
+								{
+									"uri": "file:\/\/\/SomeClass.cs",
+									"region": {
+										"startLine": 5,
+										"startColumn": 15,
+										"endLine": 5,
+										"endColumn": 29
+									}
+								}
+							]
+						}
+					],
+					"shortMessage": "Missing XML comment for publicly visible type or member 'SomeClass'",
+					"fullMessage": "The \/doc compiler option was specified, but one or more constructs did not have comments.",
+					"isSuppressedInSource": false,
+					"tags": [
+						"Compiler",
+						"Telemetry"
+					],
+					"properties": {
+						"severity": "Warning",
+						"warningLevel": "4",
+						"defaultSeverity": "Warning",
+						"title": "Missing XML comment for publicly visible type or member",
+						"category": "Compiler",
+						"isEnabledByDefault": "True"
+					}
+				},
+				{
+					"ruleId": "CS1591",
+					"kind": "warning",
+					"locations": [
+						{
+							"analysisTarget": [
+								{
+									"uri": "file:\/\/\/SomeClass.cs",
+									"region": {
+										"startLine": 7,
+										"startColumn": 10,
+										"endLine": 7,
+										"endColumn": 24
+									}
+								}
+							]
+						}
+					],
+					"shortMessage": "Missing XML comment for publicly visible type or member 'SomeClass.SomeMethod()'",
+					"fullMessage": "The \/doc compiler option was specified, but one or more constructs did not have comments.",
+					"isSuppressedInSource": false,
+					"tags": [
+						"Compiler",
+						"Telemetry"
+					],
+					"properties": {
+						"severity": "Error",
+						"warningLevel": "4",
+						"defaultSeverity": "Warning",
+						"title": "Missing XML comment for publicly visible type or member",
+						"category": "Compiler",
+						"isEnabledByDefault": "True"
+					}
+				}
+			]
+		}
+	]
+}

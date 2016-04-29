@@ -21,5 +21,8 @@
   <ItemGroup>
     <DnxInvisibleFolder Include="bower_components\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nabble.Core\Nabble.Core.csproj" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>
