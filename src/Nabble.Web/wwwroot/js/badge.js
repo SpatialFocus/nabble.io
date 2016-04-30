@@ -31,7 +31,7 @@ var BadgeModel = function (badge) {
 			return "";
 		}
 
-		var url = "https://nabble.io/api/v1/badge/";
+		var url = "https://nabble.io/api/v1/";
 
 		url += self.vendorValues() +
 			"/" + self.account() +
