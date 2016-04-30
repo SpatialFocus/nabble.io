@@ -13,7 +13,7 @@
 }
 
 a {
-	color: #999;
+	/*color: #999;*/
 	text-decoration: none !important;
 
 	&:hover {
@@ -43,7 +43,7 @@ section#header {
 
 .scroll-down {
 	position: absolute;
-	left: 49.3%;
+	left: calc(50% - .5em);
 	bottom: 40px;
 	border: 2px solid #fff;
 	border-radius: 50%;
@@ -137,14 +137,14 @@ section#header {
 		margin: 0;
 
 		h1 {
-			color: #636C6C;
+			color: #6C6C6C;
 			font-size: 36px;
 			font-family: 'Source Sans Pro', sans-serif;
 			font-weight: 700;
 		}
 
 		p {
-			color: #AFB8B8;
+			color: #888;
 			font-size: 16px;
 			font-family: 'Source Sans Pro', sans-serif;
 			font-weight: 400;
@@ -202,14 +202,14 @@ section#header {
 		overflow: hidden;
 
 		h1 {
-			color: #636C6C;
+			color: #6C6C6C;
 			font-size: 24px;
 			font-family: 'Source Sans Pro', sans-serif;
 			font-weight: 700;
 		}
 
 		p {
-			color: #AFB8B8;
+			color: #888;
 			font-size: 16px;
 			font-family: 'Source Sans Pro', sans-serif;
 			font-weight: 400;
@@ -258,6 +258,10 @@ footer {
 	color: #ddd;
 	padding-top: 20px;
 	padding-bottom: 20px;
+
+	p a {
+		color: #999;
+	}
 
 	p a:hover {
 		color: white;
