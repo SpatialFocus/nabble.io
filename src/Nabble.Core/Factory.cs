@@ -9,6 +9,7 @@ namespace Nabble.Core
 	using Nabble.Core.AppVeyor;
 	using Nabble.Core.Builder;
 	using Nabble.Core.Common;
+	using Nabble.Core.Preview;
 	using Nabble.Core.Sarif;
 
 	/// <summary>
@@ -35,6 +36,16 @@ namespace Nabble.Core
 				ProjectSlug = projectSlug,
 				BuildBranch = buildBranch
 			};
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="previewSettings"></param>
+		/// <returns></returns>
+		public static IAnalyzerResultAccessor CreatePreviewAnalyzerResultAccessor(PreviewSettings previewSettings)
+		{
+			return new PreviewAnalyzerResultAccessor { PreviewSettings = previewSettings };
 		}
 
 		/// <summary>
