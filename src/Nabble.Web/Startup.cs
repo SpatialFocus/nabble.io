@@ -2,14 +2,19 @@
 {
 	using Microsoft.AspNet.Builder;
 	using Microsoft.AspNet.Hosting;
+	using Microsoft.AspNet.Mvc;
 	using Microsoft.Extensions.Configuration;
 	using Microsoft.Extensions.DependencyInjection;
 	using Microsoft.Extensions.Logging;
 
 	public class Startup
 	{
+		private IHostingEnvironment Environment;
+
 		public Startup(IHostingEnvironment env)
 		{
+			this.Environment = env;
+
 			// Set up configuration sources.
 			IConfigurationBuilder builder =
 				new ConfigurationBuilder().AddJsonFile("appsettings.json")
@@ -56,6 +61,14 @@
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMvc();
+
+			if (!this.Environment.IsDevelopment())
+			{
+				services.AddMvc(options =>
+				{
+					options.Filters.Add(new RequireHttpsAttribute());
+				});
+			}
 		}
 	}
 }
