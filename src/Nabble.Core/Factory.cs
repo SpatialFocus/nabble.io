@@ -49,5 +49,15 @@ namespace Nabble.Core
 		{
 			return new BadgeBuilder(new BadgeClient(new RestClient()));
 		}
+
+		/// <summary>
+		/// Creates a new instance of the <see cref="StaticAnalyzerResultAccessor" /> class.
+		/// </summary>
+		/// <param name="analyzerResult">The AnalyzerResult that will be returned by the StaticAnalyzerResultAccessor.</param>
+		/// <returns>An instance of the created <see cref="StaticAnalyzerResultAccessor" /> class.</returns>
+		public static IAnalyzerResultAccessor CreateStaticAnalyzerResultAccessor(AnalyzerResult analyzerResult)
+		{
+			return new StaticAnalyzerResultAccessor { AnalyzerResult = analyzerResult };
+		}
 	}
 }

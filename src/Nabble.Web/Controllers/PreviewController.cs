@@ -6,7 +6,6 @@ namespace Nabble.Web.Controllers
 	using Microsoft.AspNet.Mvc;
 	using Nabble.Core;
 	using Nabble.Core.Builder;
-	using Nabble.Core.Preview;
 	using Nabble.Web.Models;
 
 	[Route("api/v1/preview")]
@@ -22,7 +21,7 @@ namespace Nabble.Web.Controllers
 			////properties.AggregateValues = true;
 
 			IAnalyzerResultAccessor analyzerResultAccessor =
-				Factory.CreatePreviewAnalyzerResultAccessor(new PreviewSettings { NumErrors = 1, NumWarnings = 1 });
+				Factory.CreateStaticAnalyzerResultAccessor(new AnalyzerResult() { NumberOfErrors = 1, NumberOfWarnings = 1 });
 
 			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
@@ -36,7 +35,7 @@ namespace Nabble.Web.Controllers
 			properties = GetProperties(analyzer, properties);
 
 			IAnalyzerResultAccessor analyzerResultAccessor =
-				Factory.CreatePreviewAnalyzerResultAccessor(new PreviewSettings { NumErrors = 1 });
+				Factory.CreateStaticAnalyzerResultAccessor(new AnalyzerResult() { NumberOfErrors = 1 });
 
 			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
@@ -50,8 +49,7 @@ namespace Nabble.Web.Controllers
 		{
 			properties = GetProperties(analyzer, properties);
 
-			IAnalyzerResultAccessor analyzerResultAccessor =
-				Factory.CreatePreviewAnalyzerResultAccessor(new PreviewSettings { Inaccessible = true });
+			IAnalyzerResultAccessor analyzerResultAccessor = Factory.CreateStaticAnalyzerResultAccessor(null);
 
 			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
@@ -68,7 +66,7 @@ namespace Nabble.Web.Controllers
 			////properties.CountInfos = true;
 
 			IAnalyzerResultAccessor analyzerResultAccessor =
-				Factory.CreatePreviewAnalyzerResultAccessor(new PreviewSettings { NumInfos = 1 });
+				Factory.CreateStaticAnalyzerResultAccessor(new AnalyzerResult() { NumberOfInfos = 1 });
 
 			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
@@ -82,7 +80,7 @@ namespace Nabble.Web.Controllers
 		{
 			properties = GetProperties(analyzer, properties);
 
-			IAnalyzerResultAccessor analyzerResultAccessor = Factory.CreatePreviewAnalyzerResultAccessor(new PreviewSettings());
+			IAnalyzerResultAccessor analyzerResultAccessor = Factory.CreateStaticAnalyzerResultAccessor(new AnalyzerResult());
 
 			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
@@ -97,7 +95,7 @@ namespace Nabble.Web.Controllers
 			properties = GetProperties(analyzer, properties);
 
 			IAnalyzerResultAccessor analyzerResultAccessor =
-				Factory.CreatePreviewAnalyzerResultAccessor(new PreviewSettings { NumWarnings = 1 });
+				Factory.CreateStaticAnalyzerResultAccessor(new AnalyzerResult() { NumberOfWarnings = 1 });
 
 			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
