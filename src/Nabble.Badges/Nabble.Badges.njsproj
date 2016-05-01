@@ -30,12 +30,14 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="install.js" />
     <Compile Include="server.js" />
     <Compile Include="shields\badge.js" />
     <Compile Include="shields\lru-cache.js" />
     <Compile Include="shields\measure-text.js" />
     <Compile Include="shields\phantomjs-svg2png.js" />
     <Compile Include="shields\svg-to-img.js" />
+    <Compile Include="uninstall.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="shields\colorscheme.json" />
