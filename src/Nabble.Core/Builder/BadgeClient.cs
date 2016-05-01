@@ -1,4 +1,4 @@
-﻿// <copyright file="BadgeBuilder.cs" company="Spatial Focus GmbH">
+﻿// <copyright file="BadgeClient.cs" company="Spatial Focus GmbH">
 // Copyright (c) Spatial Focus GmbH. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
@@ -12,6 +12,7 @@ namespace Nabble.Core.Builder
 	using Nabble.Core.Common;
 
 	/// <summary>
+	/// Provides an implementation of <see cref="IBadgeClient" /> to request Badges.
 	/// </summary>
 	public class BadgeClient : IBadgeClient
 	{
@@ -28,14 +29,16 @@ namespace Nabble.Core.Builder
 		private readonly string badgesUrl = "http://localhost:8080/";
 
 		/// <summary>
+		/// Initializes a new instance of the <see cref="BadgeClient" /> class.
 		/// </summary>
-		/// <param name="restClient"></param>
+		/// <param name="restClient">The <see cref="IRestClient" /> used to communicate with the Badge service.</param>
 		public BadgeClient(IRestClient restClient)
 		{
 			RestClient = restClient;
 		}
 
 		/// <summary>
+		/// Gets or sets the RestClient used to communicate with the Badge service.
 		/// </summary>
 		public IRestClient RestClient { get; set; }
 
@@ -52,7 +55,7 @@ namespace Nabble.Core.Builder
 			};
 
 			HttpResponseMessage httpResponseMessage =
-				await RestClient.GetHttpResponse(new Uri(this.badgesUrl), string.Empty, new object[] { }, getParameters);
+				await RestClient.GetHttpResponseAsync(new Uri(this.badgesUrl), string.Empty, new object[] { }, getParameters);
 
 			return new Badge()
 			{

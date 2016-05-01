@@ -6,11 +6,12 @@
 namespace Nabble.Core.AppVeyor
 {
 	/// <summary>
+	/// A data class used in JSON serialization.
 	/// </summary>
 	public class ProjectBuildResult
 	{
 		/// <summary>
-		/// </summary>
+		/// Gets or sets the Build.</summary>
 		public Build Build { get; set; }
 	}
 }

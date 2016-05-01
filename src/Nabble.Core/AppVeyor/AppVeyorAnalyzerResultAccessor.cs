@@ -15,18 +15,23 @@ namespace Nabble.Core.AppVeyor
 	using Nabble.Core.Sarif;
 
 	/// <summary>
+	/// Provides an implementation of <see cref="IAnalyzerResultAccessor" /> to access analyzer results from AppVeyor builds.
 	/// </summary>
 	public class AppVeyorAnalyzerResultAccessor : IAnalyzerResultAccessor
 	{
 		private string apiUrl = "https://ci.appveyor.com/api/";
 
-
 		/// <summary>
+		/// Initializes a new instance of the <see cref="AppVeyorAnalyzerResultAccessor" /> class.
 		/// </summary>
-		/// <param name="restClient"></param>
-		/// <param name="jsonDeserializer"></param>
-		/// <param name="sarifResultJsonDeserializer"></param>
-		/// <param name="analyzerResultBuilder"></param>
+		/// <param name="restClient">The <see cref="IRestClient" /> used to communicate with AppVeyor.</param>
+		/// <param name="jsonDeserializer">The <see cref="IJsonDeserializer" /> used to deserialize JSON streams.</param>
+		/// <param name="sarifResultJsonDeserializer">
+		/// The <see cref="ISarifJsonDeserializer" /> used to deserialize SARIF JSON streams.
+		/// </param>
+		/// <param name="analyzerResultBuilder">
+		/// The <see cref="IAnalyzerResultBuilder" /> used to generate analyzer results from analyzer log files.
+		/// </param>
 		public AppVeyorAnalyzerResultAccessor(IRestClient restClient, IJsonDeserializer jsonDeserializer,
 			ISarifJsonDeserializer sarifResultJsonDeserializer, IAnalyzerResultBuilder analyzerResultBuilder)
 		{
@@ -37,30 +42,37 @@ namespace Nabble.Core.AppVeyor
 		}
 
 		/// <summary>
+		/// Gets or sets the AppVeyor AccountName used to retrieve the analyzer log build artefact.
 		/// </summary>
 		public string AccountName { get; set; }
 
 		/// <summary>
+		/// Gets or sets the AnalyzerResultBuilder used to generate analyzer results from analyzer log files.
 		/// </summary>
 		public IAnalyzerResultBuilder AnalyzerResultBuilder { get; set; }
 
 		/// <summary>
+		/// Gets or sets the AnalyzerResultJsonDeserializer used to deserialize SARIF JSON streams.
 		/// </summary>
 		public ISarifJsonDeserializer AnalyzerResultJsonDeserializer { get; set; }
 
 		/// <summary>
+		/// Gets or sets the AppVeyor BuildBranch used to retrieve the analyzer log build artefact.
 		/// </summary>
 		public string BuildBranch { get; set; }
 
 		/// <summary>
+		/// Gets or sets JsonDeserializer used to deserialize JSON streams.
 		/// </summary>
 		public IJsonDeserializer JsonDeserializer { get; set; }
 
 		/// <summary>
+		/// Gets or sets the AppVeyor ProjectSlug used to retrieve the analyzer log build artefact.
 		/// </summary>
 		public string ProjectSlug { get; set; }
 
 		/// <summary>
+		/// Gets or sets the RestClient used to communicate with AppVeyor.
 		/// </summary>
 		public IRestClient RestClient { get; set; }
 

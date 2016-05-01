@@ -5,12 +5,15 @@
 
 namespace Nabble.Core.AppVeyor
 {
+	using System.Collections.Generic;
+
 	/// <summary>
+	/// A data class used in JSON serialization.
 	/// </summary>
 	public class Build
 	{
 		/// <summary>
-		/// </summary>
-		public Jobs[] Jobs { get; set; }
+		/// Gets or sets the Jobs.</summary>
+		public ICollection<Jobs> Jobs { get; set; }
 	}
 }

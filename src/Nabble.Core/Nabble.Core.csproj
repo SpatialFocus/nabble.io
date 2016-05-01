@@ -80,11 +80,11 @@
     <Compile Include="Sarif\SarifResult.cs" />
     <Compile Include="Sarif\SarifJsonDeserializer.cs" />
     <Compile Include="Sarif\Result.cs" />
-    <Compile Include="Sarif\Property.cs" />
+    <Compile Include="Sarif\Properties.cs" />
     <Compile Include="Sarif\RunLogs.cs" />
     <Compile Include="Sarif\Severity.cs" />
     <Compile Include="AppVeyor\AppVeyorAnalyzerResultAccessor.cs" />
-    <Compile Include="AppVeyor\Artifacts.cs" />
+    <Compile Include="AppVeyor\Artifact.cs" />
     <Compile Include="IAnalyzerResultAccessor.cs" />
     <Compile Include="Sarif\ISarifJsonDeserializer.cs" />
     <Compile Include="Common\IJsonDeserializer.cs" />

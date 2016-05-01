@@ -14,11 +14,12 @@ namespace Nabble.Core.Common
 	using System.Threading.Tasks;
 
 	/// <summary>
+	/// Provides an implementation of <see cref="IRestClient" /> to send HTTP GET requests.
 	/// </summary>
 	public class RestClient : IRestClient
 	{
 		/// <inheritdoc />
-		public async Task<HttpResponseMessage> GetHttpResponse(Uri baseUri, string path, object[] pathParameters,
+		public async Task<HttpResponseMessage> GetHttpResponseAsync(Uri baseUri, string path, object[] pathParameters,
 			IEnumerable<KeyValuePair<object, object>> getParameters)
 		{
 			using (HttpClient client = new HttpClient())

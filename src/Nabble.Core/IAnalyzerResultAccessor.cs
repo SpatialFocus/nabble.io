@@ -9,12 +9,14 @@ namespace Nabble.Core
 	using Nabble.Core.Builder;
 
 	/// <summary>
+	/// Represents an interface that provides a method to access analyzer results.
 	/// </summary>
 	public interface IAnalyzerResultAccessor
 	{
 		/// <summary>
+		/// Accesses the <see cref="AnalyzerResult" /> as an asynchronous operation.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>The task object representing the asynchronous operation.</returns>
 		Task<AnalyzerResult> GetAnalyzerResultAsync();
 	}
 }

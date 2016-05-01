@@ -9,6 +9,7 @@ namespace Nabble.Core.Common
 	using Newtonsoft.Json;
 
 	/// <summary>
+	/// Provides an implementation of <see cref="IJsonDeserializer" /> to deserialize JSON streams into objects.
 	/// </summary>
 	public class JsonDeserializer : IJsonDeserializer
 	{

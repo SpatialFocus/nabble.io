@@ -6,11 +6,12 @@
 namespace Nabble.Core.AppVeyor
 {
 	/// <summary>
+	/// A data class used in JSON serialization.
 	/// </summary>
 	public class Jobs
 	{
 		/// <summary>
-		/// </summary>
+		/// Gets or sets the JobId.</summary>
 		public string JobId { get; set; }
 	}
 }
