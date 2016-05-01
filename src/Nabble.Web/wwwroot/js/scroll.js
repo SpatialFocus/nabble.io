@@ -1,5 +1,5 @@
 ﻿/* smooth scrolling sections */
-$("a[href=#service]").click(function() {
+$("a[href='#service']").click(function() {
 	if (location.pathname.replace(/^\//, "") == this.pathname.replace(/^\//, "") && location.hostname == this.hostname) {
 		var target = $(this.hash);
 		target = target.length ? target : $("[name=" + this.hash.slice(1) + "]");
