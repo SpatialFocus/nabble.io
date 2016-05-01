@@ -6,6 +6,7 @@
 namespace Nabble.Core
 {
 	using System.Collections.Generic;
+	using System.Runtime.Caching;
 	using Nabble.Core.AppVeyor;
 	using Nabble.Core.Builder;
 	using Nabble.Core.Common;
@@ -31,7 +32,8 @@ namespace Nabble.Core
 				new RestClient(),
 				new JsonDeserializer(),
 				new SarifJsonDeserializer(new JsonDeserializer()),
-				new AnalyzerResultBuilder() { Rules = rules })
+				new AnalyzerResultBuilder() { Rules = rules },
+				new ObjectCacheAdapter(MemoryCache.Default))
 			{
 				AccountName = accountName,
 				ProjectSlug = projectSlug,

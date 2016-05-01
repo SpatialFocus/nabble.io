@@ -48,7 +48,8 @@
 				restClient.Object,
 				new JsonDeserializer(),
 				new SarifJsonDeserializer(new JsonDeserializer()),
-				new AnalyzerResultBuilder() { Rules = new[] { string.Empty } })
+				new AnalyzerResultBuilder() { Rules = new[] { string.Empty } },
+				new NullCache())
 			{
 				AccountName = "TestAccount",
 				ProjectSlug = "TestProject",
@@ -97,7 +98,8 @@
 				restClient.Object,
 				new JsonDeserializer(),
 				new SarifJsonDeserializer(new JsonDeserializer()),
-				new AnalyzerResultBuilder() { Rules = new[] { string.Empty } })
+				new AnalyzerResultBuilder() { Rules = new[] { string.Empty } },
+				new NullCache())
 			{
 				AccountName = "TestAccount",
 				ProjectSlug = "TestProject"
@@ -145,7 +147,8 @@
 				restClient.Object,
 				new JsonDeserializer(),
 				new SarifJsonDeserializer(new JsonDeserializer()),
-				new AnalyzerResultBuilder() { Rules = new[] { string.Empty } })
+				new AnalyzerResultBuilder() { Rules = new[] { string.Empty } },
+				new NullCache())
 			{
 				AccountName = "TestAccount",
 				ProjectSlug = "TestProject"
