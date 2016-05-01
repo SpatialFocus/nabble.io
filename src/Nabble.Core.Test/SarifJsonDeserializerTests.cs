@@ -19,10 +19,10 @@
 
 			Debug.Assert(analyzerResult.RunLogs.Count() == 1);
 			Debug.Assert(analyzerResult.RunLogs.Single().Results.Count() == 2);
-			Debug.Assert(analyzerResult.RunLogs.Single().Results[0].Properties.Severity == Severity.Warning);
-			Debug.Assert(analyzerResult.RunLogs.Single().Results[0].RuleId == "CS1591");
-			Debug.Assert(analyzerResult.RunLogs.Single().Results[1].Properties.Severity == Severity.Error);
-			Debug.Assert(analyzerResult.RunLogs.Single().Results[1].RuleId == "CS1591");
+			Debug.Assert(analyzerResult.RunLogs.Single().Results.ElementAt(0).Properties.Severity == Severity.Warning);
+			Debug.Assert(analyzerResult.RunLogs.Single().Results.ElementAt(0).RuleId == "CS1591");
+			Debug.Assert(analyzerResult.RunLogs.Single().Results.ElementAt(1).Properties.Severity == Severity.Error);
+			Debug.Assert(analyzerResult.RunLogs.Single().Results.ElementAt(1).RuleId == "CS1591");
 		}
 	}
 }

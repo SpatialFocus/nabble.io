@@ -1,4 +1,4 @@
-﻿// <copyright file="AnalyzerResultAccessorFactory.cs" company="Spatial Focus GmbH">
+﻿// <copyright file="Factory.cs" company="Spatial Focus GmbH">
 // Copyright (c) Spatial Focus GmbH. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
@@ -6,23 +6,25 @@
 namespace Nabble.Core
 {
 	using System.Collections.Generic;
+	using System.Runtime.Caching;
 	using Nabble.Core.AppVeyor;
 	using Nabble.Core.Builder;
 	using Nabble.Core.Common;
-	using Nabble.Core.Preview;
 	using Nabble.Core.Sarif;
 
 	/// <summary>
+	/// A class used to create common objects.
 	/// </summary>
 	public static class Factory
 	{
 		/// <summary>
+		/// Creates a new instance of the <see cref="AppVeyorAnalyzerResultAccessor" /> class.
 		/// </summary>
-		/// <param name="rules"></param>
-		/// <param name="accountName"></param>
-		/// <param name="projectSlug"></param>
-		/// <param name="buildBranch"></param>
-		/// <returns></returns>
+		/// <param name="rules">The collection of rules used to analyze SARIF results.</param>
+		/// <param name="accountName">The AppVeyor AccountName used to retrieve the analyzer log build artefact.</param>
+		/// <param name="projectSlug">The AppVeyor ProjectSlug used to retrieve the analyzer log build artefact.</param>
+		/// <param name="buildBranch">The AppVeyor BuildBranch used to retrieve the analyzer log build artefact.</param>
+		/// <returns>An instance of the created <see cref="AppVeyorAnalyzerResultAccessor" /> class.</returns>
 		public static IAnalyzerResultAccessor CreateAppVeyorAnalyzerResultAccessor(ICollection<string> rules,
 			string accountName, string projectSlug, string buildBranch)
 		{
@@ -30,7 +32,8 @@ namespace Nabble.Core
 				new RestClient(),
 				new JsonDeserializer(),
 				new SarifJsonDeserializer(new JsonDeserializer()),
-				new AnalyzerResultBuilder() { Rules = rules })
+				new AnalyzerResultBuilder() { Rules = rules },
+				new ObjectCacheAdapter(MemoryCache.Default))
 			{
 				AccountName = accountName,
 				ProjectSlug = projectSlug,
@@ -39,18 +42,9 @@ namespace Nabble.Core
 		}
 
 		/// <summary>
-		/// 
+		/// Creates a new instance of the <see cref="IBadgeBuilder" /> interface.
 		/// </summary>
-		/// <param name="previewSettings"></param>
-		/// <returns></returns>
-		public static IAnalyzerResultAccessor CreatePreviewAnalyzerResultAccessor(PreviewSettings previewSettings)
-		{
-			return new PreviewAnalyzerResultAccessor { PreviewSettings = previewSettings };
-		}
-
-		/// <summary>
-		/// </summary>
-		/// <returns></returns>
+		/// <returns>An instance of the created <see cref="IBadgeBuilder" /> interface.</returns>
 		public static IBadgeBuilder CreateBadgeBuilder()
 		{
 			return new BadgeBuilder(new BadgeClient(new RestClient()));

@@ -10,10 +10,13 @@ namespace Nabble.Core.Builder
 	using Nabble.Core.Sarif;
 
 	/// <summary>
+	/// Provides an implementation of <see cref="IAnalyzerResultBuilder" /> to analyze SARIF results.
 	/// </summary>
 	public class AnalyzerResultBuilder : IAnalyzerResultBuilder
 	{
 		/// <summary>
+		/// Gets or sets a collection of rules.
+		/// All violations of rules within a SARIF result starting with any of the specified rules will be analyzed.
 		/// </summary>
 		public ICollection<string> Rules { get; set; }
 

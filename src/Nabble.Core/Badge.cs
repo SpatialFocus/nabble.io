@@ -8,14 +8,16 @@ namespace Nabble.Core
 	using System.IO;
 
 	/// <summary>
+	/// A class representing a Badge.
 	/// </summary>
 	public class Badge
 	{
 		/// <summary>
-		/// </summary>
+		/// Gets or sets the Badge content as <see cref="Stream"/>.</summary>
 		public Stream Stream { get; set; }
 
 		/// <summary>
+		/// Gets or sets the Badge content type.
 		/// </summary>
 		public string ContentType { get; set; }
 	}

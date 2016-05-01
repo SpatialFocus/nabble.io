@@ -22,7 +22,9 @@
         "System.Security.Cryptography.Hashing.Algorithms.Analyzers": "1.2.0-beta1",
         "System.Threading.Tasks.Analyzers": "1.2.0-beta1",
         "Text.Analyzers": "1.2.0-beta1",
-        "Newtonsoft.Json": "8.0.3"
+        "Newtonsoft.Json": "8.0.3",
+        "Fody": "1.28.3",
+        "MethodCache.Fody": "1.5.0-alpha1"
       }
     }
   }

@@ -9,17 +9,22 @@ namespace Nabble.Core.Builder
 	using System.Threading.Tasks;
 
 	/// <summary>
+	/// Provides an implementation of <see cref="IBadgeBuilder" /> to build Badges.
 	/// </summary>
 	public class BadgeBuilder : IBadgeBuilder
 	{
 		/// <summary>
+		/// Initializes a new instance of the <see cref="BadgeBuilder" /> class.
 		/// </summary>
-		/// <param name="badgeClient"></param>
+		/// <param name="badgeClient">The <see cref="IBadgeClient" /> used to request Badges.</param>
 		public BadgeBuilder(IBadgeClient badgeClient)
 		{
 			BadgeClient = badgeClient;
 		}
 
+		/// <summary>
+		/// Gets or sets the BadgeClient used to request Badges.
+		/// </summary>
 		public IBadgeClient BadgeClient { get; set; }
 
 		/// <inheritdoc />
@@ -32,7 +37,12 @@ namespace Nabble.Core.Builder
 
 			try
 			{
-				BadgeClientProperties badgeClientProperties = new BadgeClientProperties() { Label = label, Style = badgeStyle, Format = format };
+				BadgeClientProperties badgeClientProperties = new BadgeClientProperties()
+				{
+					Label = label,
+					Style = badgeStyle,
+					Format = format
+				};
 
 				AnalyzerResult analyzerResult = await analyzerResultAccessor.GetAnalyzerResultAsync();
 

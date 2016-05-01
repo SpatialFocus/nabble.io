@@ -5,12 +5,16 @@
 
 namespace Nabble.Core.Sarif
 {
+	using System.Collections.Generic;
+
 	/// <summary>
+	/// A data class used in JSON serialization.
 	/// </summary>
 	public class RunLogs
 	{
 		/// <summary>
+		/// Gets or sets the Results.
 		/// </summary>
-		public Result[] Results { get; set; }
+		public ICollection<Result> Results { get; set; }
 	}
 }

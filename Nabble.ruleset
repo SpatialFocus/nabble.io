@@ -5,6 +5,8 @@
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <Rule Id="SA1027" Action="None" />
     <Rule Id="SA1101" Action="None" />
+    <Rule Id="SA1116" Action="None" />
+    <Rule Id="SA1117" Action="None" />
   </Rules>
   <Rules AnalyzerId="Microsoft.ApiDesignGuidelines.CSharp.Analyzers" RuleNamespace="Microsoft.ApiDesignGuidelines.CSharp.Analyzers">
     <Rule Id="Async001" Action="None" />
