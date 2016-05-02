@@ -216,3 +216,6 @@ ModelManifest.xml
 
 # Allow StyleCopAnalyzers configuration file
 !stylecop.json
+
+# Analyzers reports
+report.json

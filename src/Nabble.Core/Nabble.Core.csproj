@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\AnalyzerLogging.1.0.0-alpha1\build\AnalyzerLogging.props" Condition="Exists('..\..\packages\AnalyzerLogging.1.0.0-alpha1\build\AnalyzerLogging.props')" />
   <Import Project="..\..\packages\Microsoft.Net.Compilers.2.0.0-beta1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.2.0.0-beta1\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\..\packages\Text.Analyzers.1.2.0-beta1\build\Text.Analyzers.props" Condition="Exists('..\..\packages\Text.Analyzers.1.2.0-beta1\build\Text.Analyzers.props')" />
   <Import Project="..\..\packages\System.Threading.Tasks.Analyzers.1.2.0-beta1\build\System.Threading.Tasks.Analyzers.props" Condition="Exists('..\..\packages\System.Threading.Tasks.Analyzers.1.2.0-beta1\build\System.Threading.Tasks.Analyzers.props')" />
@@ -44,7 +45,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>Nabble.Core.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\..\Nabble.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MethodCache.Attributes, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -161,6 +162,7 @@
     <Error Condition="!Exists('..\..\packages\Text.Analyzers.1.2.0-beta1\build\Text.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Text.Analyzers.1.2.0-beta1\build\Text.Analyzers.props'))" />
     <Error Condition="!Exists('..\..\packages\Microsoft.Net.Compilers.2.0.0-beta1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Net.Compilers.2.0.0-beta1\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\..\packages\Fody.1.28.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.1.28.3\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\packages\AnalyzerLogging.1.0.0-alpha1\build\AnalyzerLogging.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\AnalyzerLogging.1.0.0-alpha1\build\AnalyzerLogging.props'))" />
   </Target>
   <Import Project="..\..\packages\Fody.1.28.3\build\Fody.targets" Condition="Exists('..\..\packages\Fody.1.28.3\build\Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
