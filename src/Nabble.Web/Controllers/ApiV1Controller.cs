@@ -1,29 +1,15 @@
 ﻿namespace Nabble.Web.Controllers
 {
 	using System.Threading.Tasks;
-	using Microsoft.AspNet.Hosting;
 	using Microsoft.AspNet.Mvc;
 	using Nabble.Core;
 	using Nabble.Core.Builder;
 	using Nabble.Web.Models;
 
 	[Route("api/v1")]
+	[ResponseCache(NoStore = true)]
 	public class ApiV1Controller : Controller
 	{
-		private readonly IHostingEnvironment environment;
-
-		public ApiV1Controller(IHostingEnvironment environment)
-		{
-			this.environment = environment;
-		}
-
-		// GET: api/v1
-		[HttpGet]
-		public IActionResult Get()
-		{
-			return HttpBadRequest("Usage: /api/v1/{vendor}/{account}/{project}/{branch (opt)}/{analyzer}?{parameters}");
-		}
-
 		// GET api/v1/appveyor/Dresel/SampleProject/StyleCop
 		[HttpGet("{vendor}/{account}/{project}/{branch}/{analyzer}")]
 		[HttpGet("{vendor}/{account}/{project}/{analyzer}")]

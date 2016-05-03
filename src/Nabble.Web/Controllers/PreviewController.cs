@@ -1,6 +1,4 @@
-﻿// For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace Nabble.Web.Controllers
+﻿namespace Nabble.Web.Controllers
 {
 	using System.Threading.Tasks;
 	using Microsoft.AspNet.Mvc;
@@ -9,6 +7,7 @@ namespace Nabble.Web.Controllers
 	using Nabble.Web.Models;
 
 	[Route("api/v1/preview")]
+	[ResponseCache(NoStore = true)]
 	public class PreviewController : Controller
 	{
 		[HttpGet("aggregate/{analyzer}")]
