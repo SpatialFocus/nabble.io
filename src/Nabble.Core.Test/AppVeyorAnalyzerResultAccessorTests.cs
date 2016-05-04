@@ -49,7 +49,8 @@
 				new JsonDeserializer(),
 				new SarifJsonDeserializer(new JsonDeserializer()),
 				new AnalyzerResultBuilder() { Rules = new[] { string.Empty } },
-				new NullCache())
+				new NullCache(),
+				new NullStatisticsService())
 			{
 				AccountName = "TestAccount",
 				ProjectSlug = "TestProject",
@@ -99,7 +100,8 @@
 				new JsonDeserializer(),
 				new SarifJsonDeserializer(new JsonDeserializer()),
 				new AnalyzerResultBuilder() { Rules = new[] { string.Empty } },
-				new NullCache())
+				new NullCache(),
+				new NullStatisticsService())
 			{
 				AccountName = "TestAccount",
 				ProjectSlug = "TestProject"
@@ -148,7 +150,8 @@
 				new JsonDeserializer(),
 				new SarifJsonDeserializer(new JsonDeserializer()),
 				new AnalyzerResultBuilder() { Rules = new[] { string.Empty } },
-				new NullCache())
+				new NullCache(),
+				new NullStatisticsService())
 			{
 				AccountName = "TestAccount",
 				ProjectSlug = "TestProject"

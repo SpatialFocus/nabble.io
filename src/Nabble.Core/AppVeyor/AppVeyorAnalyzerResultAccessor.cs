@@ -34,13 +34,14 @@ namespace Nabble.Core.AppVeyor
 		/// </param>
 		/// <param name="cache">The <see cref="ICache" /> used for caching.</param>
 		public AppVeyorAnalyzerResultAccessor(IRestClient restClient, IJsonDeserializer jsonDeserializer,
-			ISarifJsonDeserializer sarifResultJsonDeserializer, IAnalyzerResultBuilder analyzerResultBuilder, ICache cache)
+			ISarifJsonDeserializer sarifResultJsonDeserializer, IAnalyzerResultBuilder analyzerResultBuilder, ICache cache, IStatisticsService statisticsService)
 		{
 			RestClient = restClient;
 			JsonDeserializer = jsonDeserializer;
 			AnalyzerResultJsonDeserializer = sarifResultJsonDeserializer;
 			AnalyzerResultBuilder = analyzerResultBuilder;
 			Cache = cache;
+			StatisticsService = statisticsService;
 		}
 
 		/// <summary>
@@ -83,6 +84,11 @@ namespace Nabble.Core.AppVeyor
 		/// </summary>
 		public IRestClient RestClient { get; set; }
 
+		/// <summary>
+		/// Gets or sets the StatisticsService used to count badge creations and requests.
+		/// </summary>
+		public IStatisticsService StatisticsService { get; set; }
+
 		/// <inheritdoc />
 		public async Task<AnalyzerResult> GetAnalyzerResultAsync()
 		{
@@ -96,6 +102,9 @@ namespace Nabble.Core.AppVeyor
 			{
 				jobId = await GetJobIdFromLastBuildAsync(AccountName, ProjectSlug, BuildBranch);
 			}
+
+			await StatisticsService.AddProjectEntryIfNotExistsAsync(AccountName, ProjectSlug);
+			await StatisticsService.AddBadgeEntryIfNotExistsAsync(jobId);
 
 			ICollection<SarifResult> sarifResults = await GetSarifResultsForJobIdAsync(jobId);
 
