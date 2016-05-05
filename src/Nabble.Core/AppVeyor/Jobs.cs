@@ -5,13 +5,21 @@
 
 namespace Nabble.Core.AppVeyor
 {
+	using System;
+
 	/// <summary>
 	/// A data class used in JSON serialization.
 	/// </summary>
 	public class Jobs
 	{
 		/// <summary>
-		/// Gets or sets the JobId.</summary>
+		/// Gets or sets the Finished DateTime.
+		/// </summary>
+		public DateTime? Finished { get; set; }
+
+		/// <summary>
+		/// Gets or sets the JobId.
+		/// </summary>
 		public string JobId { get; set; }
 	}
 }

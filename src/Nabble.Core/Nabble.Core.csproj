@@ -71,6 +71,8 @@
     <Compile Include="Common\ICache.cs" />
     <Compile Include="Common\NullCache.cs" />
     <Compile Include="Common\ObjectCacheAdapter.cs" />
+    <Compile Include="Exceptions\BuildPendingException.cs" />
+    <Compile Include="Exceptions\SarifResultNotFoundException.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="Builder\AnalyzerResultBuilder.cs" />
     <Compile Include="AppVeyor\ArtifactsResult.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Builder\IAnalyzerResultBuilder.cs" />
     <Compile Include="Builder\IBadgeBuilder.cs" />
     <Compile Include="Builder\IBadgeClient.cs" />
+    <Compile Include="Exceptions\ServiceException.cs" />
     <Compile Include="Sarif\SarifResult.cs" />
     <Compile Include="Sarif\SarifJsonDeserializer.cs" />
     <Compile Include="Sarif\Result.cs" />

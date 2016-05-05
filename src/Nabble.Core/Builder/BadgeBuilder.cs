@@ -7,6 +7,7 @@ namespace Nabble.Core.Builder
 {
 	using System;
 	using System.Threading.Tasks;
+	using Nabble.Core.Exceptions;
 
 	/// <summary>
 	/// Provides an implementation of <see cref="IBadgeBuilder" /> to build Badges.
@@ -55,15 +56,18 @@ namespace Nabble.Core.Builder
 
 				return await BadgeClient.RequestBadgeAsync(badgeClientProperties);
 			}
-			catch (Exception)
+			catch (Exception exception)
 			{
+				string status = exception is BuildPendingException
+					? badgeBuilderProperties.StatusTemplatePending : badgeBuilderProperties.StatusTemplateInaccessible;
+
 				return
 					await
 						BadgeClient.RequestBadgeAsync(
 							new BadgeClientProperties()
 							{
 								Label = label,
-								Status = badgeBuilderProperties.StatusTemplateInaccessible,
+								Status = status,
 								Style = badgeStyle,
 								Color = badgeBuilderProperties.ColorInaccessible,
 								Format = format
