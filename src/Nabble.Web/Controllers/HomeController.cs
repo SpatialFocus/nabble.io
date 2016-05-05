@@ -20,6 +20,7 @@
 				new[] { "SA" },
 				"Dresel",
 				"SampleProject",
+				"report.json",
 				string.Empty);
 
 			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();

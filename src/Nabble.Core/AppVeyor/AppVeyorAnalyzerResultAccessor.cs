@@ -79,6 +79,11 @@ namespace Nabble.Core.AppVeyor
 		public string ProjectSlug { get; set; }
 
 		/// <summary>
+		/// Gets or sets the ReportFileName used to identify the report artefacts.
+		/// </summary>
+		public string ReportFileName { get; set; }
+
+		/// <summary>
 		/// Gets or sets the RestClient used to communicate with AppVeyor.
 		/// </summary>
 		public IRestClient RestClient { get; set; }
@@ -100,24 +105,6 @@ namespace Nabble.Core.AppVeyor
 			ICollection<SarifResult> sarifResults = await GetSarifResultsForJobIdAsync(jobId);
 
 			return AnalyzerResultBuilder.AnalyzeSarifResults(sarifResults);
-		}
-
-		[Cache(Duration = 7 * 24 * 60 * 60)]
-		private async Task<ICollection<SarifResult>> GetSarifResultsForJobIdAsync(string jobId)
-		{
-			// TODO: Decide what to do if no reportName is returned
-			IEnumerable<string> reportNames = await GetReportNamesForJobIdAsync(jobId);
-
-			ICollection<SarifResult> sarifResults = new List<SarifResult>();
-
-			// TODO: Make name configurable
-			foreach (string reportName in reportNames.Where(x => x.EndsWith("report.json")))
-			{
-				Stream stream = await DownloadArtifactStreamAsync(jobId, reportName);
-				sarifResults.Add(AnalyzerResultJsonDeserializer.DeserializeFromStream(stream));
-			}
-
-			return sarifResults;
 		}
 
 		private Task<Stream> DownloadArtifactStreamAsync(string jobId, string artifactFileName)
@@ -171,6 +158,23 @@ namespace Nabble.Core.AppVeyor
 							new KeyValuePair<object, object>[] { }));
 
 			return result.Select(x => x.FileName);
+		}
+
+		[Cache(Duration = 7 * 24 * 60 * 60)]
+		private async Task<ICollection<SarifResult>> GetSarifResultsForJobIdAsync(string jobId)
+		{
+			// TODO: Decide what to do if no reportName is returned
+			IEnumerable<string> reportNames = await GetReportNamesForJobIdAsync(jobId);
+
+			ICollection<SarifResult> sarifResults = new List<SarifResult>();
+
+			foreach (string reportName in reportNames.Where(x => x == ReportFileName || x.EndsWith(string.Format("/{0}", ReportFileName))))
+			{
+				Stream stream = await DownloadArtifactStreamAsync(jobId, reportName);
+				sarifResults.Add(AnalyzerResultJsonDeserializer.DeserializeFromStream(stream));
+			}
+
+			return sarifResults;
 		}
 	}
 }

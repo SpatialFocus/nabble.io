@@ -24,9 +24,10 @@ namespace Nabble.Core
 		/// <param name="accountName">The AppVeyor AccountName used to retrieve the analyzer log build artefact.</param>
 		/// <param name="projectSlug">The AppVeyor ProjectSlug used to retrieve the analyzer log build artefact.</param>
 		/// <param name="buildBranch">The AppVeyor BuildBranch used to retrieve the analyzer log build artefact.</param>
+		/// <param name="reportFileName">The AppVeyor ReportFileName used to retrieve the analyzer log build artefact.</param>
 		/// <returns>An instance of the created <see cref="AppVeyorAnalyzerResultAccessor" /> class.</returns>
 		public static IAnalyzerResultAccessor CreateAppVeyorAnalyzerResultAccessor(ICollection<string> rules,
-			string accountName, string projectSlug, string buildBranch)
+			string accountName, string projectSlug, string buildBranch, string reportFileName)
 		{
 			return new AppVeyorAnalyzerResultAccessor(
 				new RestClient(),
@@ -37,7 +38,8 @@ namespace Nabble.Core
 			{
 				AccountName = accountName,
 				ProjectSlug = projectSlug,
-				BuildBranch = buildBranch
+				BuildBranch = buildBranch,
+				ReportFileName = reportFileName
 			};
 		}
 
