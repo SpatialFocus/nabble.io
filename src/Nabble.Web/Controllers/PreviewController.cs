@@ -9,6 +9,7 @@ namespace Nabble.Web.Controllers
 	using Nabble.Web.Models;
 
 	[Route("api/v1/preview")]
+	[ResponseCache(NoStore = true)]
 	public class PreviewController : Controller
 	{
 		[HttpGet("aggregate/{analyzer}")]

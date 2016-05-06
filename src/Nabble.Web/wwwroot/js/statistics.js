@@ -1,23 +1,20 @@
-﻿var badgeStatistics = function() {
-	$(document).ready(function() {
-		var statAccount = 154;
-		var statBadges = 362;
-		var statRequests = 7117;
-
-		function increment() {
-			statAccount++;
-			statBadges += 2;
-			statRequests += 3;
-
-			$("#stat-account").html(statAccount);
-			$("#stat-badges").html(statBadges);
-			$("#stat-requests").html(statRequests);
-
-			setTimeout(function() {
-				increment();
-			}, 2000);
-		}
-
-		increment();
+﻿(function refreshBadgeStatistics() {
+	$.ajax({
+		url: "/api/v1/statistics",
+		type: "GET",
+		success: function (data) {
+			if (data && data.Projects !== undefined) {
+				$("#stat-projects").html(data.Projects);
+			}
+			if (data && data.Builds !== undefined) {
+				$("#stat-builds").html(data.Builds);
+			}
+			if (data && data.Requests !== undefined) {
+				$("#stat-requests").html(data.Requests);
+			}
+		},
+		dataType: "json",
+		complete: setTimeout(function () { refreshBadgeStatistics() }, 3000),
+		timeout: 1000
 	});
-}();
+})();

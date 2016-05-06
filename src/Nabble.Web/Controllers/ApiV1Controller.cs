@@ -1,5 +1,6 @@
 ﻿namespace Nabble.Web.Controllers
 {
+	using System;
 	using System.Threading.Tasks;
 	using Microsoft.AspNet.Hosting;
 	using Microsoft.AspNet.Mvc;
@@ -8,22 +9,9 @@
 	using Nabble.Web.Models;
 
 	[Route("api/v1")]
+	[ResponseCache(NoStore = true)]
 	public class ApiV1Controller : Controller
 	{
-		private readonly IHostingEnvironment environment;
-
-		public ApiV1Controller(IHostingEnvironment environment)
-		{
-			this.environment = environment;
-		}
-
-		// GET: api/v1
-		[HttpGet]
-		public IActionResult Get()
-		{
-			return HttpBadRequest("Usage: /api/v1/{vendor}/{account}/{project}/{branch (opt)}/{analyzer}?{parameters}");
-		}
-
 		// GET api/v1/appveyor/Dresel/SampleProject/StyleCop
 		[HttpGet("{vendor}/{account}/{project}/{branch}/{analyzer}")]
 		[HttpGet("{vendor}/{account}/{project}/{analyzer}")]
@@ -84,6 +72,20 @@
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
 
 			return File(badge.Stream, badge.ContentType);
+		}
+
+		[HttpGet("statistics")]
+		public async Task<StatisticsViewModel> Statistics()
+		{
+			Random random = new Random();
+			StatisticsViewModel viewModel = new StatisticsViewModel
+			{
+				Projects = 111 + random.Next(0,100),
+				Builds = 222 + random.Next(0, 100),
+				Requests = 300 + random.Next(0, 100)
+			};
+
+			return await Task.Run(() => viewModel);
 		}
 	}
 }
