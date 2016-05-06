@@ -6,12 +6,27 @@
 namespace Nabble.Core.Data
 {
 	using Microsoft.Data.Entity;
+	using Microsoft.Data.Entity.Infrastructure;
 	using Nabble.Core.Data.Entities;
 
 	/// <summary>
 	/// </summary>
 	public class NabbleContext : DbContext
 	{
+		/// <summary>
+		/// </summary>
+		public NabbleContext()
+		{
+		}
+
+		/// <summary>
+		/// </summary>
+		/// <param name="options"></param>
+		public NabbleContext(DbContextOptions<NabbleContext> options)
+			: base(options)
+		{
+		}
+
 		/// <summary>
 		/// </summary>
 		public DbSet<Badge> Badges { get; set; }
@@ -27,7 +42,10 @@ namespace Nabble.Core.Data
 		/// <inheritdoc />
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseSqlite(@"fileName=NabbleCore.db");
+			if (!optionsBuilder.IsConfigured)
+			{
+				optionsBuilder.UseSqlite(@"fileName=NabbleCore.db");
+			}
 		}
 
 		/// <inheritdoc />

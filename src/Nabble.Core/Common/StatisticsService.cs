@@ -18,58 +18,58 @@ namespace Nabble.Core.Common
 		/// Initializes a new instance of the <see cref="StatisticsService" /> class.
 		/// </summary>
 		/// <param name="context"></param>
-		public StatisticsService(NabbleContext context)
+		public StatisticsService(IUnitOfWork unitOfWork)
 		{
-			Context = context;
+			UnitOfWork = unitOfWork;
 		}
 
 		/// <summary>
 		/// </summary>
-		public NabbleContext Context { get; set; }
+		public IUnitOfWork UnitOfWork { get; set; }
 
 		/// <inheritdoc />
 		public async Task AddBadgeEntryIfNotExistsAsync(string badgeIdentifier)
 		{
-			if (!await Context.Badges.AnyAsync(x => x.BadgeIdentifier == badgeIdentifier))
+			if (!await UnitOfWork.Set<Badge>().AnyAsync(x => x.BadgeIdentifier == badgeIdentifier))
 			{
-				Context.Badges.Add(new Badge() { BadgeIdentifier = badgeIdentifier });
-				await Context.SaveChangesAsync();
+				UnitOfWork.Add(new Badge() { BadgeIdentifier = badgeIdentifier });
+				await UnitOfWork.SaveAsync();
 			}
 		}
 
 		/// <inheritdoc />
 		public async Task AddProjectEntryIfNotExistsAsync(string accountName, string projectName)
 		{
-			if (!await Context.Projects.AnyAsync(x => x.AccountName == accountName && x.ProjectName == projectName))
+			if (!await UnitOfWork.Set<Project>().AnyAsync(x => x.AccountName == accountName && x.ProjectName == projectName))
 			{
-				Context.Projects.Add(new Project() { AccountName = accountName, ProjectName = projectName });
-				await Context.SaveChangesAsync();
+				UnitOfWork.Add(new Project() { AccountName = accountName, ProjectName = projectName });
+				await UnitOfWork.SaveAsync();
 			}
 		}
 
 		/// <inheritdoc />
 		public async Task AddRequestEntryAsync()
 		{
-			Context.Requests.Add(new Request() { });
-			await Context.SaveChangesAsync();
+			UnitOfWork.Add(new Request() { });
+			await UnitOfWork.SaveAsync();
 		}
 
 		/// <inheritdoc />
 		public async Task<int> GetTotalBadgeEntriesAsync()
 		{
-			return await Context.Badges.CountAsync();
+			return await UnitOfWork.Set<Badge>().CountAsync();
 		}
 
 		/// <inheritdoc />
 		public async Task<int> GetTotalProjectEntriesAsync()
 		{
-			return await Context.Projects.CountAsync();
+			return await UnitOfWork.Set<Project>().CountAsync();
 		}
 
 		/// <inheritdoc />
 		public async Task<int> GetTotalRequestEntriesAsync()
 		{
-			return await Context.Requests.CountAsync();
+			return await UnitOfWork.Set<Request>().CountAsync();
 		}
 	}
 }

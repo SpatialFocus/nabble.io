@@ -163,6 +163,7 @@
     <Compile Include="Common\StatisticsService.cs" />
     <Compile Include="Data\Entities\Badge.cs" />
     <Compile Include="Data\Entities\Request.cs" />
+    <Compile Include="Data\IUnitOfWork.cs" />
     <Compile Include="Data\Migrations\20160504123527_Initial.cs" />
     <Compile Include="Data\Migrations\20160504123527_Initial.designer.cs">
       <DependentUpon>20160504123527_Initial.cs</DependentUpon>
@@ -175,6 +176,7 @@
     <Compile Include="Common\NullCache.cs" />
     <Compile Include="Common\ObjectCacheAdapter.cs" />
     <Compile Include="Data\Entities\Projects.cs" />
+    <Compile Include="Data\NabbleContextUnitOfWork.cs" />
     <Compile Include="Exceptions\BuildPendingException.cs" />
     <Compile Include="Exceptions\SarifResultNotFoundException.cs" />
     <Compile Include="Factory.cs" />
