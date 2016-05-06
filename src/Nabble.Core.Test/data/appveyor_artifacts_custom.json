@@ -1,0 +1,17 @@
+﻿[
+	{
+		"fileName": "TestProject/bin/Debug/report.json",
+		"type": "File",
+		"size": 2094
+	},
+	{
+		"fileName": "TestProject/bin/Debug/custom.json",
+		"type": "File",
+		"size": 2094
+	},
+	{
+		"fileName": "custom.json",
+		"type": "File",
+		"size": 2094
+	}
+]

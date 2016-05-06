@@ -6,6 +6,8 @@
 	using Microsoft.AspNet.Mvc;
 	using Nabble.Core;
 	using Nabble.Core.Builder;
+	using Nabble.Core.Common;
+	using Nabble.Core.Data;
 	using Nabble.Web.Models;
 
 	[Route("api/v1")]
@@ -61,7 +63,7 @@
 			switch (vendor)
 			{
 				case VendorEnum.AppVeyor:
-					analyzerResultAccessor = Factory.CreateAppVeyorAnalyzerResultAccessor(analyzerRules, account, project, branch);
+					analyzerResultAccessor = Factory.CreateAppVeyorAnalyzerResultAccessor(analyzerRules, account, project, branch, "report.json", new StatisticsService(new NabbleUnitOfWork()));
 					break;
 
 				default:
@@ -77,15 +79,17 @@
 		[HttpGet("statistics")]
 		public async Task<StatisticsViewModel> Statistics()
 		{
-			Random random = new Random();
+			StatisticsService statisticsService = new StatisticsService(new NabbleUnitOfWork());
+
+			// TODO: Consistent naming of statistical values
 			StatisticsViewModel viewModel = new StatisticsViewModel
 			{
-				Projects = 111 + random.Next(0,100),
-				Builds = 222 + random.Next(0, 100),
-				Requests = 300 + random.Next(0, 100)
+				Projects = await statisticsService.GetTotalProjectEntriesAsync(),
+				Builds = await statisticsService.GetTotalBadgeEntriesAsync(),
+				Requests = await statisticsService.GetTotalRequestEntriesAsync()
 			};
 
-			return await Task.Run(() => viewModel);
+			return viewModel;
 		}
 	}
 }
