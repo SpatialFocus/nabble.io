@@ -1,6 +1,4 @@
-﻿// For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace Nabble.Web.Controllers
+﻿namespace Nabble.Web.Controllers
 {
 	using System.Threading.Tasks;
 	using Microsoft.AspNet.Mvc;
@@ -120,11 +118,6 @@ namespace Nabble.Web.Controllers
 				case AnalyzerEnum.FxCop:
 					properties.Label = "FxCop";
 					break;
-			}
-
-			if (properties.Format == "json")
-			{
-				properties.Format = "svg";
 			}
 
 			return properties;

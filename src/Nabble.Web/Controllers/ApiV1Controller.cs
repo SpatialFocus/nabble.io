@@ -1,8 +1,6 @@
 ﻿namespace Nabble.Web.Controllers
 {
-	using System;
 	using System.Threading.Tasks;
-	using Microsoft.AspNet.Hosting;
 	using Microsoft.AspNet.Mvc;
 	using Nabble.Core;
 	using Nabble.Core.Builder;
@@ -63,7 +61,13 @@
 			switch (vendor)
 			{
 				case VendorEnum.AppVeyor:
-					analyzerResultAccessor = Factory.CreateAppVeyorAnalyzerResultAccessor(analyzerRules, account, project, branch, "report.json", new StatisticsService(new NabbleUnitOfWork()));
+					analyzerResultAccessor = Factory.CreateAppVeyorAnalyzerResultAccessor(
+						analyzerRules,
+						account,
+						project,
+						branch,
+						"report.json",
+						new StatisticsService(new NabbleUnitOfWork()));
 					break;
 
 				default:

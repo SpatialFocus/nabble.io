@@ -14,7 +14,7 @@
 	<!-- Google fonts-->
 	<link href="//fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet" type="text/css">
 	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet" type="text/css">
-	<link href="//fonts.googleapis.com/css?family=Source+Code+Pro:600" rel="stylesheet" type="text/css">
+	<link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,600" rel="stylesheet" type="text/css">
 	<!-- Stylesheet-->
 	<link href="~/lib/odometer/themes/odometer-theme-minimal.css" rel="stylesheet" type="text/css">
 	<link href="~/css/site.min.css" rel="stylesheet" type="text/css">
@@ -51,15 +51,24 @@
 		<div class="row" id="stat-container">
 			<div class="col-md-2 col-md-offset-3 stat-value">
 				<div class="odometer" id="stat-projects">0</div>
-				<div class="stat-description">projects served</div>
+				<div class="stat-description">
+					projects served
+					<i aria-hidden="true" class="fa fa-question-circle" title="Counting all successful requests with distinct account and project name."></i>
+				</div>
 			</div>
 			<div class="col-md-2 stat-value">
 				<div class="odometer" id="stat-builds">0</div>
-				<div class="stat-description">builds analyzed</div>
+				<div class="stat-description">
+					builds analyzed
+					<i aria-hidden="true" class="fa fa-question-circle" title="Counting all successful requests for a particular build (i.e. distinct job id)."></i>
+				</div>
 			</div>
 			<div class="col-md-2 stat-value">
 				<div class="odometer" id="stat-requests">0</div>
-				<div class="stat-description">requests handled</div>
+				<div class="stat-description">
+					requests handled
+					<i aria-hidden="true" class="fa fa-question-circle" title="Counting all successful requests for badges (even cached ones)."></i>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -224,7 +233,7 @@
 										</p>
 										<ul>
 											<li>style: Default|Plastic|Flat|FlatSquare|Social</li>
-											<li>format: svg|png|jpg|gif|json</li>
+											<li>format: svg|png|jpg|gif</li>
 											<li>label: defaults to "StyleCop", "FxCop" or "Analyzers" (for custom analyzer, but can be overwritten)</li>
 											<li>aggregateValues: false (default)|true</li>
 											<li>countInfos: false (default)|true</li>
@@ -426,7 +435,7 @@
 			<pre class="code col-md-12" data-bind="text: url" disabled="disabled"></pre>
 		</div>
 
-		<div class="row" data-bind="visible: showPreview">
+		<div class="row" data-bind="visible: showPreview" id="preview-container">
 			<h2>Preview</h2>
 			<div class="col-md-2 text-right">success</div>
 			<div class="col-md-2">
@@ -505,9 +514,9 @@
 <script src="~/lib/odometer/odometer.min.js"></script>
 <script src="~/js/site.min.js"></script>
 <script>
-	(function(i, s, o, g, r, a, m) {
+	(function (i, s, o, g, r, a, m) {
 		i['GoogleAnalyticsObject'] = r;
-		i[r] = i[r] || function() {
+		i[r] = i[r] || function () {
 			(i[r].q = i[r].q || []).push(arguments);
 		}, i[r].l = 1 * new Date();
 		a = s.createElement(o),
