@@ -6,7 +6,7 @@
 namespace Nabble.Core.Builder
 {
 	/// <summary>
-	/// A class providing configuration for the <see cref="Badge" /> creation used by <see cref="IBadgeBuilder"/> instances.
+	/// A class providing configuration for the <see cref="Badge" /> creation used by <see cref="IBadgeBuilder" /> instances.
 	/// </summary>
 	public class BadgeBuilderProperties
 	{
@@ -31,6 +31,7 @@ namespace Nabble.Core.Builder
 			StatusTemplateInfo = "{0} infos";
 			StatusTemplateAggregate = "{0} violations";
 			StatusTemplateSuccess = "passing";
+			StatusTemplatePending = "pending";
 			StatusTemplateInaccessible = "inaccessible";
 
 			Format = "svg";
@@ -100,6 +101,11 @@ namespace Nabble.Core.Builder
 		/// Gets or sets the StatusTemplateError used for Badges when the highest occuring severity is Info.
 		/// </summary>
 		public string StatusTemplateInfo { get; set; }
+
+		/// <summary>
+		/// Gets or sets the StatusTemplatePending used for Badges when the build is still running.
+		/// </summary>
+		public string StatusTemplatePending { get; set; }
 
 		/// <summary>
 		/// Gets or sets the StatusTemplateError used for Badges without any errors.

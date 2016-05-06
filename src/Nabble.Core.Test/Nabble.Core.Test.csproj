@@ -97,6 +97,8 @@
     <EmbeddedResource Include="data\appveyor_projects.json" />
     <EmbeddedResource Include="data\appveyor_artifacts.json" />
     <EmbeddedResource Include="data\appveyor_artifacts_multiple.json" />
+    <EmbeddedResource Include="data\appveyor_artifacts_custom.json" />
+    <EmbeddedResource Include="data\appveyor_projects_pending.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

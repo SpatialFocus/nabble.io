@@ -21,6 +21,7 @@
 				"Dresel",
 				"SampleProject",
 				string.Empty,
+				"report.json",
 				new NullStatisticsService());
 
 			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
