@@ -31,7 +31,13 @@ namespace Nabble.Core.Data
 			}
 		}
 
-		public Func<NabbleContext> CreationDelegate { get; set; } = () => new NabbleContext();
+		public Func<NabbleContext> CreationDelegate { get; set; } = () =>
+		{
+			NabbleContext nabbleContext = new NabbleContext();
+			nabbleContext.Database.EnsureCreated();
+
+			return nabbleContext;
+		};
 
 		/// <inheritdoc />
 		public void Add<T>(T entity) where T : class
@@ -39,16 +45,16 @@ namespace Nabble.Core.Data
 			NabbleContext.Set<T>().Add(entity);
 		}
 
-		public void Remove<T>(T entity) where T : class
-		{
-			NabbleContext.Set<T>().Remove(entity);
-		}
-
 		/// <inheritdoc />
 		public void Dispose()
 		{
 			Dispose(true);
 			GC.SuppressFinalize(this);
+		}
+
+		public void Remove<T>(T entity) where T : class
+		{
+			NabbleContext.Set<T>().Remove(entity);
 		}
 
 		/// <inheritdoc />
@@ -63,7 +69,7 @@ namespace Nabble.Core.Data
 			NabbleContext.SaveChanges();
 		}
 
-		/// <inheritdoc/>
+		/// <inheritdoc />
 		public async Task SaveAsync()
 		{
 			await NabbleContext.SaveChangesAsync();
