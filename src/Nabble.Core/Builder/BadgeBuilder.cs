@@ -75,7 +75,7 @@ namespace Nabble.Core.Builder
 			}
 		}
 
-		private BadgeColor DetermineColor(BadgeBuilderProperties badgeBuilderProperties, AnalyzerResult analyzerResult)
+		private static BadgeColor DetermineColor(BadgeBuilderProperties badgeBuilderProperties, AnalyzerResult analyzerResult)
 		{
 			if (analyzerResult.NumberOfErrors > 0)
 			{
@@ -95,7 +95,7 @@ namespace Nabble.Core.Builder
 			return badgeBuilderProperties.ColorSuccess;
 		}
 
-		private string DetermineTemplate(BadgeBuilderProperties badgeBuilderProperties, AnalyzerResult analyzerResult)
+		private static string DetermineTemplate(BadgeBuilderProperties badgeBuilderProperties, AnalyzerResult analyzerResult)
 		{
 			if (analyzerResult.NumberOfErrors > 0)
 			{
@@ -118,7 +118,7 @@ namespace Nabble.Core.Builder
 			return badgeBuilderProperties.StatusTemplateSuccess;
 		}
 
-		private int DetermineViolations(BadgeBuilderProperties badgeBuilderProperties, AnalyzerResult analyzerResult)
+		private static int DetermineViolations(BadgeBuilderProperties badgeBuilderProperties, AnalyzerResult analyzerResult)
 		{
 			int violations = analyzerResult.NumberOfErrors;
 

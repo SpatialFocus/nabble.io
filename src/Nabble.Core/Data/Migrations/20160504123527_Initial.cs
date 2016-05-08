@@ -8,6 +8,7 @@ namespace Nabble.Core.Data.Migrations
 	using System;
 	using Microsoft.Data.Entity.Migrations;
 
+	[CLSCompliant(false)]
 	public partial class Initial : Migration
 	{
 		protected override void Down(MigrationBuilder migrationBuilder)

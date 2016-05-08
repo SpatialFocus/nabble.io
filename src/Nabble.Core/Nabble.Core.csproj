@@ -36,6 +36,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>..\..\Nabble.ruleset</CodeAnalysisRuleSet>
+    <Features>IOperation</Features>
     <DocumentationFile>bin\Debug\Nabble.Core.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -45,6 +46,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Features>IOperation</Features>
     <CodeAnalysisRuleSet>Nabble.Core.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
@@ -195,6 +197,7 @@
     <Compile Include="Builder\IBadgeBuilder.cs" />
     <Compile Include="Builder\IBadgeClient.cs" />
     <Compile Include="Exceptions\ServiceException.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Sarif\SarifResult.cs" />
     <Compile Include="Sarif\SarifJsonDeserializer.cs" />
     <Compile Include="Sarif\Result.cs" />

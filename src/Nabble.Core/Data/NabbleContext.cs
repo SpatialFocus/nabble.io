@@ -5,6 +5,7 @@
 
 namespace Nabble.Core.Data
 {
+	using System;
 	using Microsoft.Data.Entity;
 	using Microsoft.Data.Entity.Infrastructure;
 	using Nabble.Core.Data.Entities;
@@ -12,6 +13,7 @@ namespace Nabble.Core.Data
 	/// <summary>
 	/// The Nabble DbContext implementation.
 	/// </summary>
+	[CLSCompliant(false)]
 	public class NabbleContext : DbContext
 	{
 		/// <summary>

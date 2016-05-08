@@ -13,6 +13,7 @@ namespace Nabble.Core.Data
 	/// Provides an implementation of <see cref="IUnitOfWork" />. Wraps an underlying <see cref="NabbleContext" /> instance,
 	/// which performs the actual operations.
 	/// </summary>
+	[CLSCompliant(false)]
 	public class NabbleUnitOfWork : IUnitOfWork, IDisposable
 	{
 		private NabbleContext nabbleContext;
