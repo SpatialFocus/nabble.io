@@ -8,6 +8,7 @@ namespace Nabble.Core.Data
 	using System;
 	using System.Linq;
 	using System.Threading.Tasks;
+	using Microsoft.Data.Entity;
 
 	/// <summary>
 	/// Provides an implementation of <see cref="IUnitOfWork" />. Wraps an underlying <see cref="NabbleContext" /> instance,
@@ -56,6 +57,12 @@ namespace Nabble.Core.Data
 		public IQueryable<T> GetSet<T>() where T : class
 		{
 			return NabbleContext.Set<T>();
+		}
+
+		/// <inheritdoc/>
+		public async Task<IDisposable> BeginTransactionAsync()
+		{
+			return await NabbleContext.Database.BeginTransactionAsync();
 		}
 
 		/// <inheritdoc/>

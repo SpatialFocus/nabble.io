@@ -48,10 +48,11 @@ namespace Nabble.Core
 		/// <summary>
 		/// Creates a new instance of the <see cref="IBadgeBuilder" /> interface.
 		/// </summary>
+		/// <param name="statisticsService">The Statistic Service used to modify and get certain badge statistics.</param>
 		/// <returns>An instance of the created <see cref="IBadgeBuilder" /> interface.</returns>
-		public static IBadgeBuilder CreateBadgeBuilder()
+		public static IBadgeBuilder CreateBadgeBuilder(IStatisticsService statisticsService)
 		{
-			return new BadgeBuilder(new BadgeClient(new RestClient()));
+			return new BadgeBuilder(new BadgeClient(new RestClient()), statisticsService);
 		}
 	}
 }

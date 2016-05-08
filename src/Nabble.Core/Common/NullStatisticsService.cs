@@ -32,6 +32,12 @@ namespace Nabble.Core.Common
 		}
 
 		/// <inheritdoc/>
+		public Task<IDisposable> BeginTransactionAsync()
+		{
+			return Task.FromResult<IDisposable>(new NullDisposable());
+		}
+
+		/// <inheritdoc/>
 		public Task<int> GetTotalBadgeEntriesAsync()
 		{
 			throw new NotImplementedException();

@@ -161,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\IStatisticsService.cs" />
+    <Compile Include="Common\NullDisposable.cs" />
     <Compile Include="Common\NullStatisticsService.cs" />
     <Compile Include="Common\StatisticsService.cs" />
     <Compile Include="Data\Entities\Badge.cs" />

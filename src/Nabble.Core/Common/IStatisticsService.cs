@@ -5,6 +5,7 @@
 
 namespace Nabble.Core.Common
 {
+	using System;
 	using System.Threading.Tasks;
 
 	/// <summary>
@@ -32,6 +33,12 @@ namespace Nabble.Core.Common
 		/// </summary>
 		/// <returns>The task object representing the asynchronous operation.</returns>
 		Task AddRequestEntryAsync();
+
+		/// <summary>
+		/// Creates a new transaction scope.
+		/// </summary>
+		/// <returns>The task object representing the asynchronous operation.</returns>
+		Task<IDisposable> BeginTransactionAsync();
 
 		/// <summary>
 		/// Gets the total number of badge entries.

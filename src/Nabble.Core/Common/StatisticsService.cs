@@ -5,6 +5,7 @@
 
 namespace Nabble.Core.Common
 {
+	using System;
 	using System.Threading.Tasks;
 	using Microsoft.Data.Entity;
 	using Nabble.Core.Data;
@@ -54,6 +55,12 @@ namespace Nabble.Core.Common
 		{
 			UnitOfWork.Add(new Request() { });
 			await UnitOfWork.SaveAsync();
+		}
+
+		/// <inheritdoc />
+		public Task<IDisposable> BeginTransactionAsync()
+		{
+			return UnitOfWork.BeginTransactionAsync();
 		}
 
 		/// <inheritdoc />

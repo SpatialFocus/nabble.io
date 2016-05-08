@@ -5,6 +5,7 @@
 
 namespace Nabble.Core.Data
 {
+	using System;
 	using System.Linq;
 	using System.Threading.Tasks;
 
@@ -19,6 +20,19 @@ namespace Nabble.Core.Data
 		/// <param name="entity">The entity to add.</param>
 		/// <typeparam name="T">The type of the entity to add.</typeparam>
 		void Add<T>(T entity) where T : class;
+
+		/// <summary>
+		/// Creates a new transaction scope.
+		/// </summary>
+		/// <returns>The task object representing the asynchronous operation.</returns>
+		Task<IDisposable> BeginTransactionAsync();
+
+		/// <summary>
+		/// Returns the corresponding entity collection.
+		/// </summary>
+		/// <typeparam name="T">The type of the entity of the collection.</typeparam>
+		/// <returns>An IQueryable of <typeparamref name="T" />.</returns>
+		IQueryable<T> GetSet<T>() where T : class;
 
 		/// <summary>
 		/// Removes an entity from the corresponding collection.
@@ -39,12 +53,5 @@ namespace Nabble.Core.Data
 		/// The task object representing the asynchronous operation.
 		/// </returns>
 		Task SaveAsync();
-
-		/// <summary>
-		/// Returns the corresponding entity collection.
-		/// </summary>
-		/// <typeparam name="T">The type of the entity of the collection.</typeparam>
-		/// <returns>An IQueryable of <typeparamref name="T" />.</returns>
-		IQueryable<T> GetSet<T>() where T : class;
 	}
 }
