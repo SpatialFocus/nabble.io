@@ -2,7 +2,7 @@
 	vendorValues: ["AppVeyor"],
 	analyzerValues: ["StyleCop", "FxCop", "Custom"],
 	styleValues: ["Default", "Plastic", "Flat", "FlatSquare", "Social"],
-	formatValues: ["svg", "png", "jpg", "gif", "json"],
+	formatValues: ["svg", "png", "jpg", "gif"],
 	colors: ["Brightgreen", "Green", "Yellow", "Yellowgreen", "Orange", "Red", "Blue", "Gray", "Lightgray"]
 };
 

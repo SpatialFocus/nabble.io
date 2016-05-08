@@ -2,6 +2,7 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\packages\AnalyzerLogging.1.0.0-alpha1\build\AnalyzerLogging.props" Condition="Exists('..\..\packages\AnalyzerLogging.1.0.0-alpha1\build\AnalyzerLogging.props')" />
   <Import Project="..\..\packages\Microsoft.Data.Sqlite.1.0.0-rc1-final\build\net451\Microsoft.Data.Sqlite.props" Condition="Exists('..\..\packages\Microsoft.Data.Sqlite.1.0.0-rc1-final\build\net451\Microsoft.Data.Sqlite.props')" />
+  <Import Project="..\..\packages\AnalyzerLogging.1.0.0-alpha1\build\AnalyzerLogging.props" Condition="Exists('..\..\packages\AnalyzerLogging.1.0.0-alpha1\build\AnalyzerLogging.props')" />
   <Import Project="..\..\packages\Microsoft.Net.Compilers.2.0.0-beta1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.2.0.0-beta1\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\..\packages\Text.Analyzers.1.2.0-beta1\build\Text.Analyzers.props" Condition="Exists('..\..\packages\Text.Analyzers.1.2.0-beta1\build\Text.Analyzers.props')" />
   <Import Project="..\..\packages\System.Threading.Tasks.Analyzers.1.2.0-beta1\build\System.Threading.Tasks.Analyzers.props" Condition="Exists('..\..\packages\System.Threading.Tasks.Analyzers.1.2.0-beta1\build\System.Threading.Tasks.Analyzers.props')" />
@@ -162,7 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\IStatisticsService.cs" />
-    <Compile Include="Common\NullDisposable.cs" />
+    <Compile Include="Common\NullRelationalTransaction.cs" />
     <Compile Include="Common\NullStatisticsService.cs" />
     <Compile Include="Common\StatisticsService.cs" />
     <Compile Include="Data\Entities\Badge.cs" />

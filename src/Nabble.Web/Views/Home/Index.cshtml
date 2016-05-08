@@ -14,8 +14,9 @@
 	<!-- Google fonts-->
 	<link href="//fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet" type="text/css">
 	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet" type="text/css">
-	<link href="//fonts.googleapis.com/css?family=Source+Code+Pro:600" rel="stylesheet" type="text/css">
+	<link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,600" rel="stylesheet" type="text/css">
 	<!-- Stylesheet-->
+	<link href="~/lib/odometer/themes/odometer-theme-minimal.css" rel="stylesheet" type="text/css">
 	<link href="~/css/site.min.css" rel="stylesheet" type="text/css">
 	<!-- Favicon-->
 	<link href="~/images/favicon/apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57">
@@ -47,20 +48,27 @@
 		<h1 class="cursive">nabble.io</h1>
 		<h2 class="sub">.NET Analyzers Badge Builder</h2>
 		<h4 class="sub">lightweight edition</h4>
-		<div class="mailing-list">
-			<h3 class="mailing-list-heading">Join our mailing list and we will notify you once it is ready!</h3>
-			<div class="row">
-				<form action="//nabble.us13.list-manage.com/subscribe/post?u=893b2e9556f64dbd185cbb201&amp;id=ea147244e9" class="form-inline validate" id="mc-embedded-subscribe-form" method="post" name="mc-embedded-subscribe-form" novalidate="">
-					<div class="form-group">
-						<label class="sr-only" for="mce-EMAIL">E-Mail:</label>
-						<input class="email form-control transparent" id="mce-EMAIL" name="EMAIL" placeholder="yourname@yourhost.com" required="" type="email">
-						<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-						<div aria-hidden="true" style="left: -5000px; position: absolute;">
-							<input name="b_893b2e9556f64dbd185cbb201_ea147244e9" tabindex="-1" type="text" value="">
-						</div>
-					</div>
-					<input class="btn btn-danger" id="mc-embedded-subscribe" name="subscribe" type="submit" value="subscribe">
-				</form>
+		<div class="row" id="stat-container">
+			<div class="col-md-2 col-md-offset-3 stat-value">
+				<div class="odometer" id="stat-projects">0</div>
+				<div class="stat-description">
+					projects served
+					<i aria-hidden="true" class="fa fa-question-circle" title="Counting all successful requests with distinct account and project name."></i>
+				</div>
+			</div>
+			<div class="col-md-2 stat-value">
+				<div class="odometer" id="stat-builds">0</div>
+				<div class="stat-description">
+					builds analyzed
+					<i aria-hidden="true" class="fa fa-question-circle" title="Counting all successful requests for a particular build (i.e. distinct job id)."></i>
+				</div>
+			</div>
+			<div class="col-md-2 stat-value">
+				<div class="odometer" id="stat-requests">0</div>
+				<div class="stat-description">
+					requests handled
+					<i aria-hidden="true" class="fa fa-question-circle" title="Counting all successful requests for badges (even cached ones)."></i>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -82,7 +90,7 @@
 					<div class="service-header">
 						<h1>Who doesn't like good code?</h1>
 						<p>
-							Everyone loves high quality code. With .NET Analyzers and nabble you can show it to the world.
+							Everyone loves high quality code (and BADGES!). With .NET Analyzers and nabble you can show it to the world.
 							You can proof that you apply modern coding standards and best practices with the .NET Analyzers Badge Builder lightweight edition.
 						</p>
 					</div>
@@ -148,9 +156,7 @@
 								</p>
 								<p>
 									Replace the image of your badge with a link to our API. The link contains all the information we need to generate the badge. Example:
-									<pre class="code">
-&lt;img src="https://nabble.io/api/v1/AppVeyor/Dresel/SampleProject/StyleCop" /&gt;
-</pre>
+									<pre class="code">&lt;img src="https://nabble.io/api/v1/AppVeyor/Dresel/SampleProject/StyleCop" /&gt;</pre>
 								</p>
 							</div>
 							<div class="edit-tab tab-pane" id="prereq">
@@ -159,8 +165,7 @@
 								</div>
 								<h1>Prerequisites</h1>
 								<p>
-									In order to access the analyzer results of your CI build,
-									we need the results of your analyzer as build artefacts.
+									In order to access the analyzer results of your CI build, we need the results of your analyzer as build artefacts.
 									The report has to be called <strong>report.json</strong>.
 									In case there are more than one report.json, the results will be summed up.
 									The format of the log follows the <a href="https://github.com/sarif-standard/sarif-spec">SARIF standard</a>.<br />
@@ -175,6 +180,11 @@
 									<a href="https://github.com/SpatialFocus/SampleProject/blob/analyzer-integration/appveyor.yml#L9">AppVeyor.yml file</a>,
 									which triggers AppVeyor to store the report as a build artifact.
 									This allows our REST interface to access the report and analyze it.
+								</p>
+								<p>
+									To simplify the process of enabling the error log generation, we are providing the NuGet package <strong>AnalyzerLogging</strong>.
+									Run the following command in the Package Manager Console:
+									<pre class="code">Install-Package AnalyzerLogging</pre>
 								</p>
 							</div>
 							<div class="edit-tab tab-pane" id="settings">
@@ -223,7 +233,7 @@
 										</p>
 										<ul>
 											<li>style: Default|Plastic|Flat|FlatSquare|Social</li>
-											<li>format: svg|png|jpg|gif|json</li>
+											<li>format: svg|png|jpg|gif</li>
 											<li>label: defaults to "StyleCop", "FxCop" or "Analyzers" (for custom analyzer, but can be overwritten)</li>
 											<li>aggregateValues: false (default)|true</li>
 											<li>countInfos: false (default)|true</li>
@@ -425,7 +435,7 @@
 			<pre class="code col-md-12" data-bind="text: url" disabled="disabled"></pre>
 		</div>
 
-		<div class="row" data-bind="visible: showPreview">
+		<div class="row" data-bind="visible: showPreview" id="preview-container">
 			<h2>Preview</h2>
 			<div class="col-md-2 text-right">success</div>
 			<div class="col-md-2">
@@ -501,6 +511,7 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="~/lib/knockout.js/knockout.js"></script>
+<script src="~/lib/odometer/odometer.min.js"></script>
 <script src="~/js/site.min.js"></script>
 <script>
 	(function (i, s, o, g, r, a, m) {

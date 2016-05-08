@@ -7,6 +7,7 @@ namespace Nabble.Core.Common
 {
 	using System;
 	using System.Threading.Tasks;
+	using Microsoft.Data.Entity.Storage;
 
 	/// <summary>
 	/// Provides an Null Object Pattern implementation of <see cref="IStatisticsService" /> to modify and get certain badge statistics.
@@ -32,9 +33,9 @@ namespace Nabble.Core.Common
 		}
 
 		/// <inheritdoc/>
-		public Task<IDisposable> BeginTransactionAsync()
+		public Task<IRelationalTransaction> BeginTransactionAsync()
 		{
-			return Task.FromResult<IDisposable>(new NullDisposable());
+			return Task.FromResult<IRelationalTransaction>(new NullRelationalTransaction());
 		}
 
 		/// <inheritdoc/>

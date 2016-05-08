@@ -8,6 +8,7 @@ namespace Nabble.Core.Data
 	using System;
 	using System.Linq;
 	using System.Threading.Tasks;
+	using Microsoft.Data.Entity.Storage;
 
 	/// <summary>
 	/// Represents an interface for the UnitOfWork Pattern.
@@ -25,7 +26,7 @@ namespace Nabble.Core.Data
 		/// Creates a new transaction scope.
 		/// </summary>
 		/// <returns>The task object representing the asynchronous operation.</returns>
-		Task<IDisposable> BeginTransactionAsync();
+		Task<IRelationalTransaction> BeginTransactionAsync();
 
 		/// <summary>
 		/// Returns the corresponding entity collection.

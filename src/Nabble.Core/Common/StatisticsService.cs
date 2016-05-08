@@ -8,6 +8,7 @@ namespace Nabble.Core.Common
 	using System;
 	using System.Threading.Tasks;
 	using Microsoft.Data.Entity;
+	using Microsoft.Data.Entity.Storage;
 	using Nabble.Core.Data;
 	using Nabble.Core.Data.Entities;
 
@@ -58,7 +59,7 @@ namespace Nabble.Core.Common
 		}
 
 		/// <inheritdoc />
-		public Task<IDisposable> BeginTransactionAsync()
+		public Task<IRelationalTransaction> BeginTransactionAsync()
 		{
 			return UnitOfWork.BeginTransactionAsync();
 		}

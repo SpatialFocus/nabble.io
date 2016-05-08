@@ -121,11 +121,6 @@
 					break;
 			}
 
-			if (properties.Format == "json")
-			{
-				properties.Format = "svg";
-			}
-
 			return properties;
 		}
 	}

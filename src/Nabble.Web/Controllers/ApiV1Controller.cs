@@ -57,7 +57,7 @@
 					return HttpBadRequest("Selected analyzer is not supported.");
 			}
 
-			NabbleUnitOfWork nabbleUnitOfWork = new NabbleUnitOfWork();
+			StatisticsService statisticsService = new StatisticsService(new NabbleUnitOfWork());
 
 			IAnalyzerResultAccessor analyzerResultAccessor;
 
@@ -65,19 +65,39 @@
 			{
 				case VendorEnum.AppVeyor:
 					
-
-					analyzerResultAccessor = Factory.CreateAppVeyorAnalyzerResultAccessor(analyzerRules, account, project, branch, "report.json",
-						new StatisticsService(nabbleUnitOfWork));
+					analyzerResultAccessor = Factory.CreateAppVeyorAnalyzerResultAccessor(
+						analyzerRules,
+						account,
+						project,
+						branch,
+						"report.json",
+						statisticsService);
 					break;
 
 				default:
 					return HttpBadRequest("Selected vendor is not supported.");
 			}
 
-			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder(new StatisticsService(nabbleUnitOfWork));
+			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder(statisticsService);
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
 
 			return File(badge.Stream, badge.ContentType);
+		}
+
+		[HttpGet("statistics")]
+		public async Task<StatisticsViewModel> Statistics()
+		{
+			StatisticsService statisticsService = new StatisticsService(new NabbleUnitOfWork());
+
+			// TODO: Consistent naming of statistical values
+			StatisticsViewModel viewModel = new StatisticsViewModel
+			{
+				Projects = await statisticsService.GetTotalProjectEntriesAsync(),
+				Builds = await statisticsService.GetTotalBadgeEntriesAsync(),
+				Requests = await statisticsService.GetTotalRequestEntriesAsync()
+			};
+
+			return viewModel;
 		}
 	}
 }

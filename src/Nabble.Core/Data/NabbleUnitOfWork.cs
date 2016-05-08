@@ -9,12 +9,12 @@ namespace Nabble.Core.Data
 	using System.Linq;
 	using System.Threading.Tasks;
 	using Microsoft.Data.Entity;
+	using Microsoft.Data.Entity.Storage;
 
 	/// <summary>
 	/// Provides an implementation of <see cref="IUnitOfWork" />. Wraps an underlying <see cref="NabbleContext" /> instance,
 	/// which performs the actual operations.
 	/// </summary>
-	[CLSCompliant(false)]
 	public class NabbleUnitOfWork : IUnitOfWork, IDisposable
 	{
 		private NabbleContext nabbleContext;
@@ -66,7 +66,7 @@ namespace Nabble.Core.Data
 		}
 
 		/// <inheritdoc/>
-		public async Task<IDisposable> BeginTransactionAsync()
+		public async Task<IRelationalTransaction> BeginTransactionAsync()
 		{
 			return await NabbleContext.Database.BeginTransactionAsync();
 		}

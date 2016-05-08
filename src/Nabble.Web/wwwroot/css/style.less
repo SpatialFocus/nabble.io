@@ -30,6 +30,31 @@ section#header {
 	transform-style: preserve-3d;
 	background-color: rgba(0,0,0,0.3);
 	color: #fff;
+
+	#stat-container {
+		margin-top: 80px;
+
+		.stat-value {
+			text-align: center;
+
+			.odometer {
+				font-size: 3em;
+				font-family: 'Source Code Pro', sans-serif;
+				font-weight: 400;
+			}
+
+			.stat-description {
+				padding-top: 20px;
+				padding-bottom: 20px;
+				font-size: 1.5em;
+
+				i.fa {
+					font-size: .7em;
+					vertical-align: super;
+				}
+			}
+		}
+	}
 }
 
 @media (min-width:768px) {
