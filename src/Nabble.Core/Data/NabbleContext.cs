@@ -13,7 +13,6 @@ namespace Nabble.Core.Data
 	/// <summary>
 	/// The Nabble DbContext implementation.
 	/// </summary>
-	[CLSCompliant(false)]
 	public class NabbleContext : DbContext
 	{
 		/// <summary>

@@ -46,7 +46,7 @@ namespace Nabble.Core.Builder
 
 			try
 			{
-				using (await StatisticsService.BeginTransactionAsync())
+				using (var transaction = await StatisticsService.BeginTransactionAsync())
 				{
 					BadgeClientProperties badgeClientProperties = new BadgeClientProperties()
 					{
@@ -64,9 +64,13 @@ namespace Nabble.Core.Builder
 
 					badgeClientProperties.Status = violations > 0 ? string.Format(template, violations) : template;
 
+					Badge badge = await BadgeClient.RequestBadgeAsync(badgeClientProperties);
+
 					await StatisticsService.AddRequestEntryAsync();
 
-					return await BadgeClient.RequestBadgeAsync(badgeClientProperties);
+					transaction.Commit();
+
+					return badge;
 				}
 			}
 			catch (Exception exception)
