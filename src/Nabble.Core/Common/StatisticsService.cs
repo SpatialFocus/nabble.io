@@ -5,32 +5,35 @@
 
 namespace Nabble.Core.Common
 {
+	using System;
 	using System.Threading.Tasks;
 	using Microsoft.Data.Entity;
 	using Nabble.Core.Data;
 	using Nabble.Core.Data.Entities;
 
 	/// <summary>
+	/// Provides an implementation of <see cref="IStatisticsService" /> to modify and get certain badge statistics.
 	/// </summary>
 	public class StatisticsService : IStatisticsService
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="StatisticsService" /> class.
 		/// </summary>
-		/// <param name="context"></param>
+		/// <param name="unitOfWork">The <see cref="IUnitOfWork" /> used to perform statistic requests.</param>
 		public StatisticsService(IUnitOfWork unitOfWork)
 		{
 			UnitOfWork = unitOfWork;
 		}
 
 		/// <summary>
+		/// Gets or sets the UnitOfWork used to perform statistic requests.
 		/// </summary>
 		public IUnitOfWork UnitOfWork { get; set; }
 
 		/// <inheritdoc />
 		public async Task AddBadgeEntryIfNotExistsAsync(string badgeIdentifier)
 		{
-			if (!await UnitOfWork.Set<Badge>().AnyAsync(x => x.BadgeIdentifier == badgeIdentifier))
+			if (!await UnitOfWork.GetSet<Badge>().AnyAsync(x => x.BadgeIdentifier == badgeIdentifier))
 			{
 				UnitOfWork.Add(new Badge() { BadgeIdentifier = badgeIdentifier });
 				await UnitOfWork.SaveAsync();
@@ -40,7 +43,7 @@ namespace Nabble.Core.Common
 		/// <inheritdoc />
 		public async Task AddProjectEntryIfNotExistsAsync(string accountName, string projectName)
 		{
-			if (!await UnitOfWork.Set<Project>().AnyAsync(x => x.AccountName == accountName && x.ProjectName == projectName))
+			if (!await UnitOfWork.GetSet<Project>().AnyAsync(x => x.AccountName == accountName && x.ProjectName == projectName))
 			{
 				UnitOfWork.Add(new Project() { AccountName = accountName, ProjectName = projectName });
 				await UnitOfWork.SaveAsync();
@@ -55,21 +58,27 @@ namespace Nabble.Core.Common
 		}
 
 		/// <inheritdoc />
+		public Task<IDisposable> BeginTransactionAsync()
+		{
+			return UnitOfWork.BeginTransactionAsync();
+		}
+
+		/// <inheritdoc />
 		public async Task<int> GetTotalBadgeEntriesAsync()
 		{
-			return await UnitOfWork.Set<Badge>().CountAsync();
+			return await UnitOfWork.GetSet<Badge>().CountAsync();
 		}
 
 		/// <inheritdoc />
 		public async Task<int> GetTotalProjectEntriesAsync()
 		{
-			return await UnitOfWork.Set<Project>().CountAsync();
+			return await UnitOfWork.GetSet<Project>().CountAsync();
 		}
 
 		/// <inheritdoc />
 		public async Task<int> GetTotalRequestEntriesAsync()
 		{
-			return await UnitOfWork.Set<Request>().CountAsync();
+			return await UnitOfWork.GetSet<Request>().CountAsync();
 		}
 	}
 }

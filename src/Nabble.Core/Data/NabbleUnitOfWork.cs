@@ -1,4 +1,4 @@
-﻿// <copyright file="NabbleContextUnitOfWork.cs" company="Spatial Focus GmbH">
+﻿// <copyright file="NabbleUnitOfWork.cs" company="Spatial Focus GmbH">
 // Copyright (c) Spatial Focus GmbH. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
@@ -8,9 +8,13 @@ namespace Nabble.Core.Data
 	using System;
 	using System.Linq;
 	using System.Threading.Tasks;
+	using Microsoft.Data.Entity;
 
 	/// <summary>
+	/// Provides an implementation of <see cref="IUnitOfWork" />. Wraps an underlying <see cref="NabbleContext" /> instance,
+	/// which performs the actual operations.
 	/// </summary>
+	[CLSCompliant(false)]
 	public class NabbleUnitOfWork : IUnitOfWork, IDisposable
 	{
 		private NabbleContext nabbleContext;
@@ -31,6 +35,9 @@ namespace Nabble.Core.Data
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the CreationDelegate used to access a <see cref="NabbleContext" /> instance.
+		/// </summary>
 		public Func<NabbleContext> CreationDelegate { get; set; } = () =>
 		{
 			NabbleContext nabbleContext = new NabbleContext();
@@ -52,6 +59,19 @@ namespace Nabble.Core.Data
 			GC.SuppressFinalize(this);
 		}
 
+		/// <inheritdoc />
+		public IQueryable<T> GetSet<T>() where T : class
+		{
+			return NabbleContext.Set<T>();
+		}
+
+		/// <inheritdoc/>
+		public async Task<IDisposable> BeginTransactionAsync()
+		{
+			return await NabbleContext.Database.BeginTransactionAsync();
+		}
+
+		/// <inheritdoc/>
 		public void Remove<T>(T entity) where T : class
 		{
 			NabbleContext.Set<T>().Remove(entity);
@@ -64,26 +84,18 @@ namespace Nabble.Core.Data
 		}
 
 		/// <inheritdoc />
-		public void Save()
-		{
-			NabbleContext.SaveChanges();
-		}
-
-		/// <inheritdoc />
 		public async Task SaveAsync()
 		{
 			await NabbleContext.SaveChangesAsync();
 		}
 
-		/// <inheritdoc />
-		public IQueryable<T> Set<T>() where T : class
-		{
-			return NabbleContext.Set<T>();
-		}
-
 		/// <summary>
+		/// Disposes the underlying <see cref="NabbleContext" /> instance.
 		/// </summary>
-		/// <param name="disposing"></param>
+		/// <param name="disposing">
+		/// Indicates whether the method was invoked from the IDisposable.Dispose implementation or from
+		/// the finalizer.
+		/// </param>
 		protected virtual void Dispose(bool disposing)
 		{
 			if (disposing && this.nabbleContext != null)

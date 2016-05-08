@@ -57,24 +57,28 @@
 					return HttpBadRequest("Selected analyzer is not supported.");
 			}
 
+			StatisticsService statisticsService = new StatisticsService(new NabbleUnitOfWork());
+
 			IAnalyzerResultAccessor analyzerResultAccessor;
+
 			switch (vendor)
 			{
 				case VendorEnum.AppVeyor:
+					
 					analyzerResultAccessor = Factory.CreateAppVeyorAnalyzerResultAccessor(
 						analyzerRules,
 						account,
 						project,
 						branch,
 						"report.json",
-						new StatisticsService(new NabbleUnitOfWork()));
+						statisticsService);
 					break;
 
 				default:
 					return HttpBadRequest("Selected vendor is not supported.");
 			}
 
-			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
+			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder(statisticsService);
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
 
 			return File(badge.Stream, badge.ContentType);

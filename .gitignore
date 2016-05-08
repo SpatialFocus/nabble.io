@@ -219,3 +219,6 @@ ModelManifest.xml
 
 # Analyzers reports
 report.json
+
+# SQLite Databases
+*.db

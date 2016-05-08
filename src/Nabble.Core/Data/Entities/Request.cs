@@ -8,6 +8,7 @@ namespace Nabble.Core.Data.Entities
 	using System;
 
 	/// <summary>
+	/// An entity used to store request statistics.
 	/// </summary>
 	public class Request
 	{
@@ -20,10 +21,12 @@ namespace Nabble.Core.Data.Entities
 		}
 
 		/// <summary>
+		/// Gets or sets the Created date time.
 		/// </summary>
 		public DateTime DateTime { get; set; }
 
 		/// <summary>
+		/// Gets or sets the Id.
 		/// </summary>
 		public int Id { get; set; }
 	}

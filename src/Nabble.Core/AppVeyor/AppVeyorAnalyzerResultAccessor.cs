@@ -34,6 +34,7 @@ namespace Nabble.Core.AppVeyor
 		/// The <see cref="IAnalyzerResultBuilder" /> used to generate analyzer results from analyzer log files.
 		/// </param>
 		/// <param name="cache">The <see cref="ICache" /> used for caching.</param>
+		/// <param name="statisticsService">The <see cref="IStatisticsService" /> used to modify and get certain badge statistics.</param>
 		public AppVeyorAnalyzerResultAccessor(IRestClient restClient, IJsonDeserializer jsonDeserializer,
 			ISarifJsonDeserializer sarifResultJsonDeserializer, IAnalyzerResultBuilder analyzerResultBuilder, ICache cache, IStatisticsService statisticsService)
 		{

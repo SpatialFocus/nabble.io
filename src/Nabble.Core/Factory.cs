@@ -25,7 +25,7 @@ namespace Nabble.Core
 		/// <param name="projectSlug">The AppVeyor ProjectSlug used to retrieve the analyzer log build artefact.</param>
 		/// <param name="buildBranch">The AppVeyor BuildBranch used to retrieve the analyzer log build artefact.</param>
 		/// <param name="reportFileName">The AppVeyor ReportFileName used to retrieve the analyzer log build artefact.</param>
-		/// <param name="statisticsService"></param>
+		/// <param name="statisticsService">The Statistic Service used to modify and get certain badge statistics.</param>
 		/// <returns>An instance of the created <see cref="AppVeyorAnalyzerResultAccessor" /> class.</returns>
 		public static IAnalyzerResultAccessor CreateAppVeyorAnalyzerResultAccessor(ICollection<string> rules,
 			string accountName, string projectSlug, string buildBranch, string reportFileName, IStatisticsService statisticsService)
@@ -48,10 +48,11 @@ namespace Nabble.Core
 		/// <summary>
 		/// Creates a new instance of the <see cref="IBadgeBuilder" /> interface.
 		/// </summary>
+		/// <param name="statisticsService">The Statistic Service used to modify and get certain badge statistics.</param>
 		/// <returns>An instance of the created <see cref="IBadgeBuilder" /> interface.</returns>
-		public static IBadgeBuilder CreateBadgeBuilder()
+		public static IBadgeBuilder CreateBadgeBuilder(IStatisticsService statisticsService)
 		{
-			return new BadgeBuilder(new BadgeClient(new RestClient()));
+			return new BadgeBuilder(new BadgeClient(new RestClient()), statisticsService);
 		}
 
 		/// <summary>
