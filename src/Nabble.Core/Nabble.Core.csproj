@@ -175,8 +175,8 @@
     <Compile Include="Common\ICache.cs" />
     <Compile Include="Common\NullCache.cs" />
     <Compile Include="Common\ObjectCacheAdapter.cs" />
-    <Compile Include="Data\Entities\Projects.cs" />
-    <Compile Include="Data\NabbleContextUnitOfWork.cs" />
+    <Compile Include="Data\Entities\Project.cs" />
+    <Compile Include="Data\NabbleUnitOfWork.cs" />
     <Compile Include="Exceptions\BuildPendingException.cs" />
     <Compile Include="Exceptions\SarifResultNotFoundException.cs" />
     <Compile Include="Factory.cs" />
