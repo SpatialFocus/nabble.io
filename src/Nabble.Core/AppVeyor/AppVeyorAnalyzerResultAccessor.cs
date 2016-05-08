@@ -12,6 +12,7 @@ namespace Nabble.Core.AppVeyor
 	using System.Threading.Tasks;
 	using Nabble.Core.Builder;
 	using Nabble.Core.Common;
+	using Nabble.Core.Exceptions;
 	using Nabble.Core.Sarif;
 
 	/// <summary>
@@ -33,14 +34,16 @@ namespace Nabble.Core.AppVeyor
 		/// The <see cref="IAnalyzerResultBuilder" /> used to generate analyzer results from analyzer log files.
 		/// </param>
 		/// <param name="cache">The <see cref="ICache" /> used for caching.</param>
+		/// <param name="statisticsService">The <see cref="IStatisticsService" /> used to modify and get certain badge statistics.</param>
 		public AppVeyorAnalyzerResultAccessor(IRestClient restClient, IJsonDeserializer jsonDeserializer,
-			ISarifJsonDeserializer sarifResultJsonDeserializer, IAnalyzerResultBuilder analyzerResultBuilder, ICache cache)
+			ISarifJsonDeserializer sarifResultJsonDeserializer, IAnalyzerResultBuilder analyzerResultBuilder, ICache cache, IStatisticsService statisticsService)
 		{
 			RestClient = restClient;
 			JsonDeserializer = jsonDeserializer;
 			AnalyzerResultJsonDeserializer = sarifResultJsonDeserializer;
 			AnalyzerResultBuilder = analyzerResultBuilder;
 			Cache = cache;
+			StatisticsService = statisticsService;
 		}
 
 		/// <summary>
@@ -79,9 +82,19 @@ namespace Nabble.Core.AppVeyor
 		public string ProjectSlug { get; set; }
 
 		/// <summary>
+		/// Gets or sets the ReportFileName used to identify the report artefacts.
+		/// </summary>
+		public string ReportFileName { get; set; }
+
+		/// <summary>
 		/// Gets or sets the RestClient used to communicate with AppVeyor.
 		/// </summary>
 		public IRestClient RestClient { get; set; }
+
+		/// <summary>
+		/// Gets or sets the StatisticsService used to count badge creations and requests.
+		/// </summary>
+		public IStatisticsService StatisticsService { get; set; }
 
 		/// <inheritdoc />
 		public async Task<AnalyzerResult> GetAnalyzerResultAsync()
@@ -97,27 +110,12 @@ namespace Nabble.Core.AppVeyor
 				jobId = await GetJobIdFromLastBuildAsync(AccountName, ProjectSlug, BuildBranch);
 			}
 
+			await StatisticsService.AddProjectEntryIfNotExistsAsync(AccountName, ProjectSlug);
+			await StatisticsService.AddBadgeEntryIfNotExistsAsync(jobId);
+
 			ICollection<SarifResult> sarifResults = await GetSarifResultsForJobIdAsync(jobId);
 
 			return AnalyzerResultBuilder.AnalyzeSarifResults(sarifResults);
-		}
-
-		[Cache(Duration = 7 * 24 * 60 * 60)]
-		private async Task<ICollection<SarifResult>> GetSarifResultsForJobIdAsync(string jobId)
-		{
-			// TODO: Decide what to do if no reportName is returned
-			IEnumerable<string> reportNames = await GetReportNamesForJobIdAsync(jobId);
-
-			ICollection<SarifResult> sarifResults = new List<SarifResult>();
-
-			// TODO: Make name configurable
-			foreach (string reportName in reportNames.Where(x => x.EndsWith("report.json")))
-			{
-				Stream stream = await DownloadArtifactStreamAsync(jobId, reportName);
-				sarifResults.Add(AnalyzerResultJsonDeserializer.DeserializeFromStream(stream));
-			}
-
-			return sarifResults;
 		}
 
 		private Task<Stream> DownloadArtifactStreamAsync(string jobId, string artifactFileName)
@@ -141,6 +139,11 @@ namespace Nabble.Core.AppVeyor
 							new object[] { accountName, projectSlug },
 							new KeyValuePair<object, object>[] { }));
 
+			if (result.Build.Jobs.First().Finished == null)
+			{
+				throw new BuildPendingException();
+			}
+
 			return result.Build.Jobs.First().JobId;
 		}
 
@@ -155,6 +158,11 @@ namespace Nabble.Core.AppVeyor
 							"projects/{0}/{1}/branch/{2}",
 							new object[] { accountName, projectSlug, buildBranch },
 							new KeyValuePair<object, object>[] { }));
+
+			if (result.Build.Jobs.First().Finished == null)
+			{
+				throw new BuildPendingException();
+			}
 
 			return result.Build.Jobs.First().JobId;
 		}
@@ -171,6 +179,29 @@ namespace Nabble.Core.AppVeyor
 							new KeyValuePair<object, object>[] { }));
 
 			return result.Select(x => x.FileName);
+		}
+
+		[Cache(Duration = 7 * 24 * 60 * 60)]
+		private async Task<ICollection<SarifResult>> GetSarifResultsForJobIdAsync(string jobId)
+		{
+			IEnumerable<string> reportNames =
+				(await GetReportNamesForJobIdAsync(jobId)).Where(
+					x => x == ReportFileName || x.EndsWith(string.Format("/{0}", ReportFileName))).ToList();
+
+			if (!reportNames.Any())
+			{
+				throw new SarifResultNotFoundException();
+			}
+
+			ICollection<SarifResult> sarifResults = new List<SarifResult>();
+
+			foreach (string reportName in reportNames)
+			{
+				Stream stream = await DownloadArtifactStreamAsync(jobId, reportName);
+				sarifResults.Add(AnalyzerResultJsonDeserializer.DeserializeFromStream(stream));
+			}
+
+			return sarifResults;
 		}
 	}
 }

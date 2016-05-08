@@ -20,9 +20,11 @@
 				new[] { "SA" },
 				"Dresel",
 				"SampleProject",
-				string.Empty);
+				string.Empty,
+				"report.json",
+				new NullStatisticsService());
 
-			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
+			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder(new NullStatisticsService());
 			Badge badge = await badgeBuilder.BuildBadgeAsync(new BadgeBuilderProperties(), appVeyorAnalyzerResultAccessor);
 
 			return File(badge.Stream, badge.ContentType);

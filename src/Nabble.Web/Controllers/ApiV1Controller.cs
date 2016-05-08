@@ -4,6 +4,8 @@
 	using Microsoft.AspNet.Mvc;
 	using Nabble.Core;
 	using Nabble.Core.Builder;
+	using Nabble.Core.Common;
+	using Nabble.Core.Data;
 	using Nabble.Web.Models;
 
 	[Route("api/v1")]
@@ -55,18 +57,24 @@
 					return HttpBadRequest("Selected analyzer is not supported.");
 			}
 
+			NabbleUnitOfWork nabbleUnitOfWork = new NabbleUnitOfWork();
+
 			IAnalyzerResultAccessor analyzerResultAccessor;
+
 			switch (vendor)
 			{
 				case VendorEnum.AppVeyor:
-					analyzerResultAccessor = Factory.CreateAppVeyorAnalyzerResultAccessor(analyzerRules, account, project, branch);
+					
+
+					analyzerResultAccessor = Factory.CreateAppVeyorAnalyzerResultAccessor(analyzerRules, account, project, branch, "report.json",
+						new StatisticsService(nabbleUnitOfWork));
 					break;
 
 				default:
 					return HttpBadRequest("Selected vendor is not supported.");
 			}
 
-			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
+			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder(new StatisticsService(nabbleUnitOfWork));
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
 
 			return File(badge.Stream, badge.ContentType);

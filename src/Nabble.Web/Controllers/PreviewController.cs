@@ -4,6 +4,7 @@
 	using Microsoft.AspNet.Mvc;
 	using Nabble.Core;
 	using Nabble.Core.Builder;
+	using Nabble.Core.Common;
 	using Nabble.Web.Models;
 
 	[Route("api/v1/preview")]
@@ -22,7 +23,7 @@
 			IAnalyzerResultAccessor analyzerResultAccessor =
 				Factory.CreateStaticAnalyzerResultAccessor(new AnalyzerResult() { NumberOfErrors = 1, NumberOfWarnings = 1 });
 
-			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
+			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder(new NullStatisticsService());
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
 
 			return File(badge.Stream, badge.ContentType);
@@ -36,7 +37,7 @@
 			IAnalyzerResultAccessor analyzerResultAccessor =
 				Factory.CreateStaticAnalyzerResultAccessor(new AnalyzerResult() { NumberOfErrors = 1 });
 
-			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
+			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder(new NullStatisticsService());
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
 
 			return File(badge.Stream, badge.ContentType);
@@ -50,7 +51,7 @@
 
 			IAnalyzerResultAccessor analyzerResultAccessor = Factory.CreateStaticAnalyzerResultAccessor(null);
 
-			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
+			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder(new NullStatisticsService());
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
 
 			return File(badge.Stream, badge.ContentType);
@@ -67,7 +68,7 @@
 			IAnalyzerResultAccessor analyzerResultAccessor =
 				Factory.CreateStaticAnalyzerResultAccessor(new AnalyzerResult() { NumberOfInfos = 1 });
 
-			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
+			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder(new NullStatisticsService());
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
 
 			return File(badge.Stream, badge.ContentType);
@@ -81,7 +82,7 @@
 
 			IAnalyzerResultAccessor analyzerResultAccessor = Factory.CreateStaticAnalyzerResultAccessor(new AnalyzerResult());
 
-			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
+			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder(new NullStatisticsService());
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
 
 			return File(badge.Stream, badge.ContentType);
@@ -96,7 +97,7 @@
 			IAnalyzerResultAccessor analyzerResultAccessor =
 				Factory.CreateStaticAnalyzerResultAccessor(new AnalyzerResult() { NumberOfWarnings = 1 });
 
-			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
+			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder(new NullStatisticsService());
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
 
 			return File(badge.Stream, badge.ContentType);

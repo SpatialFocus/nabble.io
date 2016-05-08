@@ -4,6 +4,7 @@
 	using System.Threading.Tasks;
 	using Moq;
 	using Nabble.Core.Builder;
+	using Nabble.Core.Common;
 	using Ploeh.AutoFixture.Xunit2;
 	using Xunit;
 
@@ -20,7 +21,7 @@
 
 			string statusTemplate = "My Template {0}";
 			string status = "My Template 3";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -46,7 +47,7 @@
 
 			string statusTemplate = "My Template {0}";
 			string status = "My Template 1";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -72,7 +73,7 @@
 
 			string statusTemplate = "My Template {0}";
 			string status = "My Template 1";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -98,7 +99,7 @@
 
 			string statusTemplate = "My Template {0}";
 			string status = "My Template 2";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -119,7 +120,7 @@
 
 			string statusTemplate = "My Template {0}";
 			string status = "My Template 2";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -140,7 +141,7 @@
 
 			string statusTemplate = "My Template {0}";
 			string status = "My Template 1";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -161,7 +162,7 @@
 
 			string statusTemplate = "My Template";
 			string status = "My Template";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -182,7 +183,7 @@
 
 			string statusTemplate = "My Template";
 			string status = "My Template";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -201,7 +202,7 @@
 			analyzerResultAccessor.Setup(x => x.GetAnalyzerResultAsync())
 				.Returns(Task.Run(() => new AnalyzerResult() { NumberOfErrors = 0, NumberOfWarnings = 0, NumberOfInfos = 1 }));
 
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -231,7 +232,7 @@
 
 			string statusTemplate = "My Template";
 			string status = "My Template";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -250,7 +251,7 @@
 			analyzerResultAccessor.Setup(x => x.GetAnalyzerResultAsync())
 				.Returns(Task.Run(() => new AnalyzerResult() { NumberOfErrors = 0, NumberOfWarnings = 0, NumberOfInfos = 1 }));
 
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -280,7 +281,7 @@
 
 			string statusTemplate = "My Template {0}";
 			string status = "My Template 1";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -298,7 +299,7 @@
 
 			analyzerResultAccessor.Setup(x => x.GetAnalyzerResultAsync()).Throws<Exception>();
 
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -317,7 +318,7 @@
 
 			analyzerResultAccessor.Setup(x => x.GetAnalyzerResultAsync()).Throws<Exception>();
 
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -344,7 +345,7 @@
 			analyzerResultAccessor.Setup(x => x.GetAnalyzerResultAsync()).Throws<Exception>();
 
 			string format = "My Format";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await badgeBuilder.BuildBadgeAsync(new BadgeBuilderProperties() { Format = format }, analyzerResultAccessor.Object);
 
@@ -360,7 +361,7 @@
 			analyzerResultAccessor.Setup(x => x.GetAnalyzerResultAsync()).Throws<Exception>();
 
 			string label = "My Label";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await badgeBuilder.BuildBadgeAsync(new BadgeBuilderProperties() { Label = label }, analyzerResultAccessor.Object);
 
@@ -377,7 +378,7 @@
 
 			string statusTemplate = "My Template";
 			string status = "My Template";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -396,7 +397,7 @@
 			analyzerResultAccessor.Setup(x => x.GetAnalyzerResultAsync())
 				.Returns(Task.Run(() => new AnalyzerResult() { NumberOfErrors = 0, NumberOfWarnings = 0, NumberOfInfos = 0 }));
 
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -416,7 +417,7 @@
 			analyzerResultAccessor.Setup(x => x.GetAnalyzerResultAsync())
 				.Returns(Task.Run(() => new AnalyzerResult() { NumberOfErrors = 0, NumberOfWarnings = 0, NumberOfInfos = 0 }));
 
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -444,7 +445,7 @@
 				.Returns(Task.Run(() => new AnalyzerResult() { NumberOfErrors = 0, NumberOfWarnings = 0, NumberOfInfos = 0 }));
 
 			string format = "My Format";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await badgeBuilder.BuildBadgeAsync(new BadgeBuilderProperties() { Format = format }, analyzerResultAccessor.Object);
 
@@ -461,7 +462,7 @@
 				.Returns(Task.Run(() => new AnalyzerResult() { NumberOfErrors = 0, NumberOfWarnings = 0, NumberOfInfos = 0 }));
 
 			string label = "My Label";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await badgeBuilder.BuildBadgeAsync(new BadgeBuilderProperties() { Label = label }, analyzerResultAccessor.Object);
 
@@ -479,7 +480,7 @@
 
 			string statusTemplate = "My Template";
 			string status = "My Template";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -498,7 +499,7 @@
 			analyzerResultAccessor.Setup(x => x.GetAnalyzerResultAsync())
 				.Returns(Task.Run(() => new AnalyzerResult() { NumberOfErrors = 1, NumberOfWarnings = 1, NumberOfInfos = 1 }));
 
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -527,7 +528,7 @@
 
 			string statusTemplate = "My Template {0}";
 			string status = "My Template 1";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -548,7 +549,7 @@
 
 			string statusTemplate = "My Template {0}";
 			string status = "My Template 1";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -567,7 +568,7 @@
 			analyzerResultAccessor.Setup(x => x.GetAnalyzerResultAsync())
 				.Returns(Task.Run(() => new AnalyzerResult() { NumberOfErrors = 0, NumberOfWarnings = 1, NumberOfInfos = 1 }));
 
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -596,7 +597,7 @@
 
 			string statusTemplate = "My Template {0}";
 			string status = "My Template 1";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(
@@ -617,7 +618,7 @@
 
 			string statusTemplate = "My Template {0}";
 			string status = "My Template 1";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object, new NullStatisticsService());
 
 			await
 				badgeBuilder.BuildBadgeAsync(

@@ -1,0 +1,354 @@
+{
+  "version": "0.4",
+  "runLogs": [
+    {
+      "toolInfo": {
+        "name": "Microsoft (R) Visual C# Compiler",
+        "version": "2.0.0",
+        "fileVersion": "2.0.0.60317"
+      },
+      "results": [
+        {
+          "ruleId": "CS1591",
+          "kind": "warning",
+          "locations": [
+            {
+              "analysisTarget": [
+                {
+                  "uri": "file:\/\/\/C:\/Users\/Christopher Dresel\/Documents\/Visual Studio 2015\/Projects\/nabble.io\/src\/Nabble.Core\/Data\/Migrations\/20160504123527_Initial.cs",
+                  "region": {
+                    "startLine": 12,
+                    "startColumn": 23,
+                    "endLine": 12,
+                    "endColumn": 30
+                  }
+                }
+              ]
+            }
+          ],
+          "shortMessage": "Missing XML comment for publicly visible type or member 'Initial'",
+          "fullMessage": "The \/doc compiler option was specified, but one or more constructs did not have comments.",
+          "isSuppressedInSource": true,
+          "tags": [
+            "Compiler",
+            "Telemetry"
+          ],
+          "properties": {
+            "severity": "Warning",
+            "warningLevel": "4",
+            "defaultSeverity": "Warning",
+            "title": "Missing XML comment for publicly visible type or member",
+            "category": "Compiler",
+            "isEnabledByDefault": "True"
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "kind": "warning",
+          "locations": [
+            {
+              "analysisTarget": [
+                {
+                  "uri": "file:\/\/\/C:\/Users\/Christopher Dresel\/Documents\/Visual Studio 2015\/Projects\/nabble.io\/src\/Nabble.Core\/Data\/Migrations\/20160504123527_Initial.cs",
+                  "region": {
+                    "startLine": 14,
+                    "startColumn": 27,
+                    "endLine": 14,
+                    "endColumn": 31
+                  }
+                }
+              ]
+            }
+          ],
+          "shortMessage": "Missing XML comment for publicly visible type or member 'Initial.Down(MigrationBuilder)'",
+          "fullMessage": "The \/doc compiler option was specified, but one or more constructs did not have comments.",
+          "isSuppressedInSource": true,
+          "tags": [
+            "Compiler",
+            "Telemetry"
+          ],
+          "properties": {
+            "severity": "Warning",
+            "warningLevel": "4",
+            "defaultSeverity": "Warning",
+            "title": "Missing XML comment for publicly visible type or member",
+            "category": "Compiler",
+            "isEnabledByDefault": "True"
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "kind": "warning",
+          "locations": [
+            {
+              "analysisTarget": [
+                {
+                  "uri": "file:\/\/\/C:\/Users\/Christopher Dresel\/Documents\/Visual Studio 2015\/Projects\/nabble.io\/src\/Nabble.Core\/Data\/Migrations\/20160504123527_Initial.cs",
+                  "region": {
+                    "startLine": 21,
+                    "startColumn": 27,
+                    "endLine": 21,
+                    "endColumn": 29
+                  }
+                }
+              ]
+            }
+          ],
+          "shortMessage": "Missing XML comment for publicly visible type or member 'Initial.Up(MigrationBuilder)'",
+          "fullMessage": "The \/doc compiler option was specified, but one or more constructs did not have comments.",
+          "isSuppressedInSource": true,
+          "tags": [
+            "Compiler",
+            "Telemetry"
+          ],
+          "properties": {
+            "severity": "Warning",
+            "warningLevel": "4",
+            "defaultSeverity": "Warning",
+            "title": "Missing XML comment for publicly visible type or member",
+            "category": "Compiler",
+            "isEnabledByDefault": "True"
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "kind": "warning",
+          "locations": [
+            {
+              "analysisTarget": [
+                {
+                  "uri": "file:\/\/\/C:\/Users\/Christopher Dresel\/Documents\/Visual Studio 2015\/Projects\/nabble.io\/src\/Nabble.Core\/Data\/Migrations\/20160504123527_Initial.designer.cs",
+                  "region": {
+                    "startLine": 19,
+                    "startColumn": 33,
+                    "endLine": 19,
+                    "endColumn": 49
+                  }
+                }
+              ]
+            }
+          ],
+          "shortMessage": "Missing XML comment for publicly visible type or member 'Initial.BuildTargetModel(ModelBuilder)'",
+          "fullMessage": "The \/doc compiler option was specified, but one or more constructs did not have comments.",
+          "isSuppressedInSource": true,
+          "tags": [
+            "Compiler",
+            "Telemetry"
+          ],
+          "properties": {
+            "severity": "Warning",
+            "warningLevel": "4",
+            "defaultSeverity": "Warning",
+            "title": "Missing XML comment for publicly visible type or member",
+            "category": "Compiler",
+            "isEnabledByDefault": "True"
+          }
+        },
+        {
+          "ruleId": "CA1024",
+          "kind": "warning",
+          "locations": [
+            {
+              "analysisTarget": [
+                {
+                  "uri": "file:\/\/\/C:\/Users\/Christopher Dresel\/Documents\/Visual Studio 2015\/Projects\/nabble.io\/src\/Nabble.Core\/Common\/NullStatisticsService.cs",
+                  "region": {
+                    "startLine": 41,
+                    "startColumn": 20,
+                    "endLine": 41,
+                    "endColumn": 45
+                  }
+                }
+              ]
+            }
+          ],
+          "shortMessage": "Use properties where appropriate",
+          "fullMessage": "A public or protected method has a name that starts with \"\"Get\"\", takes no parameters, and returns a value that is not an array. The method might be a good candidate to become a property.",
+          "isSuppressedInSource": true,
+          "tags": [
+            "Telemetry"
+          ],
+          "properties": {
+            "severity": "Warning",
+            "warningLevel": "1",
+            "defaultSeverity": "Warning",
+            "title": "Use properties where appropriate",
+            "category": "Design",
+            "helpLink": "http:\/\/msdn.microsoft.com\/library\/ms182181.aspx",
+            "isEnabledByDefault": "False"
+          }
+        },
+        {
+          "ruleId": "CA1024",
+          "kind": "warning",
+          "locations": [
+            {
+              "analysisTarget": [
+                {
+                  "uri": "file:\/\/\/C:\/Users\/Christopher Dresel\/Documents\/Visual Studio 2015\/Projects\/nabble.io\/src\/Nabble.Core\/Common\/NullStatisticsService.cs",
+                  "region": {
+                    "startLine": 47,
+                    "startColumn": 20,
+                    "endLine": 47,
+                    "endColumn": 47
+                  }
+                }
+              ]
+            }
+          ],
+          "shortMessage": "Use properties where appropriate",
+          "fullMessage": "A public or protected method has a name that starts with \"\"Get\"\", takes no parameters, and returns a value that is not an array. The method might be a good candidate to become a property.",
+          "isSuppressedInSource": true,
+          "tags": [
+            "Telemetry"
+          ],
+          "properties": {
+            "severity": "Warning",
+            "warningLevel": "1",
+            "defaultSeverity": "Warning",
+            "title": "Use properties where appropriate",
+            "category": "Design",
+            "helpLink": "http:\/\/msdn.microsoft.com\/library\/ms182181.aspx",
+            "isEnabledByDefault": "False"
+          }
+        },
+        {
+          "ruleId": "CA1024",
+          "kind": "warning",
+          "locations": [
+            {
+              "analysisTarget": [
+                {
+                  "uri": "file:\/\/\/C:\/Users\/Christopher Dresel\/Documents\/Visual Studio 2015\/Projects\/nabble.io\/src\/Nabble.Core\/Common\/NullStatisticsService.cs",
+                  "region": {
+                    "startLine": 53,
+                    "startColumn": 20,
+                    "endLine": 53,
+                    "endColumn": 47
+                  }
+                }
+              ]
+            }
+          ],
+          "shortMessage": "Use properties where appropriate",
+          "fullMessage": "A public or protected method has a name that starts with \"\"Get\"\", takes no parameters, and returns a value that is not an array. The method might be a good candidate to become a property.",
+          "isSuppressedInSource": true,
+          "tags": [
+            "Telemetry"
+          ],
+          "properties": {
+            "severity": "Warning",
+            "warningLevel": "1",
+            "defaultSeverity": "Warning",
+            "title": "Use properties where appropriate",
+            "category": "Design",
+            "helpLink": "http:\/\/msdn.microsoft.com\/library\/ms182181.aspx",
+            "isEnabledByDefault": "False"
+          }
+        },
+        {
+          "ruleId": "CA2234",
+          "kind": "warning",
+          "locations": [
+            {
+              "analysisTarget": [
+                {
+                  "uri": "file:\/\/\/C:\/Users\/Christopher Dresel\/Documents\/Visual Studio 2015\/Projects\/nabble.io\/src\/Nabble.Core\/Common\/RestClient.cs",
+                  "region": {
+                    "startLine": 35,
+                    "startColumn": 18,
+                    "endLine": 35,
+                    "endColumn": 33
+                  }
+                }
+              ]
+            }
+          ],
+          "shortMessage": "Modify 'RestClient.GetHttpResponseAsync(Uri, string, object[], IEnumerable<KeyValuePair<object, object>>)' to call 'HttpClient.GetAsync(Uri)' instead of 'HttpClient.GetAsync(string)'.",
+          "fullMessage": "A call is made to a method that has a string parameter whose name contains \"uri\", \"URI\", \"urn\", \"URN\", \"url\", or \"URL\". The declaring type of the method contains a corresponding method overload that has a System.Uri parameter.",
+          "isSuppressedInSource": true,
+          "tags": [
+            "Telemetry"
+          ],
+          "properties": {
+            "severity": "Warning",
+            "warningLevel": "1",
+            "defaultSeverity": "Warning",
+            "title": "Pass system uri objects instead of strings",
+            "category": "Usage",
+            "helpLink": "https:\/\/msdn.microsoft.com\/en-us\/library\/ms182360.aspx",
+            "isEnabledByDefault": "True"
+          }
+        },
+        {
+          "ruleId": "CA2234",
+          "kind": "warning",
+          "locations": [
+            {
+              "analysisTarget": [
+                {
+                  "uri": "file:\/\/\/C:\/Users\/Christopher Dresel\/Documents\/Visual Studio 2015\/Projects\/nabble.io\/src\/Nabble.Core\/Common\/RestClient.cs",
+                  "region": {
+                    "startLine": 55,
+                    "startColumn": 12,
+                    "endLine": 55,
+                    "endColumn": 27
+                  }
+                }
+              ]
+            }
+          ],
+          "shortMessage": "Modify 'RestClient.GetJsonAsStreamAsync(Uri, string, object[], IEnumerable<KeyValuePair<object, object>>)' to call 'HttpClient.GetAsync(Uri)' instead of 'HttpClient.GetAsync(string)'.",
+          "fullMessage": "A call is made to a method that has a string parameter whose name contains \"uri\", \"URI\", \"urn\", \"URN\", \"url\", or \"URL\". The declaring type of the method contains a corresponding method overload that has a System.Uri parameter.",
+          "isSuppressedInSource": true,
+          "tags": [
+            "Telemetry"
+          ],
+          "properties": {
+            "severity": "Warning",
+            "warningLevel": "1",
+            "defaultSeverity": "Warning",
+            "title": "Pass system uri objects instead of strings",
+            "category": "Usage",
+            "helpLink": "https:\/\/msdn.microsoft.com\/en-us\/library\/ms182360.aspx",
+            "isEnabledByDefault": "True"
+          }
+        },
+        {
+          "ruleId": "CA1823",
+          "kind": "warning",
+          "locations": [
+            {
+              "analysisTarget": [
+                {
+                  "uri": "file:\/\/\/C:\/Users\/Christopher Dresel\/Documents\/Visual Studio 2015\/Projects\/nabble.io\/src\/Nabble.Core\/Builder\/BadgeClient.cs",
+                  "region": {
+                    "startLine": 19,
+                    "startColumn": 52,
+                    "endLine": 19,
+                    "endColumn": 69
+                  }
+                }
+              ]
+            }
+          ],
+          "shortMessage": "Avoid unused private fields",
+          "fullMessage": "Private fields were detected that do not appear to be accessed in the assembly.",
+          "isSuppressedInSource": true,
+          "tags": [
+            "Telemetry"
+          ],
+          "properties": {
+            "severity": "Warning",
+            "warningLevel": "1",
+            "defaultSeverity": "Warning",
+            "title": "Avoid unused private fields",
+            "category": "Performance",
+            "helpLink": "http:\/\/msdn.microsoft.com\/library\/ms245042.aspx",
+            "isEnabledByDefault": "True"
+          }
+        }
+      ]
+    }
+  ]
+}

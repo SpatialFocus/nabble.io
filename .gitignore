@@ -218,4 +218,7 @@ ModelManifest.xml
 !stylecop.json
 
 # Analyzers reports
-report.json
+report.
+
+# SQLite Databases
+*.db
