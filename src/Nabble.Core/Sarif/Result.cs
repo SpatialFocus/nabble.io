@@ -11,11 +11,18 @@ namespace Nabble.Core.Sarif
 	public class Result
 	{
 		/// <summary>
-		/// Gets or sets the Properties.</summary>
+		/// Gets or sets a value indicating whether the result is suppressed in source.
+		/// </summary>
+		public bool IsSuppressedInSource { get; set; }
+
+		/// <summary>
+		/// Gets or sets the Properties.
+		/// </summary>
 		public Properties Properties { get; set; }
 
 		/// <summary>
-		/// Gets or sets the RuleId.</summary>
+		/// Gets or sets the RuleId.
+		/// </summary>
 		public string RuleId { get; set; }
 	}
 }

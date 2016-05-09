@@ -27,7 +27,7 @@ namespace Nabble.Core.Builder
 
 			foreach (Result result in sarifResult.RunLogs.Single().Results)
 			{
-				if (Rules.Any(rule => result.RuleId.StartsWith(rule)))
+				if (Rules.Any(rule => result.RuleId.StartsWith(rule) && !result.IsSuppressedInSource))
 				{
 					switch (result.Properties.Severity)
 					{
