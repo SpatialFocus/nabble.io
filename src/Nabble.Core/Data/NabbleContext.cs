@@ -51,7 +51,7 @@ namespace Nabble.Core.Data
 		{
 			if (!optionsBuilder.IsConfigured)
 			{
-				optionsBuilder.UseSqlite(@"fileName=NabbleCore.db");
+				optionsBuilder.UseSqlite(@"fileName=.\data\NabbleCore.db");
 			}
 		}
 
