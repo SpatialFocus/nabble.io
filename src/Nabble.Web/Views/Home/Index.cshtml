@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Nabble.Core.Builder
+@using Nabble.Web.Models
+<!DOCTYPE html>
 <html class="no-js">
 <head>
 	<meta charset="utf-8">
@@ -83,193 +85,212 @@
 </section>
 
 <section id="service">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="block-top">
-					<div class="service-header">
-						<h1>Who doesn't like good code?</h1>
-						<p>
-							Everyone loves high quality code (and BADGES!). With .NET Analyzers and nabble you can show it to the world.
-							You can proof that you apply modern coding standards and best practices with the .NET Analyzers Badge Builder lightweight edition.
-						</p>
-					</div>
-				</div>
-			</div><!-- .col-md-12 close -->
-		</div><!-- row close -->
+<div class="container">
+<div class="row">
+	<div class="col-md-12">
+		<div class="block-top">
+			<div class="service-header">
+				<h1>Everybody loves good code (and badges)!</h1>
+				<p>
+					You are using analyzers based on the .NET Compiler Platform (like <a src="https://github.com/DotNetAnalyzers/StyleCopAnalyzers">StyleCop</a> or <a src="https://github.com/dotnet/roslyn-analyzers">FxCop</a>) to produce high quality code?<br />
+					With the .NET Analyzers Badge Builder lightweight edition (nabble) you can show that you apply modern coding standards and best practices.<br />
+					Display the Analyzer result of your last build as dynamically generated image:
+				</p>
+				<p>
+					<img src="@Url.Action("GetSuccess", "Preview", new { analyzer = AnalyzerEnum.StyleCop })" />
+					<img src="@Url.Action("GetWarning", "Preview", new { analyzer = AnalyzerEnum.FxCop })" />
+					<img src="@Url.Action("GetError", "Preview", new { analyzer = AnalyzerEnum.Custom, label = "Any Other Analyzer" })" />
+				</p>
+			</div>
+		</div>
+	</div><!-- .col-md-12 close -->
+</div><!-- row close -->
 
-		<div class="row">
-			<div class="col-md-12">
-				<div class="block-bottom">
-					<div class="service-tab">
-						<!-- Nav tabs -->
-						<ul class="badhon-tab" role="tablist">
-							<li class="active">
-								<a aria-controls="home" data-toggle="tab" href="#home" role="tab">
-									<span><i class="fa fa-users"></i></span>
-									How it works
-								</a>
-							</li>
-							<li>
-								<a aria-controls="usage" data-toggle="tab" href="#prereq" role="tab">
-									<span>
+<div class="row">
+	<div class="col-md-12">
+		<div class="block-bottom">
+			<div class="service-tab">
+				<!-- Nav tabs -->
+				<ul class="badhon-tab" role="tablist">
+					<li class="active">
+						<a aria-controls="home" data-toggle="tab" href="#home" role="tab">
+							<span><i class="fa fa-users"></i></span>
+							How it works
+						</a>
+					</li>
+					<li>
+						<a aria-controls="usage" data-toggle="tab" href="#prereq" role="tab">
+							<span>
 											<i class="fa fa-cogs"></i>
 										</span>
-									Prerequisites
-								</a>
-							</li>
-							<li>
-								<a aria-controls="settings" data-toggle="tab" href="#settings" role="tab">
-									<span>
+							Getting started
+						</a>
+					</li>
+					<li>
+						<a aria-controls="settings" data-toggle="tab" href="#settings" role="tab">
+							<span>
 											<i class="fa fa-wrench"></i>
 										</span>
-									Settings
-								</a>
-							</li>
-							<li>
-								<a aria-controls="contribute" data-toggle="tab" href="#contribute" role="tab">
-									<span>
+							Settings
+						</a>
+					</li>
+					<li>
+						<a aria-controls="contribute" data-toggle="tab" href="#contribute" role="tab">
+							<span>
 											<i class="fa fa-code-fork"></i>
 										</span>
-									How to contribute
-								</a>
-							</li>
-							<li>
-								<a aria-controls="free" data-toggle="tab" href="#free" role="tab">
-									<span>
+							How to contribute
+						</a>
+					</li>
+					<li>
+						<a aria-controls="free" data-toggle="tab" href="#free" role="tab">
+							<span>
 											<i class="fa fa-eur"></i>
 										</span>
-									It is free
-								</a>
+							It is free
+						</a>
+					</li>
+				</ul>
+
+				<!-- Tab panes -->
+				<div class="edit-tab-content tab-content">
+					<div class="active edit-tab tab-pane" id="home">
+						<div class="teb-icon-edit">
+							<i class="fa fa-users"></i>
+						</div>
+						<h1>How it works</h1>
+						<p>
+							We are checking your CI builds for .NET Analyzer log files and generate the corresponding badge, based on your configuration.
+							Add an image with a link to our API. The link contains all the information we need to generate the badge. Example:
+							<pre class="code">&lt;img src="@Url.Action("Get", "ApiV1", new { vendor = VendorEnum.AppVeyor, account = "Dresel", project = "nabble-io", analyzer = AnalyzerEnum.StyleCop }, Context.Request.Scheme)" /&gt;</pre>
+						</p>
+					</div>
+					<div class="edit-tab tab-pane" id="prereq">
+						<div class="teb-icon-edit">
+							<i class="fa fa-cogs"></i>
+						</div>
+						<h1>Getting started</h1>
+						<p>In order to use nabble badges, you have to take the following two steps:</p>
+						<p>
+							<strong>Enable .NET Analyzer logging</strong>
+						</p>
+						<p>
+							This can done by adding <code>&lt;ErrorLog&gt;</code> to the <code>&lt;PropertyGroup&gt;</code> configuration section in the .proj file.
+							By default, we are looking for a file called <code>report.json</code>, but you can configure your badge to use other names too.
+							In case there are more than one report, the results will be summed up.
+						</p>
+						<p>
+							To simplify the process of enabling the error log generation, we are providing the NuGet package <a href="https://github.com/SpatialFocus/AnalyzerLogging">AnalyzerLogging</a>.
+							To install this package, run the following command in the Package Manager Console:
+							<pre class="code">Install-Package AnalyzerLogging</pre>
+						</p>
+						<p>
+							<strong>Publish the .NET Analyzer log file</strong>
+						</p>
+						<p>
+							In order to access the analyzer results of your CI build, you have to deploy it.
+							How you do this depends on the specific CI service you are using.
+						</p>
+						<p>
+							For AppVeyor you have to append something like this to the appveyor.yml:
+							<pre class="code">
+artifacts:
+	- path: '**\report.json'</pre>
+						</p>
+						<p>
+							After enabling .NET Analyzer logging and publishing the results in your build, you are good to go.<br />
+							For an example how to set it up, have a look at our Spatial Focus <a href="https://github.com/SpatialFocus/nabble.io-DemoProject">nabble.io DemoProject</a>.
+						</p>
+					</div>
+					<div class="edit-tab tab-pane" id="settings">
+						<div class="teb-icon-edit">
+							<i class="fa fa-wrench"></i>
+						</div>
+						<h1>Settings</h1>
+
+						<ul class="col-md-3 nav nav-pills nav-stacked">
+							<li class="active">
+								<a data-toggle="tab" href="#intro">Introduction</a>
+							</li>
+							<li>
+								<a data-toggle="tab" href="#config">Build configuration</a>
+							</li>
+							<li>
+								<a data-toggle="tab" href="#style">Styling</a>
 							</li>
 						</ul>
 
-						<!-- Tab panes -->
-						<div class="edit-tab-content tab-content">
-							<div class="active edit-tab tab-pane" id="home">
-								<div class="teb-icon-edit">
-									<i class="fa fa-users"></i>
-								</div>
-								<h1>How it works</h1>
+						<div class="col-md-offset-3 tab-content">
+							<div class="active fade in tab-pane" id="intro">
 								<p>
-									We are checking your CI builds for messages and display the corresponding badge, based on your settings.
+									Nabble provides an API to analyze your CI builds and displays a simple but highly customizable and dynamic badge.
+									By calling our webservice we deliver your custom badge.
+									That's as easy as 1, 2, 3 (i.e. account name, project name and analyzer), but can also be customized in any direction.
+									<br />This section shows how to make the most out of nabble, but one rather customized example is the following API call:
 								</p>
-								<p>
-									Replace the image of your badge with a link to our API. The link contains all the information we need to generate the badge. Example:
-									<pre class="code">&lt;img src="https://nabble.io/api/v1/AppVeyor/Dresel/SampleProject/StyleCop" /&gt;</pre>
-								</p>
+								<pre class="code">@Url.Action("Get", "ApiV1", new { vendor = VendorEnum.AppVeyor, account = "Dresel", project = "nabble-io", analyzer = AnalyzerEnum.Custom, rules = "CA,SA", format = "png", colorWarning = BadgeColor.Yellowgreen.ToString(), statusTemplateWarning = "{0}% Warnungen" }, Context.Request.Scheme)</pre>
 							</div>
-							<div class="edit-tab tab-pane" id="prereq">
-								<div class="teb-icon-edit">
-									<i class="fa fa-cogs"></i>
-								</div>
-								<h1>Prerequisites</h1>
+							<div class="fade tab-pane" id="config">
 								<p>
-									In order to access the analyzer results of your CI build, we need the results of your analyzer as build artefacts.
-									The report has to be called <strong>report.json</strong>.
-									In case there are more than one report.json, the results will be summed up.
-									The format of the log follows the <a href="https://github.com/sarif-standard/sarif-spec">SARIF standard</a>.<br />
-									More info can be found in the <a href="https://github.com/dotnet/roslyn/blob/master/docs/compilers/Error%20Log%20Format.md">roslyn repository</a>.<br />
+									You can point us to the correct build by using the following URL parts:
 								</p>
-								<p>
-									For an example how to set it up, have a look at our
-									<a href="https://github.com/SpatialFocus/SampleProject/blob/analyzer-integration/SampleProject/SampleProject.csproj#L29">Spatial Focus SampleProject</a>.
-								</p>
-								<p>
-									For an example how to configure the build artifacts, have a look at our
-									<a href="https://github.com/SpatialFocus/SampleProject/blob/analyzer-integration/appveyor.yml#L9">AppVeyor.yml file</a>,
-									which triggers AppVeyor to store the report as a build artifact.
-									This allows our REST interface to access the report and analyze it.
-								</p>
-								<p>
-									To simplify the process of enabling the error log generation, we are providing the NuGet package <strong>AnalyzerLogging</strong>.
-									Run the following command in the Package Manager Console:
-									<pre class="code">Install-Package AnalyzerLogging</pre>
-								</p>
-							</div>
-							<div class="edit-tab tab-pane" id="settings">
-								<div class="teb-icon-edit">
-									<i class="fa fa-wrench"></i>
-								</div>
-								<h1>Settings</h1>
-
-								<ul class="col-md-3 nav nav-pills nav-stacked">
-									<li class="active">
-										<a data-toggle="tab" href="#intro">Introduction</a>
-									</li>
-									<li>
-										<a data-toggle="tab" href="#config">Build configuration</a>
-									</li>
-									<li>
-										<a data-toggle="tab" href="#style">Styling</a>
-									</li>
+								<ul>
+									<li>vendor: AppVeyor</li>
+									<li>account: <i>Account name</i></li>
+									<li>project: <i>Project name</i></li>
+									<li>branch (optional): <i>master</i>, <i>development</i>, ...</li>
+									<li>analyzer: StyleCop, FxCop, Custom (provide rules in the url parameters)</li>
 								</ul>
-
-								<div class="col-md-offset-3 tab-content">
-									<div class="active fade in tab-pane" id="intro">
-										<p>
-											Nabble provides an API to analyze your CI builds and displays a simple but highly customizable and dynamic badge.
-											By calling our webservice we deliver your custom badge.
-											That's as easy as 1, 2, 3 (i.e. account name, project name and analyzer), but can also be customized in any direction.
-											<br />This section shows how to make the most out of nabble, but one rather customized example is the following API call:
-										</p>
-										<pre class="code">https://nabble.io/api/v1/AppVeyor/Dresel/SampleProject/Custom?rules=CA,SA&amp;format=png&amp;ColorWarning=YellowGreen&amp;statusTemplateWarning={0}%20Warnungen</pre>
-									</div>
-									<div class="fade tab-pane" id="config">
-										<p>
-											You can point us to the correct build by using the following URL parts:
-										</p>
-										<ul>
-											<li>vendor: AppVeyor</li>
-											<li>account: <i>Account name</i></li>
-											<li>project: <i>Project name</i></li>
-											<li>branch (optional): <i>master</i>, <i>development</i>, ...</li>
-											<li>analyzer: StyleCop, FxCop, Custom (provide rules in the url parameters)</li>
-										</ul>
-									</div>
-									<div class="fade tab-pane" id="style">
-										<p>
-											You can configure the badge using the following URL parameters:
-										</p>
-										<ul>
-											<li>style: Default|Plastic|Flat|FlatSquare|Social</li>
-											<li>format: svg|png|jpg|gif</li>
-											<li>label: defaults to "StyleCop", "FxCop" or "Analyzers" (for custom analyzer, but can be overwritten)</li>
-											<li>aggregateValues: false (default)|true</li>
-											<li>countInfos: false (default)|true</li>
-											<li>rules (requires custom analzer): a comma separated list of prefixes that should be analyzed (e.g. SA,SX,CA), leave empty to not restrict to certain rules</li>
-											<li>statusTemplate[Error|Warning|Info|Aggregate]: defaults to "{0} [errors|warnings|infos|violations]"</li>
-											<li>statusTemplate[Success|Inaccessible]: defaults to passing|inaccessible</li>
-											<li>color[Error|Warning|Info|Success|Inaccessible]: defaults to red|yellow|green|brightgreen|lightgray</li>
-										</ul>
-									</div>
-								</div>
-
 							</div>
-							<div class="edit-tab tab-pane" id="contribute">
-								<div class="teb-icon-edit">
-									<i class="fa fa-code-fork"></i>
-								</div>
-								<h1>How to contribute</h1>
+							<div class="fade tab-pane" id="style">
 								<p>
-									Fork our GitHub repository.
+									You can configure the badge using the following URL parameters:
 								</p>
-							</div>
-							<div class="edit-tab tab-pane" id="free">
-								<div class="teb-icon-edit">
-									<i class="fa fa-eur"></i>
-								</div>
-								<h1>It is free</h1>
-								<p>
-									We provide our service for free. The source code can be found on GitHub.
-								</p>
+								<ul>
+									<li>style: Default|Plastic|Flat|FlatSquare|Social</li>
+									<li>format: svg|png|jpg|gif</li>
+									<li>label: defaults to "StyleCop", "FxCop" or "Analyzers" (for custom analyzer, but can be overwritten)</li>
+									<li>aggregateValues: false (default)|true</li>
+									<li>countInfos: false (default)|true</li>
+									<li>rules (requires custom analzer): a comma separated list of prefixes that should be analyzed (e.g. SA,SX,CA), leave empty to not restrict to certain rules</li>
+									<li>statusTemplate[Error|Warning|Info|Aggregate]: defaults to "{0} [errors|warnings|infos|violations]"</li>
+									<li>statusTemplate[Success|Inaccessible]: defaults to passing|inaccessible</li>
+									<li>color[Error|Warning|Info|Success|Inaccessible]: defaults to red|yellow|green|brightgreen|lightgray</li>
+								</ul>
 							</div>
 						</div>
+
+					</div>
+					<div class="edit-tab tab-pane" id="contribute">
+						<div class="teb-icon-edit">
+							<i class="fa fa-code-fork"></i>
+						</div>
+						<h1>How to contribute</h1>
+						<p>There are various possibilities how to support our project:</p>
+						<ul>
+							<li>Use nabble</li>
+							<li>Recommend nabble</li>
+							<li>Give feedback</li>
+							<li>Report bugs</li>
+							<li>Suggest new features</li>
+							<li>Fork our GitHub repository</li>
+						</ul>
+					</div>
+					<div class="edit-tab tab-pane" id="free">
+						<div class="teb-icon-edit">
+							<i class="fa fa-eur"></i>
+						</div>
+						<h1>It is free</h1>
+						<p>
+							We provide our service for free. The source code can be found on GitHub.
+						</p>
 					</div>
 				</div>
-			</div><!-- .col-md-12 close -->
-		</div><!-- row close -->
-	</div><!-- .container close -->
+			</div>
+		</div>
+	</div><!-- .col-md-12 close -->
+</div><!-- row close -->
+</div><!-- .container close -->
 </section><!-- #service close -->
 
 <section id="configurator">
@@ -514,9 +535,9 @@
 <script src="~/lib/odometer/odometer.min.js"></script>
 <script src="~/js/site.min.js"></script>
 <script>
-	(function (i, s, o, g, r, a, m) {
+	(function(i, s, o, g, r, a, m) {
 		i['GoogleAnalyticsObject'] = r;
-		i[r] = i[r] || function () {
+		i[r] = i[r] || function() {
 			(i[r].q = i[r].q || []).push(arguments);
 		}, i[r].l = 1 * new Date();
 		a = s.createElement(o),
