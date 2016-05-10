@@ -183,7 +183,7 @@
 				}
 			};
 
-			nabbleUnitOfWork.Add(new Project() { AccountName = "TestAccount", ProjectName = "TestProject" });
+			nabbleUnitOfWork.Add(new Project() { AccountName = "testaccount", ProjectName = "testproject" });
 			nabbleUnitOfWork.Add(new Badge() { BadgeIdentifier = "1" });
 			nabbleUnitOfWork.Add(new Badge() { BadgeIdentifier = "2" });
 			nabbleUnitOfWork.Add(new Request() { });

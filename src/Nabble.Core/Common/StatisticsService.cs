@@ -6,6 +6,7 @@
 namespace Nabble.Core.Common
 {
 	using System;
+	using System.Globalization;
 	using System.Threading.Tasks;
 	using Microsoft.Data.Entity;
 	using Microsoft.Data.Entity.Storage;
@@ -44,6 +45,9 @@ namespace Nabble.Core.Common
 		/// <inheritdoc />
 		public async Task AddProjectEntryIfNotExistsAsync(string accountName, string projectName)
 		{
+			accountName = accountName.ToLower(CultureInfo.InvariantCulture);
+			projectName = projectName.ToLower(CultureInfo.InvariantCulture);
+
 			if (!await UnitOfWork.GetSet<Project>().AnyAsync(x => x.AccountName == accountName && x.ProjectName == projectName))
 			{
 				UnitOfWork.Add(new Project() { AccountName = accountName, ProjectName = projectName });
