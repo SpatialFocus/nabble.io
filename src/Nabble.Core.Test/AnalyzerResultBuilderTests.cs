@@ -71,6 +71,23 @@
 		}
 
 		[Fact]
+		public void AnalyzeSarifResultSuppressedResultBuildsAnalyzerResultCorrectly()
+		{
+			IAnalyzerResultBuilder analyzerResultBuilder = new AnalyzerResultBuilder()
+			{
+				Rules = new List<string>() { string.Empty }
+			};
+
+			SarifResult sarifResult = CreateSarifResultSuppressed();
+
+			AnalyzerResult analyzerResult = analyzerResultBuilder.AnalyzeSarifResult(sarifResult);
+
+			Assert.True(analyzerResult.NumberOfInfos == 0);
+			Assert.True(analyzerResult.NumberOfWarnings == 0);
+			Assert.True(analyzerResult.NumberOfErrors == 0);
+		}
+
+		[Fact]
 		public void AnalyzeSarifResultTwoRulePrefixesBuildsAnalyzerResultCorrectly()
 		{
 			IAnalyzerResultBuilder analyzerResultBuilder = new AnalyzerResultBuilder()
@@ -110,6 +127,18 @@
 					new Result() { RuleId = "XZ1002", Properties = new Properties() { Severity = Severity.Error } },
 					new Result() { RuleId = "XX1002", Properties = new Properties() { Severity = Severity.Error } },
 				}).ToArray();
+
+			return sarifResult;
+		}
+
+		private static SarifResult CreateSarifResultSuppressed()
+		{
+			SarifResult sarifResult = CreateSarifResult();
+
+			foreach (Result result in sarifResult.RunLogs.Single().Results)
+			{
+				result.IsSuppressedInSource = true;
+			}
 
 			return sarifResult;
 		}
