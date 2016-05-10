@@ -46,7 +46,10 @@ if (!String.prototype.trim) {
 var BadgeModel = function (badgeData, badgeDefaults) {
 	var self = this;
 
-	var baseUrl = "https://nabble.io/api/v1/";
+	if (typeof location.origin === "undefined")
+		location.origin = location.protocol + "//" + location.host;
+
+	var baseUrl = location.origin + "/api/v1/";
 
 	function queryStringBuilder() {
 		var query = Array();

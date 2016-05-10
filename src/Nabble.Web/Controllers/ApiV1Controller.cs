@@ -6,10 +6,11 @@
 	using Nabble.Core.Builder;
 	using Nabble.Core.Common;
 	using Nabble.Core.Data;
+	using Nabble.Web.Core;
 	using Nabble.Web.Models;
 
 	[Route("api/v1")]
-	[ResponseCache(NoStore = true)]
+	[NoCache]
 	public class ApiV1Controller : Controller
 	{
 		// GET api/v1/appveyor/Dresel/SampleProject/StyleCop
