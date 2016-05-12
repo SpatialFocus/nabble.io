@@ -1,11 +1,14 @@
 ﻿namespace Nabble.Web
 {
+	using System.IO;
 	using Microsoft.AspNet.Builder;
 	using Microsoft.AspNet.Hosting;
 	using Microsoft.AspNet.Mvc;
 	using Microsoft.Extensions.Configuration;
 	using Microsoft.Extensions.DependencyInjection;
 	using Microsoft.Extensions.Logging;
+	using Serilog;
+	using Serilog.Sinks.RollingFile;
 
 	public class Startup
 	{
@@ -43,6 +46,11 @@
 
 			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 			loggerFactory.AddDebug();
+
+			loggerFactory.AddSerilog(new LoggerConfiguration()
+				.MinimumLevel.Debug()
+				.WriteTo.RollingFile(Path.Combine(env.WebRootPath, "logs\\log-{Date}.txt"))
+				.CreateLogger());
 
 			app.UseStaticFiles();
 

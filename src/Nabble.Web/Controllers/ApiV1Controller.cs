@@ -2,6 +2,7 @@
 {
 	using System.Threading.Tasks;
 	using Microsoft.AspNet.Mvc;
+	using Microsoft.Extensions.Logging;
 	using Nabble.Core;
 	using Nabble.Core.Builder;
 	using Nabble.Core.Common;
@@ -13,6 +14,13 @@
 	[NoCache]
 	public class ApiV1Controller : Controller
 	{
+		public ApiV1Controller(ILogger<ApiV1Controller> logger)
+		{
+			Logger = logger;
+		}
+
+		public ILogger<ApiV1Controller> Logger { get; set; }
+
 		// GET api/v1/appveyor/Dresel/SampleProject/StyleCop
 		[HttpGet("{vendor}/{account}/{project}/{branch}/{analyzer}")]
 		[HttpGet("{vendor}/{account}/{project}/{analyzer}")]
@@ -65,7 +73,7 @@
 			switch (vendor)
 			{
 				case VendorEnum.AppVeyor:
-					
+
 					analyzerResultAccessor = Factory.CreateAppVeyorAnalyzerResultAccessor(
 						analyzerRules,
 						account,
@@ -80,6 +88,12 @@
 			}
 
 			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder(statisticsService);
+
+			badgeBuilder.OnBuildBadgeError += (sender, args) =>
+			{
+				Logger.LogError("IBadgeBuilder::OnBuildBadgeError", args.RaisedException);
+			};
+
 			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
 
 			return File(badge.Stream, badge.ContentType);
