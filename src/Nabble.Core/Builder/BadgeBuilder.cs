@@ -7,6 +7,7 @@ namespace Nabble.Core.Builder
 {
 	using System;
 	using System.Threading.Tasks;
+	using Microsoft.Data.Entity.Storage;
 	using Nabble.Core.Common;
 	using Nabble.Core.Exceptions;
 
@@ -25,6 +26,9 @@ namespace Nabble.Core.Builder
 			BadgeClient = badgeClient;
 			StatisticsService = statisticsService;
 		}
+
+		/// <inheritdoc />
+		public event EventHandler<OnBuildBadgeErrorEventHandlerArgs> OnBuildBadgeError = (sender, args) => { };
 
 		/// <summary>
 		/// Gets or sets the BadgeClient used to request Badges.
@@ -46,7 +50,7 @@ namespace Nabble.Core.Builder
 
 			try
 			{
-				using (var transaction = await StatisticsService.BeginTransactionAsync())
+				using (IRelationalTransaction transaction = await StatisticsService.BeginTransactionAsync())
 				{
 					BadgeClientProperties badgeClientProperties = new BadgeClientProperties()
 					{
@@ -75,6 +79,8 @@ namespace Nabble.Core.Builder
 			}
 			catch (Exception exception)
 			{
+				OnBuildBadgeError(this, new OnBuildBadgeErrorEventHandlerArgs() { RaisedException = exception });
+
 				string status = exception is BuildPendingException
 					? badgeBuilderProperties.StatusTemplatePending : badgeBuilderProperties.StatusTemplateInaccessible;
 

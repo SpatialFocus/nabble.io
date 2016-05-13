@@ -5,6 +5,7 @@
 
 namespace Nabble.Core.Builder
 {
+	using System;
 	using System.Threading.Tasks;
 
 	/// <summary>
@@ -12,6 +13,10 @@ namespace Nabble.Core.Builder
 	/// </summary>
 	public interface IBadgeBuilder
 	{
+		/// <summary>
+		/// </summary>
+		event EventHandler<OnBuildBadgeErrorEventHandlerArgs> OnBuildBadgeError;
+
 		/// <summary>
 		/// Builds a <see cref="Badge" /> with the given parameters as an asynchronous operation.
 		/// </summary>

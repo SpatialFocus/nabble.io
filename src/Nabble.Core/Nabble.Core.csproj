@@ -162,6 +162,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builder\OnBuildBadgeErrorEventHandlerArgs.cs" />
     <Compile Include="Common\IStatisticsService.cs" />
     <Compile Include="Common\NullRelationalTransaction.cs" />
     <Compile Include="Common\NullStatisticsService.cs" />
