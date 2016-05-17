@@ -1,12 +1,16 @@
 ﻿namespace Nabble.Web.Controllers
 {
+	using System;
 	using System.Threading.Tasks;
 	using Microsoft.AspNet.Mvc;
+	using Microsoft.Data.Entity;
+	using Microsoft.Data.Entity.Storage;
 	using Microsoft.Extensions.Logging;
 	using Nabble.Core;
 	using Nabble.Core.Builder;
 	using Nabble.Core.Common;
 	using Nabble.Core.Data;
+	using Nabble.Core.Exceptions;
 	using Nabble.Web.Core;
 	using Nabble.Web.Models;
 
@@ -66,8 +70,11 @@
 					return HttpBadRequest("Selected analyzer is not supported.");
 			}
 
-			StatisticsService statisticsService = new StatisticsService(new NabbleUnitOfWork());
+			Badge badge = null;
 
+			NabbleUnitOfWork nabbleUnitOfWork = new NabbleUnitOfWork();
+
+			StatisticsService statisticsService = new StatisticsService(nabbleUnitOfWork);
 			IAnalyzerResultAccessor analyzerResultAccessor;
 
 			switch (vendor)
@@ -87,14 +94,49 @@
 					return HttpBadRequest("Selected vendor is not supported.");
 			}
 
-			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder(statisticsService);
+			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
 
-			badgeBuilder.OnBuildBadgeError += (sender, args) =>
+			for (int i = 0; i < 3; i++)
 			{
-				Logger.LogError("IBadgeBuilder::OnBuildBadgeError", args.RaisedException);
-			};
+				try
+				{
+					using (IRelationalTransaction beginTransactionAsync = await nabbleUnitOfWork.BeginTransactionAsync())
+					{
+						badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
+						await statisticsService.AddRequestEntryAsync();
 
-			Badge badge = await badgeBuilder.BuildBadgeAsync(properties, analyzerResultAccessor);
+						beginTransactionAsync.Commit();
+					}
+
+					break;
+				}
+				catch (DbUpdateException exception)
+				{
+					Logger.LogError("Badge building errored.", exception);
+
+					// Retry for database exceptions, like locked, unique constraint exceptions, etc.
+					nabbleUnitOfWork.RevertChanges();
+
+					await Task.Delay(100);
+				}
+				catch (BuildPendingException)
+				{
+					// Break on pending builds but generate pending badge
+					badge = await badgeBuilder.BuildErrorBadgeAsync(properties, properties.StatusTemplatePending);
+					break;
+				}
+				catch (Exception exception)
+				{
+					// Break on all other types of errors
+					Logger.LogError("Badge building errored.", exception);
+					break;
+				}
+			}
+
+			if (badge == null)
+			{
+				badge = await badgeBuilder.BuildErrorBadgeAsync(properties, properties.StatusTemplateInaccessible);
+			}
 
 			return File(badge.Stream, badge.ContentType);
 		}

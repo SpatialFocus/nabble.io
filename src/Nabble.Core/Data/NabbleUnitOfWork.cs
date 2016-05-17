@@ -41,7 +41,7 @@ namespace Nabble.Core.Data
 		public Func<NabbleContext> CreationDelegate { get; set; } = () =>
 		{
 			NabbleContext nabbleContext = new NabbleContext();
-			nabbleContext.Database.EnsureCreated();
+			nabbleContext.Database.Migrate();
 
 			return nabbleContext;
 		};

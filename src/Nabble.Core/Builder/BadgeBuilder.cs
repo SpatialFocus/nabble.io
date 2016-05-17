@@ -5,11 +5,7 @@
 
 namespace Nabble.Core.Builder
 {
-	using System;
 	using System.Threading.Tasks;
-	using Microsoft.Data.Entity.Storage;
-	using Nabble.Core.Common;
-	using Nabble.Core.Exceptions;
 
 	/// <summary>
 	/// Provides an implementation of <see cref="IBadgeBuilder" /> to build Badges.
@@ -20,25 +16,15 @@ namespace Nabble.Core.Builder
 		/// Initializes a new instance of the <see cref="BadgeBuilder" /> class.
 		/// </summary>
 		/// <param name="badgeClient">The <see cref="IBadgeClient" /> used to request Badges.</param>
-		/// <param name="statisticsService">The <see cref="IStatisticsService" /> used to modify and get certain badge statistics.</param>
-		public BadgeBuilder(IBadgeClient badgeClient, IStatisticsService statisticsService)
+		public BadgeBuilder(IBadgeClient badgeClient)
 		{
 			BadgeClient = badgeClient;
-			StatisticsService = statisticsService;
 		}
-
-		/// <inheritdoc />
-		public event EventHandler<OnBuildBadgeErrorEventHandlerArgs> OnBuildBadgeError = (sender, args) => { };
 
 		/// <summary>
 		/// Gets or sets the BadgeClient used to request Badges.
 		/// </summary>
 		public IBadgeClient BadgeClient { get; set; }
-
-		/// <summary>
-		/// Gets or sets the StatisticsService used to count badge creations and requests.
-		/// </summary>
-		public IStatisticsService StatisticsService { get; set; }
 
 		/// <inheritdoc />
 		public async Task<Badge> BuildBadgeAsync(BadgeBuilderProperties badgeBuilderProperties,
@@ -48,54 +34,47 @@ namespace Nabble.Core.Builder
 			BadgeStyle badgeStyle = badgeBuilderProperties.Style;
 			string format = badgeBuilderProperties.Format;
 
-			try
+			BadgeClientProperties badgeClientProperties = new BadgeClientProperties()
 			{
-				using (IRelationalTransaction transaction = await StatisticsService.BeginTransactionAsync())
-				{
-					BadgeClientProperties badgeClientProperties = new BadgeClientProperties()
-					{
-						Label = label,
-						Style = badgeStyle,
-						Format = format
-					};
+				Label = label,
+				Style = badgeStyle,
+				Format = format
+			};
 
-					AnalyzerResult analyzerResult = await analyzerResultAccessor.GetAnalyzerResultAsync();
+			AnalyzerResult analyzerResult = await analyzerResultAccessor.GetAnalyzerResultAsync();
 
-					badgeClientProperties.Color = DetermineColor(badgeBuilderProperties, analyzerResult);
+			badgeClientProperties.Color = DetermineColor(badgeBuilderProperties, analyzerResult);
 
-					string template = DetermineTemplate(badgeBuilderProperties, analyzerResult);
-					int violations = DetermineViolations(badgeBuilderProperties, analyzerResult);
+			string template = DetermineTemplate(badgeBuilderProperties, analyzerResult);
+			int violations = DetermineViolations(badgeBuilderProperties, analyzerResult);
 
-					badgeClientProperties.Status = violations > 0 ? string.Format(template, violations) : template;
+			badgeClientProperties.Status = violations > 0 ? string.Format(template, violations) : template;
 
-					Badge badge = await BadgeClient.RequestBadgeAsync(badgeClientProperties);
+			Badge badge = await BadgeClient.RequestBadgeAsync(badgeClientProperties);
 
-					await StatisticsService.AddRequestEntryAsync();
+			return badge;
+		}
 
-					transaction.Commit();
+		/// <inheritdoc />
+		public async Task<Badge> BuildErrorBadgeAsync(BadgeBuilderProperties badgeBuilderProperties, string status)
+		{
+			string label = badgeBuilderProperties.Label;
+			BadgeStyle badgeStyle = badgeBuilderProperties.Style;
+			string format = badgeBuilderProperties.Format;
 
-					return badge;
-				}
-			}
-			catch (Exception exception)
+			BadgeClientProperties badgeClientProperties = new BadgeClientProperties()
 			{
-				OnBuildBadgeError(this, new OnBuildBadgeErrorEventHandlerArgs() { RaisedException = exception });
+				Label = label,
+				Style = badgeStyle,
+				Format = format
+			};
 
-				string status = exception is BuildPendingException
-					? badgeBuilderProperties.StatusTemplatePending : badgeBuilderProperties.StatusTemplateInaccessible;
+			badgeClientProperties.Color = badgeBuilderProperties.ColorInaccessible;
+			badgeClientProperties.Status = status;
 
-				return
-					await
-						BadgeClient.RequestBadgeAsync(
-							new BadgeClientProperties()
-							{
-								Label = label,
-								Status = status,
-								Style = badgeStyle,
-								Color = badgeBuilderProperties.ColorInaccessible,
-								Format = format
-							});
-			}
+			Badge badge = await BadgeClient.RequestBadgeAsync(badgeClientProperties);
+
+			return badge;
 		}
 
 		private static BadgeColor DetermineColor(BadgeBuilderProperties badgeBuilderProperties, AnalyzerResult analyzerResult)

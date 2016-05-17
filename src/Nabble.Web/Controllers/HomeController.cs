@@ -24,7 +24,7 @@
 				"report.json",
 				new NullStatisticsService());
 
-			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder(new NullStatisticsService());
+			IBadgeBuilder badgeBuilder = Factory.CreateBadgeBuilder();
 			Badge badge = await badgeBuilder.BuildBadgeAsync(new BadgeBuilderProperties(), appVeyorAnalyzerResultAccessor);
 
 			return File(badge.Stream, badge.ContentType);
