@@ -224,7 +224,7 @@ report.json
 *.db
 
 # Logs
-/src/Nabble.Web/wwwroot/logs
+/src/Nabble.Web/logs
 
 # Profiles
 /src/Nabble.Web/Properties/PublishProfiles
