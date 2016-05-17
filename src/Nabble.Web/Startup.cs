@@ -47,10 +47,10 @@
 			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 			loggerFactory.AddDebug();
 
-			loggerFactory.AddSerilog(new LoggerConfiguration()
-				.MinimumLevel.Debug()
-				.WriteTo.RollingFile(Path.Combine(env.WebRootPath, "logs\\log-{Date}.txt"))
-				.CreateLogger());
+			loggerFactory.AddSerilog(
+				new LoggerConfiguration().MinimumLevel.Debug()
+					.WriteTo.RollingFile(Path.Combine(env.WebRootPath, "..\\logs\\log-{Date}.txt"))
+					.CreateLogger());
 
 			app.UseStaticFiles();
 
@@ -59,7 +59,9 @@
 			app.UseMvc(
 				r =>
 				{
-					r.MapRoute(name: "default", template: "{controller}/{action}/{id?}",
+					r.MapRoute(
+						name: "default",
+						template: "{controller}/{action}/{id?}",
 						defaults: new { controller = "Home", action = "Index" });
 				});
 		}
@@ -72,10 +74,7 @@
 
 			if (!this.Environment.IsDevelopment())
 			{
-				services.AddMvc(options =>
-				{
-					options.Filters.Add(new RequireHttpsAttribute());
-				});
+				services.AddMvc(options => { options.Filters.Add(new RequireHttpsAttribute()); });
 			}
 		}
 	}
