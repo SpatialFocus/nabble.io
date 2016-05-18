@@ -1,0 +1,555 @@
+﻿@using Nabble.Core.Builder
+@using Nabble.Web.Models
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<title>nabble.io</title>
+	<meta content=".NET Analyzers Badge Builder lightweight edition based on the .NET Compiler Platform (Roslyn)" name="description">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<meta content="all,follow" name="robots">
+	<!-- Bootstrap and Font Awesome css-->
+	<link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="~/lib/animate.css/animate.min.css" rel="stylesheet" type="text/css">
+	<!-- Google fonts-->
+	<link href="//fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet" type="text/css">
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet" type="text/css">
+	<link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,600" rel="stylesheet" type="text/css">
+	<!-- Stylesheet-->
+	<link href="~/lib/odometer/themes/odometer-theme-minimal.css" rel="stylesheet" type="text/css">
+	<link href="~/css/site.min.css" rel="stylesheet" type="text/css">
+	<!-- Favicon-->
+	<link href="~/images/favicon/apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57">
+	<link href="~/images/favicon/apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60">
+	<link href="~/images/favicon/apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
+	<link href="~/images/favicon/apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76">
+	<link href="~/images/favicon/apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
+	<link href="~/images/favicon/apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120">
+	<link href="~/images/favicon/apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144">
+	<link href="~/images/favicon/apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152">
+	<link href="~/images/favicon/apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180">
+	<link href="~/images/favicon/android-icon-192x192.png" rel="icon" sizes="192x192" type="image/png">
+	<link href="~/images/favicon/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+	<link href="~/images/favicon/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+	<link href="~/images/favicon/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+	<link href="~/images/favicon/manifest.json" rel="manifest">
+	<meta content="#ffffff" name="msapplication-TileColor">
+	<meta content="~/images/favicon/ms-icon-144x144.png" name="msapplication-TileImage">
+	<meta content="#ffffff" name="theme-color">
+	<!-- Tweaks for older IEs-->
+	<!--[if lt IE 9]>
+		<script src="~/lib/html5shiv/dist/html5shiv.js"></script>
+		<script src="~/lib/respondJs/dest/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+<section class="container-fluid main" id="header">
+	<div class="v-center">
+		<h1 class="cursive">nabble.io</h1>
+		<h2 class="sub">.NET Analyzers Badge Builder</h2>
+		<h4 class="sub">lightweight edition</h4>
+		<div class="row" id="stat-container">
+			<div class="col-md-2 col-md-offset-3 stat-value">
+				<div class="odometer" id="stat-projects">0</div>
+				<div class="stat-description">
+					projects served
+					<i aria-hidden="true" class="fa fa-question-circle" title="Counting all successful requests with distinct account and project name."></i>
+				</div>
+			</div>
+			<div class="col-md-2 stat-value">
+				<div class="odometer" id="stat-builds">0</div>
+				<div class="stat-description">
+					builds analyzed
+					<i aria-hidden="true" class="fa fa-question-circle" title="Counting all successful requests for a particular build (i.e. distinct job id)."></i>
+				</div>
+			</div>
+			<div class="col-md-2 stat-value">
+				<div class="odometer" id="stat-requests">0</div>
+				<div class="stat-description">
+					requests handled
+					<i aria-hidden="true" class="fa fa-question-circle" title="Counting all successful requests for badges (even cached ones)."></i>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a class="arrow" href="#service">
+		<div class="animated bounceInDown scroll-down">
+			<span>
+					<i class="fa fa-2x fa-angle-down"></i>
+				</span>
+		</div>
+	</a>
+</section>
+
+<section id="service">
+<div class="container">
+<div class="row">
+	<div class="col-md-12">
+		<div class="block-top">
+			<div class="service-header">
+				<h1>Everybody loves good code (and badges)!</h1>
+				<p>
+					You are using analyzers based on the .NET Compiler Platform (like <a src="https://github.com/DotNetAnalyzers/StyleCopAnalyzers">StyleCop</a> or <a src="https://github.com/dotnet/roslyn-analyzers">FxCop</a>) to produce high quality code?<br />
+					With the .NET Analyzers Badge Builder lightweight edition (nabble) you can show that you apply modern coding standards and best practices.<br />
+					Display the Analyzer result of your last build as dynamically generated image:
+				</p>
+				<p>
+					<img src="@Url.Action("GetSuccess", "Preview", new { analyzer = AnalyzerEnum.StyleCop })" />
+					<img src="@Url.Action("GetWarning", "Preview", new { analyzer = AnalyzerEnum.FxCop })" />
+					<img src="@Url.Action("GetError", "Preview", new { analyzer = AnalyzerEnum.Custom, label = "Any Other Analyzer" })" />
+				</p>
+			</div>
+		</div>
+	</div><!-- .col-md-12 close -->
+</div><!-- row close -->
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="block-bottom">
+			<div class="service-tab">
+				<!-- Nav tabs -->
+				<ul class="badhon-tab" role="tablist">
+					<li class="active">
+						<a aria-controls="home" data-toggle="tab" href="#home" role="tab">
+							<span><i class="fa fa-users"></i></span>
+							How it works
+						</a>
+					</li>
+					<li>
+						<a aria-controls="usage" data-toggle="tab" href="#prereq" role="tab">
+							<span>
+											<i class="fa fa-cogs"></i>
+										</span>
+							Getting started
+						</a>
+					</li>
+					<li>
+						<a aria-controls="settings" data-toggle="tab" href="#settings" role="tab">
+							<span>
+											<i class="fa fa-wrench"></i>
+										</span>
+							Settings
+						</a>
+					</li>
+					<li>
+						<a aria-controls="contribute" data-toggle="tab" href="#contribute" role="tab">
+							<span>
+											<i class="fa fa-code-fork"></i>
+										</span>
+							How to contribute
+						</a>
+					</li>
+					<li>
+						<a aria-controls="free" data-toggle="tab" href="#free" role="tab">
+							<span>
+											<i class="fa fa-eur"></i>
+										</span>
+							It is free
+						</a>
+					</li>
+				</ul>
+
+				<!-- Tab panes -->
+				<div class="edit-tab-content tab-content">
+					<div class="active edit-tab tab-pane" id="home">
+						<div class="teb-icon-edit">
+							<i class="fa fa-users"></i>
+						</div>
+						<h1>How it works</h1>
+						<p>
+							We are checking your CI builds for .NET Analyzer log files and generate the corresponding badge, based on your configuration.
+							Add an image with a link to our API. The link contains all the information we need to generate the badge. Example:
+							<pre class="code">&lt;img src="@Url.Action("Get", "ApiV1", new { vendor = VendorEnum.AppVeyor, account = "Dresel", project = "nabble-io", analyzer = AnalyzerEnum.StyleCop }, Context.Request.Scheme)" /&gt;</pre>
+						</p>
+					</div>
+					<div class="edit-tab tab-pane" id="prereq">
+						<div class="teb-icon-edit">
+							<i class="fa fa-cogs"></i>
+						</div>
+						<h1>Getting started</h1>
+						<p>In order to use nabble badges, you have to take the following two steps:</p>
+						<p>
+							<strong>Enable .NET Analyzer logging</strong>
+						</p>
+						<p>
+							This can done by adding <code>&lt;ErrorLog&gt;</code> to the <code>&lt;PropertyGroup&gt;</code> configuration section in the .proj file.
+							By default, we are looking for a file called <code>report.json</code>, but you can configure your badge to use other names too.
+							In case there are more than one report, the results will be summed up.
+						</p>
+						<p>
+							To simplify the process of enabling the error log generation, we are providing the NuGet package <a href="https://github.com/SpatialFocus/AnalyzerLogging">AnalyzerLogging</a>.
+							To install this package, run the following command in the Package Manager Console:
+							<pre class="code">Install-Package AnalyzerLogging</pre>
+						</p>
+						<p>
+							<strong>Publish the .NET Analyzer log file</strong>
+						</p>
+						<p>
+							In order to access the analyzer results of your CI build, you have to deploy it.
+							How you do this depends on the specific CI service you are using.
+						</p>
+						<p>
+							For AppVeyor you have to append something like this to the appveyor.yml:
+							<pre class="code">
+artifacts:
+	- path: '**\report.json'</pre>
+						</p>
+						<p>
+							After enabling .NET Analyzer logging and publishing the results in your build, you are good to go.<br />
+							For an example how to set it up, have a look at our Spatial Focus <a href="https://github.com/SpatialFocus/nabble.io-DemoProject">nabble.io DemoProject</a>.
+						</p>
+					</div>
+					<div class="edit-tab tab-pane" id="settings">
+						<div class="teb-icon-edit">
+							<i class="fa fa-wrench"></i>
+						</div>
+						<h1>Settings</h1>
+
+						<ul class="col-md-3 nav nav-pills nav-stacked">
+							<li class="active">
+								<a data-toggle="tab" href="#intro">Introduction</a>
+							</li>
+							<li>
+								<a data-toggle="tab" href="#config">Build configuration</a>
+							</li>
+							<li>
+								<a data-toggle="tab" href="#style">Styling</a>
+							</li>
+						</ul>
+
+						<div class="col-md-offset-3 tab-content">
+							<div class="active fade in tab-pane" id="intro">
+								<p>
+									Nabble provides an API to analyze your CI builds and displays a simple but highly customizable and dynamic badge.
+									By calling our webservice we deliver your custom badge.
+									That's as easy as 1, 2, 3 (i.e. account name, project name and analyzer), but can also be customized in any direction.
+									<br />This section shows how to make the most out of nabble, but one rather customized example is the following API call:
+								</p>
+								<pre class="code">@Url.Action("Get", "ApiV1", new { vendor = VendorEnum.AppVeyor, account = "Dresel", project = "nabble-io", analyzer = AnalyzerEnum.Custom, rules = "CA,SA", format = "png", colorWarning = BadgeColor.Yellowgreen.ToString(), statusTemplateWarning = "{0}% Warnungen" }, Context.Request.Scheme)</pre>
+							</div>
+							<div class="fade tab-pane" id="config">
+								<p>
+									You can point us to the correct build by using the following URL parts:
+								</p>
+								<ul>
+									<li>vendor: AppVeyor</li>
+									<li>account: <i>Account name</i></li>
+									<li>project: <i>Project name</i></li>
+									<li>branch (optional): <i>master</i>, <i>development</i>, ...</li>
+									<li>analyzer: StyleCop, FxCop, Custom (provide rules in the url parameters)</li>
+								</ul>
+							</div>
+							<div class="fade tab-pane" id="style">
+								<p>
+									You can configure the badge using the following URL parameters:
+								</p>
+								<ul>
+									<li>style: Default|Plastic|Flat|FlatSquare|Social</li>
+									<li>format: svg|png|jpg|gif</li>
+									<li>label: defaults to "StyleCop", "FxCop" or "Analyzers" (for custom analyzer, but can be overwritten)</li>
+									<li>aggregateValues: false (default)|true</li>
+									<li>countInfos: false (default)|true</li>
+									<li>rules (requires custom analzer): a comma separated list of prefixes that should be analyzed (e.g. SA,SX,CA), leave empty to not restrict to certain rules</li>
+									<li>statusTemplate[Error|Warning|Info|Aggregate]: defaults to "{0} [errors|warnings|infos|violations]"</li>
+									<li>statusTemplate[Success|Inaccessible]: defaults to passing|inaccessible</li>
+									<li>color[Error|Warning|Info|Success|Inaccessible]: defaults to red|yellow|green|brightgreen|lightgray</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+					<div class="edit-tab tab-pane" id="contribute">
+						<div class="teb-icon-edit">
+							<i class="fa fa-code-fork"></i>
+						</div>
+						<h1>How to contribute</h1>
+						<p>There are various possibilities how to support our project:</p>
+						<ul>
+							<li>Use nabble</li>
+							<li>Recommend nabble</li>
+							<li>Give feedback</li>
+							<li>Report bugs</li>
+							<li>Suggest new features</li>
+							<li>Fork our GitHub repository</li>
+						</ul>
+					</div>
+					<div class="edit-tab tab-pane" id="free">
+						<div class="teb-icon-edit">
+							<i class="fa fa-eur"></i>
+						</div>
+						<h1>It is free</h1>
+						<p>
+							We provide our service for free. The source code can be found on GitHub.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- .col-md-12 close -->
+</div><!-- row close -->
+</div><!-- .container close -->
+</section><!-- #service close -->
+
+<section id="configurator">
+	<div class="container">
+		<form class="form-horizontal">
+			<fieldset>
+				<legend>Badge configuration <i aria-hidden="true" class="fa fa-undo" data-bind="click: reset" id="reset-badge-configurator" title="reset"></i></legend>
+
+				<!-- ko with: badgeModel -->
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="selectbasic">Vendor</label>
+							<div class="col-md-8">
+								<select class="form-control" data-bind="options: vendorValues" id="selectbasic" name="selectbasic"></select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="account">Account</label>
+							<div class="col-md-8">
+								<input class="form-control input-md" data-bind="value: account" id="account" name="account" placeholder="your account name" required="" type="text">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="project">Project</label>
+							<div class="col-md-8">
+								<input class="form-control input-md" data-bind="value: project" id="project" name="project" placeholder="your project name" required="" type="text">
+							</div>
+						</div>
+
+						<div class="form-group ">
+							<label class="col-md-4 control-label" for="branch">Branch</label>
+							<div class="col-md-8">
+								<input class="form-control input-md" data-bind="value: branch" id="branch" name="branch" placeholder="branch name (optional)" type="text">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="analyzer">Analyzer</label>
+							<div class="col-md-8">
+								<select class="form-control" data-bind="options: analyzerValues, value: analyzer" id="analyzer" name="analyzer"></select>
+							</div>
+						</div>
+						<div class="form-group" data-bind="visible: customAnalyzer">
+							<label class="col-md-4 control-label" for="label">Label</label>
+							<div class="col-md-8">
+								<input class="form-control input-md" data-bind="value: label, enable: customAnalyzer" id="label" name="branch" placeholder="defaults to Analyzers" type="text">
+
+							</div>
+						</div>
+						<div class="form-group" data-bind="visible: customAnalyzer">
+							<label class="col-md-4 control-label" for="label">Rules</label>
+							<div class="col-md-8">
+								<input class="form-control input-md" data-bind="value: rules, enable: customAnalyzer" id="rules" name="branch" placeholder="comma separated (e.g. CA,SA)" type="text">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="badgeStyle">Style</label>
+							<div class="col-md-8">
+								<select class="form-control" data-bind="options: styleValues, value: style" id="badgeStyle" name="style"></select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="format">Format</label>
+							<div class="col-md-8">
+								<select class="form-control" data-bind="options: formatValues, value: format" id="format" name="format"></select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="aggregate">Aggregate</label>
+							<div class="col-md-8">
+								<select class="form-control" data-bind="value: aggregate" id="aggregate" name="aggregate">
+									<option value="false">no (default)</option>
+									<option value="true">yes</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="countinfos">Count Infos</label>
+							<div class="col-md-8">
+								<select class="form-control" data-bind="value: countInfos" id="countinfos" name="countinfos">
+									<option value="false">no (default)</option>
+									<option value="true">yes</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-4" id="badge-style-column">
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="successText">Success</label>
+							<div class="col-md-4">
+								<input class="form-control input-md" data-bind="value: successText" id="successText" name="branch" placeholder="passing" type="text">
+							</div>
+							<div class="col-md-4">
+								<select class="form-control" data-bind="options: colors, value: successColor" id="successColor" name="style"></select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="warningText">Warning</label>
+							<div class="col-md-4">
+								<input class="form-control input-md" data-bind="value: warningText" id="warningText" name="branch" placeholder="{0} warnings" type="text">
+							</div>
+							<div class="col-md-4">
+								<select class="form-control" data-bind="options: colors, value: warningColor" id="warningColor" name="style"></select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="errorText">Error</label>
+							<div class="col-md-4">
+								<input class="form-control input-md" data-bind="value: errorText" id="errorText" name="branch" placeholder="{0} errors" type="text">
+							</div>
+							<div class="col-md-4">
+								<select class="form-control" data-bind="options: colors, value: errorColor" id="errorColor" name="style"></select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="infoText">Info</label>
+							<div class="col-md-4">
+								<input class="form-control input-md" data-bind="value: infoText" id="infoText" name="branch" placeholder="{0} infos" type="text">
+							</div>
+							<div class="col-md-4">
+								<select class="form-control" data-bind="options: colors, value: infoColor" id="infoColor" name="style"></select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="aggregateText">Aggregate</label>
+							<div class="col-md-4">
+								<input class="form-control input-md" data-bind="value: aggregateText" id="aggregateText" name="branch" placeholder="{0} violations" type="text">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="inaccessibleText">Inaccessible</label>
+							<div class="col-md-4">
+								<input class="form-control input-md" data-bind="value: inaccessibleText" id="inaccessibleText" name="branch" placeholder="inaccessible" type="text">
+							</div>
+							<div class="col-md-4">
+								<select class="form-control" data-bind="options: colors, value: inaccessibleColor" id="inaccessibleColor" name="style"></select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /ko -->
+
+			</fieldset>
+		</form>
+
+		<!-- ko with: badgeModel -->
+		<div class="row">
+			<pre class="code col-md-12" data-bind="text: url" disabled="disabled"></pre>
+		</div>
+
+		<div class="row" data-bind="visible: showPreview" id="preview-container">
+			<h2>Preview</h2>
+			<div class="col-md-2 text-right">success</div>
+			<div class="col-md-2">
+				<img data-bind="attr: {src: successUrl}" />
+			</div>
+			<div class="col-md-2 text-right">1 warning</div>
+			<div class="col-md-2">
+				<img data-bind="attr: {src: warningUrl}" />
+			</div>
+			<div class="col-md-2 text-right">1 error</div>
+			<div class="col-md-2">
+				<img data-bind="attr: {src: errorUrl}" />
+			</div>
+			<div class="col-md-2 text-right">1 info</div>
+			<div class="col-md-2">
+				<img data-bind="attr: {src: infoUrl}" />
+			</div>
+			<div class="col-md-2 text-right">1 error, 1 warning</div>
+			<div class="col-md-2">
+				<img data-bind="attr: {src: aggregateUrl}" />
+			</div>
+			<div class="col-md-2 text-right">inaccessible</div>
+			<div class="col-md-2">
+				<img data-bind="attr: {src: inaccessibleUrl}" />
+			</div>
+		</div>
+		<!-- /ko -->
+
+	</div>
+</section>
+
+<section class="container-fluid" id="social">
+	<div class="container">
+		<div class="row">
+			<!--fontawesome icons-->
+			<div class="col-sm-1 col-sm-offset-9 col-xs-4 text-center">
+				<a class="facebook" href="https://www.facebook.com/SpatialFocus/" title="">
+					<i class="fa fa-4x fa-facebook"></i>
+				</a>
+			</div>
+			<div class="col-sm-1 col-xs-4 text-center">
+				<a class="twitter" href="https://twitter.com/SpatialFocus" title="">
+					<i class="fa fa-4x fa-twitter"></i>
+				</a>
+			</div>
+			<div class="col-sm-1  col-xs-4 text-center">
+				<a class="github" href="https://github.com/SpatialFocus/nabble.io" title="">
+					<i class="fa fa-4x fa-github"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<footer id="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-sm-6 col-xs-6">
+				<p class="copyright">
+					&copy; 2016 nabble.io<br />Design based on <a href="http://bootstrapious.com/p/coming-soon-template" target="_blank">Bootstrapious</a> and <a href="http://themefisher.com/themes/small-apps/" target="_blank">Themefisher</a>
+				</p>
+			</div>
+			<div class="col-md-4 col-md-offset-4 col-xs-6">
+				<p class="credit">
+					Made with <i class="fa fa-heart"></i><br />by <a href="https://spatial-focus.net">Spatial Focus</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<!-- JAVASCRIPT FILES -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/lib/knockout.js/knockout.js"></script>
+<script src="~/lib/odometer/odometer.min.js"></script>
+<script src="~/js/site.min.js"></script>
+<script>
+	(function(i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r;
+		i[r] = i[r] || function() {
+			(i[r].q = i[r].q || []).push(arguments);
+		}, i[r].l = 1 * new Date();
+		a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0];
+		a.async = 1;
+		a.src = g;
+		m.parentNode.insertBefore(a, m);
+	})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+	ga('create', 'UA-60209617-2', 'auto');
+	ga('send', 'pageview');
+</script>
+
+</body>
+</html>

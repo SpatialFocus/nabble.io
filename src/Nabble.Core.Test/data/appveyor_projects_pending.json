@@ -1,0 +1,132 @@
+﻿{
+	"project": {
+		"projectId": 12345,
+		"accountId": 6789,
+		"accountName": "TestAccount",
+		"builds": [
+
+		],
+		"name": "TestProject",
+		"slug": "testproject",
+		"repositoryType": "gitHub",
+		"repositoryScm": "git",
+		"repositoryName": "TestAccount/TestProject",
+		"repositoryBranch": "master",
+		"isPrivate": false,
+		"skipBranchesWithoutAppveyorYml": false,
+		"enableSecureVariablesInPullRequests": false,
+		"enableDeploymentInPullRequests": false,
+		"rollingBuilds": false,
+		"alwaysBuildClosedPullRequests": false,
+		"nuGetFeed": {
+			"id": "testproject-asdf",
+			"name": "Project TestProject",
+			"publishingEnabled": false,
+			"created": "2016-01-01T17:12:44.1621106+00:00"
+		},
+		"securityDescriptor": {
+			"accessRightDefinitions": [
+				{
+					"name": "View",
+					"description": "View"
+				},
+				{
+					"name": "RunBuild",
+					"description": "Run build"
+				},
+				{
+					"name": "Update",
+					"description": "Update settings"
+				},
+				{
+					"name": "Delete",
+					"description": "Delete project"
+				}
+			],
+			"roleAces": [
+				{
+					"roleId": 12345,
+					"name": "Administrator",
+					"isAdmin": true,
+					"accessRights": [
+						{
+							"name": "View",
+							"allowed": true
+						},
+						{
+							"name": "RunBuild",
+							"allowed": true
+						},
+						{
+							"name": "Update",
+							"allowed": true
+						},
+						{
+							"name": "Delete",
+							"allowed": true
+						}
+					]
+				},
+				{
+					"roleId": 12346,
+					"name": "User",
+					"isAdmin": false,
+					"accessRights": [
+						{
+							"name": "View"
+						},
+						{
+							"name": "RunBuild"
+						},
+						{
+							"name": "Update"
+						},
+						{
+							"name": "Delete"
+						}
+					]
+				}
+			]
+		},
+		"created": "2016-01-01T17:12:42.3965213+00:00",
+		"updated": "2016-01-02T13:51:09.6394919+00:00"
+	},
+	"build": {
+		"buildId": 1234567,
+		"jobs": [
+			{
+				"jobId": "jobid",
+				"name": "",
+				"allowFailure": false,
+				"messagesCount": 0,
+				"compilationMessagesCount": 0,
+				"compilationErrorsCount": 0,
+				"compilationWarningsCount": 0,
+				"testsCount": 1,
+				"passedTestsCount": 1,
+				"failedTestsCount": 0,
+				"artifactsCount": 1,
+				"status": "running",
+				"started": "2016-01-03T11:51:38.0937518+00:00",
+				"created": "2016-01-03T11:48:04.4936373+00:00",
+				"updated": "2016-01-03T11:52:20.3020565+00:00"
+			}
+		],
+		"buildNumber": 1,
+		"version": "1.0.0",
+		"message": "Sample Message",
+		"branch": "master",
+		"isTag": false,
+		"commitId": "asdf1234",
+		"authorName": "Test Author",
+		"committerName": "Test Author",
+		"committed": "2016-03-31T06:37:12+00:00",
+		"messages": [
+
+		],
+		"status": "success",
+		"started": "2016-01-03T11:51:38.109377+00:00",
+		"created": "2016-01-03T11:48:03.2123887+00:00",
+		"updated": "2016-01-03T11:52:20.3645597+00:00"
+	}
+}
