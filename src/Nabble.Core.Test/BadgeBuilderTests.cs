@@ -1,6 +1,5 @@
 ﻿namespace Nabble.Core.Test
 {
-	using System;
 	using System.Threading.Tasks;
 	using Moq;
 	using Nabble.Core.Builder;
@@ -290,108 +289,6 @@
 			badgeClient.Verify(x => x.RequestBadgeAsync(It.Is<BadgeClientProperties>(property => property.Status == status)));
 		}
 
-		[Theory(Skip = "Refactoring.")]
-		////[Theory, AutoMoqData]
-		public async void BuildBadgeAsyncInaccessibleUsesBadgeStyle([Frozen] Mock<IBadgeClient> badgeClient,
-			[Frozen] Mock<IAnalyzerResultAccessor> analyzerResultAccessor)
-		{
-			badgeClient.Setup(x => x.RequestBadgeAsync(It.IsAny<BadgeClientProperties>())).Returns(Task.Run(() => new Badge()));
-
-			analyzerResultAccessor.Setup(x => x.GetAnalyzerResultAsync()).Throws<Exception>();
-
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
-
-			await
-				badgeBuilder.BuildBadgeAsync(
-					new BadgeBuilderProperties() { Style = BadgeStyle.Social },
-					analyzerResultAccessor.Object);
-
-			badgeClient.Verify(
-				x => x.RequestBadgeAsync(It.Is<BadgeClientProperties>(property => property.Style == BadgeStyle.Social)));
-		}
-
-		[Theory(Skip = "Refactoring.")]
-		////[Theory, AutoMoqData]
-		public async void BuildBadgeAsyncInaccessibleUsesColorInaccessible([Frozen] Mock<IBadgeClient> badgeClient,
-			[Frozen] Mock<IAnalyzerResultAccessor> analyzerResultAccessor)
-		{
-			badgeClient.Setup(x => x.RequestBadgeAsync(It.IsAny<BadgeClientProperties>())).Returns(Task.Run(() => new Badge()));
-
-			analyzerResultAccessor.Setup(x => x.GetAnalyzerResultAsync()).Throws<Exception>();
-
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
-
-			await
-				badgeBuilder.BuildBadgeAsync(
-					new BadgeBuilderProperties()
-					{
-						ColorInaccessible = BadgeColor.Blue,
-						ColorError = BadgeColor.Red,
-						ColorWarning = BadgeColor.Red,
-						ColorInfo = BadgeColor.Red,
-						ColorSuccess = BadgeColor.Red
-					},
-					analyzerResultAccessor.Object);
-
-			badgeClient.Verify(
-				x => x.RequestBadgeAsync(It.Is<BadgeClientProperties>(property => property.Color == BadgeColor.Blue)));
-		}
-
-		[Theory(Skip = "Refactoring.")]
-		////[Theory, AutoMoqData]
-		public async void BuildBadgeAsyncInaccessibleUsesFormat([Frozen] Mock<IBadgeClient> badgeClient,
-			[Frozen] Mock<IAnalyzerResultAccessor> analyzerResultAccessor)
-		{
-			badgeClient.Setup(x => x.RequestBadgeAsync(It.IsAny<BadgeClientProperties>())).Returns(Task.Run(() => new Badge()));
-
-			analyzerResultAccessor.Setup(x => x.GetAnalyzerResultAsync()).Throws<Exception>();
-
-			string format = "My Format";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
-
-			await badgeBuilder.BuildBadgeAsync(new BadgeBuilderProperties() { Format = format }, analyzerResultAccessor.Object);
-
-			badgeClient.Verify(x => x.RequestBadgeAsync(It.Is<BadgeClientProperties>(property => property.Format == format)));
-		}
-
-		[Theory(Skip = "Refactoring.")]
-		////[Theory, AutoMoqData]
-		public async void BuildBadgeAsyncInaccessibleUsesLabel([Frozen] Mock<IBadgeClient> badgeClient,
-			[Frozen] Mock<IAnalyzerResultAccessor> analyzerResultAccessor)
-		{
-			badgeClient.Setup(x => x.RequestBadgeAsync(It.IsAny<BadgeClientProperties>())).Returns(Task.Run(() => new Badge()));
-
-			analyzerResultAccessor.Setup(x => x.GetAnalyzerResultAsync()).Throws<Exception>();
-
-			string label = "My Label";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
-
-			await badgeBuilder.BuildBadgeAsync(new BadgeBuilderProperties() { Label = label }, analyzerResultAccessor.Object);
-
-			badgeClient.Verify(x => x.RequestBadgeAsync(It.Is<BadgeClientProperties>(property => property.Label == label)));
-		}
-
-		[Theory(Skip = "Refactoring.")]
-		////[Theory, AutoMoqData]
-		public async void BuildBadgeAsyncInaccessibleUsesStatusTemplateInaccessible([Frozen] Mock<IBadgeClient> badgeClient,
-			[Frozen] Mock<IAnalyzerResultAccessor> analyzerResultAccessor)
-		{
-			badgeClient.Setup(x => x.RequestBadgeAsync(It.IsAny<BadgeClientProperties>())).Returns(Task.Run(() => new Badge()));
-
-			analyzerResultAccessor.Setup(x => x.GetAnalyzerResultAsync()).Throws<Exception>();
-
-			string statusTemplate = "My Template";
-			string status = "My Template";
-			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
-
-			await
-				badgeBuilder.BuildBadgeAsync(
-					new BadgeBuilderProperties() { StatusTemplateInaccessible = statusTemplate },
-					analyzerResultAccessor.Object);
-
-			badgeClient.Verify(x => x.RequestBadgeAsync(It.Is<BadgeClientProperties>(property => property.Status == status)));
-		}
-
 		[Theory, AutoMoqData]
 		public async void BuildBadgeAsyncNoViolationsUsesBadgeStyle([Frozen] Mock<IBadgeClient> badgeClient,
 			[Frozen] Mock<IAnalyzerResultAccessor> analyzerResultAccessor)
@@ -628,6 +525,81 @@
 				badgeBuilder.BuildBadgeAsync(
 					new BadgeBuilderProperties() { StatusTemplateWarning = statusTemplate },
 					analyzerResultAccessor.Object);
+
+			badgeClient.Verify(x => x.RequestBadgeAsync(It.Is<BadgeClientProperties>(property => property.Status == status)));
+		}
+
+		[Theory, AutoMoqData]
+		public async void BuildErrorBadgeAsyncUsesBadgeStyle([Frozen] Mock<IBadgeClient> badgeClient)
+		{
+			badgeClient.Setup(x => x.RequestBadgeAsync(It.IsAny<BadgeClientProperties>())).Returns(Task.Run(() => new Badge()));
+
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+
+			await badgeBuilder.BuildErrorBadgeAsync(new BadgeBuilderProperties() { Style = BadgeStyle.Social }, "TestStatus");
+
+			badgeClient.Verify(
+				x => x.RequestBadgeAsync(It.Is<BadgeClientProperties>(property => property.Style == BadgeStyle.Social)));
+		}
+
+		[Theory, AutoMoqData]
+		public async void BuildErrorBadgeAsyncUsesColorInaccessible([Frozen] Mock<IBadgeClient> badgeClient)
+		{
+			badgeClient.Setup(x => x.RequestBadgeAsync(It.IsAny<BadgeClientProperties>())).Returns(Task.Run(() => new Badge()));
+
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+
+			await
+				badgeBuilder.BuildErrorBadgeAsync(
+					new BadgeBuilderProperties()
+					{
+						ColorInaccessible = BadgeColor.Blue,
+						ColorError = BadgeColor.Red,
+						ColorWarning = BadgeColor.Red,
+						ColorInfo = BadgeColor.Red,
+						ColorSuccess = BadgeColor.Red
+					},
+					"TestStatus");
+
+			badgeClient.Verify(
+				x => x.RequestBadgeAsync(It.Is<BadgeClientProperties>(property => property.Color == BadgeColor.Blue)));
+		}
+
+		[Theory, AutoMoqData]
+		public async void BuildErrorBadgeAsyncUsesUsesFormat([Frozen] Mock<IBadgeClient> badgeClient)
+		{
+			badgeClient.Setup(x => x.RequestBadgeAsync(It.IsAny<BadgeClientProperties>())).Returns(Task.Run(() => new Badge()));
+
+			string format = "My Format";
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+
+			await badgeBuilder.BuildErrorBadgeAsync(new BadgeBuilderProperties() { Format = format }, "TestStatus");
+
+			badgeClient.Verify(x => x.RequestBadgeAsync(It.Is<BadgeClientProperties>(property => property.Format == format)));
+		}
+
+		[Theory, AutoMoqData]
+		public async void BuildErrorBadgeAsyncUsesUsesLabel([Frozen] Mock<IBadgeClient> badgeClient)
+		{
+			badgeClient.Setup(x => x.RequestBadgeAsync(It.IsAny<BadgeClientProperties>())).Returns(Task.Run(() => new Badge()));
+
+			string label = "My Label";
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+
+			await badgeBuilder.BuildErrorBadgeAsync(new BadgeBuilderProperties() { Label = label }, "TestStatus");
+
+			badgeClient.Verify(x => x.RequestBadgeAsync(It.Is<BadgeClientProperties>(property => property.Label == label)));
+		}
+
+		[Theory, AutoMoqData]
+		public async void BuildErrorBadgeAsyncUsesUsesStatus([Frozen] Mock<IBadgeClient> badgeClient)
+		{
+			badgeClient.Setup(x => x.RequestBadgeAsync(It.IsAny<BadgeClientProperties>())).Returns(Task.Run(() => new Badge()));
+
+			string status = "My Status";
+			IBadgeBuilder badgeBuilder = new BadgeBuilder(badgeClient.Object);
+
+			await badgeBuilder.BuildErrorBadgeAsync(new BadgeBuilderProperties(), status);
 
 			badgeClient.Verify(x => x.RequestBadgeAsync(It.Is<BadgeClientProperties>(property => property.Status == status)));
 		}

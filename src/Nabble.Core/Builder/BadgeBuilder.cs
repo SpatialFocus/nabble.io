@@ -56,6 +56,7 @@ namespace Nabble.Core.Builder
 		}
 
 		/// <inheritdoc />
+		// TODO: Change status to enum and set status within function
 		public async Task<Badge> BuildErrorBadgeAsync(BadgeBuilderProperties badgeBuilderProperties, string status)
 		{
 			string label = badgeBuilderProperties.Label;
