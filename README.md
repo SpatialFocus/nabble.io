@@ -30,6 +30,6 @@ Feel free to provide feedback.
 
 # Build Status
 [![Build status](https://ci.appveyor.com/api/projects/status/pk9k5ar6ykovopg2/branch/master?svg=true)](https://ci.appveyor.com/project/Dresel/nabble-io/branch/master)
-[![codecov](https://codecov.io/gh/SpatialFocus/nabble.io/branch/master/graph/badge.svg)](https://codecov.io/gh/SpatialFocus/nabble.io)
+[![codecov](https://codecov.io/github/SpatialFocus/nabble.io/coverage.svg?branch=master)](https://codecov.io/github/SpatialFocus/nabble.io?branch=master)
 [![Build status](https://nabble.io/api/v1/AppVeyor/dresel/nabble-io/master/StyleCop)](https://nabble.io) [![Build status](https://nabble.io/api/v1/AppVeyor/dresel/nabble-io/master/FxCop)](https://nabble.io)
 
