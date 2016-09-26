@@ -1,5 +1,7 @@
 # nabble.io (.NET Analyzers Badge Builder LE)
 
+[![Join the chat at https://gitter.im/SpatialFocus/nabble.io](https://badges.gitter.im/SpatialFocus/nabble.io.svg)](https://gitter.im/SpatialFocus/nabble.io?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 You are using analyzers based on the .NET Compiler Platform (like [StyleCop](https://github.com/DotNetAnalyzers/StyleCopAnalyzers) or [FxCop](https://github.com/dotnet/roslyn-analyzers) to produce high quality code?
 With the .NET Analyzers Badge Builder lightweight edition (nabble) you can show that you apply modern coding standards and best practices.
 Display the Analyzer result of your last build as dynamically generated image as seen below.
